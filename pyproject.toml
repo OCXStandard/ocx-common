@@ -9,7 +9,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "ocx_common"
-version = "0.2.0"
+version = "0.3.0"
 description = "A python package with common classes and functions used across several projects"
 authors = ["Ole Christian Astrup <ole.christianastrup@dnv.com>"]
 readme = "README.md"
@@ -64,7 +64,7 @@ extend-ignore = [
 github_url = "OCXStandard/ocx-common"
 
 [tool.tbump.version]
-current = "0.2.0"
+current = "0.3.0"
 
 # Example of a semver regexp.
 # Make sure this matches current_version before using tbump
