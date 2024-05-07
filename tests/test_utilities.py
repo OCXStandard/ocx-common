@@ -54,7 +54,6 @@ def test_dromedary_case_split():
 
 
 def test_list_files_in_directory(shared_datadir):
-    file = TEST_MODEL
     assert list_files_in_directory(shared_datadir, '*.3docx') == [TEST_MODEL]
 
 
@@ -79,4 +78,3 @@ class TestSourceValidator:
     def test_filter_files(self, shared_datadir):
         files = SourceValidator.filter_files(str(shared_datadir.resolve()), '*.3docx')
         assert len(list(files)) == 1
-

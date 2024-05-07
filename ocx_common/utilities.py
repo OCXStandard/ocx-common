@@ -227,6 +227,7 @@ class OcxXml:
             return version
         except SourceError as e:
             raise SourceError(e) from e
+
     @staticmethod
     def ocx_namespace(model: str) -> str:
         """Return the OCX schema namespace of the model.

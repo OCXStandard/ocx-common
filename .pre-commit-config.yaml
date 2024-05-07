@@ -43,6 +43,8 @@ repos:
   rev: 6.1.0
   hooks:
     - id: flake8
+      entry: pflake8
+      additional_dependencies: [pyproject-flake8]
 #
 #- repo: https://github.com/sourcery-ai/sourcery
 #  rev: v1.14.0
