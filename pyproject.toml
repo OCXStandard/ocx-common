@@ -26,6 +26,7 @@ loguru = "*"
 pre-commit = "*"
 sourcery = '*'
 flake8-pyproject ="*"
+poetry-plugin-export = "*"
 
 [tool.poetry.group.test.dependencies]
 pytest = "*"
