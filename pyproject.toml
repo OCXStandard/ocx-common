@@ -20,6 +20,8 @@ python = "^3.10"
 packaging = "^23.1"
 tbump = '*'
 loguru = "*"
+lxml = "*"
+ocx = "*"
 
 
 [tool.poetry.group.development.dependencies]

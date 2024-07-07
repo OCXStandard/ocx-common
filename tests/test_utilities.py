@@ -3,9 +3,9 @@
 from pathlib import Path
 
 # Project import
-from ocx_common.utilities import (
+from ocx_common.utilities.utilities import (
     is_substring_in_list, OcxXml, parent_directory, all_equal, camel_case_split, dromedary_case_split,
-    list_files_in_directory, SourceValidator)
+    list_files_in_directory, resource_path, get_file_path, SourceValidator, SourceError)
 
 from .conftest import TEST_MODEL, SCHEMA_VERSION, NAMESPACE
 
@@ -62,6 +62,19 @@ class TestSourceValidator:
         file = shared_datadir / TEST_MODEL
         assert SourceValidator.validate(str(file.resolve()))
 
+    def test_validate_url(self):
+        url = "https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd"
+        assert SourceValidator.validate(url)
+
+    def test_validate_invalid_url(self):
+        try:
+            url = "https:/fileadmin//ocx_schema//V300//OCX_Schema.xsd"
+            SourceValidator.validate(url)
+        except SourceError as e:
+            assert True
+            return
+        assert False
+
     def test_is_url_1(self):
         assert SourceValidator.is_url('https://google.com')
 
@@ -78,3 +91,15 @@ class TestSourceValidator:
     def test_filter_files(self, shared_datadir):
         files = SourceValidator.filter_files(str(shared_datadir.resolve()), '*.3docx')
         assert len(list(files)) == 1
+
+
+def test_resource_path(shared_datadir):
+    file = Path.joinpath(shared_datadir, TEST_MODEL)
+    path = resource_path(str(file))
+    assert path == str(file)
+
+
+def test_get_file_path(shared_datadir):
+    file = Path.joinpath(shared_datadir, TEST_MODEL)
+    path = get_file_path(str(file))
+    assert path == str(file)

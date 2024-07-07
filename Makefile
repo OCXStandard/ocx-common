@@ -48,6 +48,8 @@ poetry-fix:  ## Force pip poetry re-installation
 export:   ## Export the dependencies to docs/requirements.txt
 	@poetry export --with=docs --without-hashes -o ./docs/requirements.txt
 
+publish: ## Publishe the dist to pypi
+	@poetry publish  --username=__token__ --password=<pypi token>
 
 # pre-commit ######################################################################
 pre-commit:	## Run any pre-commit hooks

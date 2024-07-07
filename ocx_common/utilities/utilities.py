@@ -1,4 +1,4 @@
-#  Copyright (c) 2023. OCX Consortium https://3docx.org. See the LICENSE
+#  Copyright (c) 2023-2024. #  OCX Consortium https://3docx.org. See the LICENSE
 """Shared utility classes and functions"""
 # System imports
 import errno
@@ -44,7 +44,7 @@ def all_equal(iterable) -> True:
 
 def resource_path(relative_path):
     """Get absolute path to resource, works for dev and for PyInstaller"""
-    base_path = getattr(sys, "_MEIPASS", os.path.abspath("."))
+    base_path = getattr(sys, "_MEIPASS", os.path.abspath(".."))
     return os.path.join(base_path, relative_path)
 
 
@@ -123,7 +123,7 @@ def dromedary_case_split(str) -> List:
 
 def get_file_path(file_name):
     """Get the correct file path also when called within a one-file executable."""
-    base_path = sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.abspath(".")
+    base_path = sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.abspath("..")
     return os.path.join(base_path, file_name)
 
 

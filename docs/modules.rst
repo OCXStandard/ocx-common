@@ -1,5 +1,19 @@
 ocx-common
-========
+==========
+
+loader
+******
+.. automodule:: ocx_common.loader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+parser
+******
+.. automodule:: ocx_common.parser
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 
 interfaces
