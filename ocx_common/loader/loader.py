@@ -14,6 +14,10 @@ from loguru import logger
 from ocx_common.interfaces import IModuleDeclaration
 
 
+class DynamicLoaderError(BaseException):
+    """Dynamic import errors."""
+
+
 class ModuleDeclaration(IModuleDeclaration, ABC):
     """General module declaration
 
@@ -137,7 +141,3 @@ class DynamicLoader:
         else:
             logger.error(f"No module with name {module_name!r} and version {version!r}")
         return all_names
-
-
-class DynamicLoaderError(AttributeError):
-    """Dynamic import errors."""

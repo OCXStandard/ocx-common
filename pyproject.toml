@@ -13,7 +13,7 @@ version = "0.3.0"
 description = "A python package with common classes and functions used across several projects"
 authors = ["Ole Christian Astrup <ole.christianastrup@dnv.com>"]
 readme = "README.md"
-packages = [{include = "ocx_common"}]
+packages = [{ include = "ocx_common" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -21,19 +21,21 @@ packaging = "^23.1"
 tbump = '*'
 loguru = "*"
 lxml = "*"
-ocx = "*"
+ocx = "3.0.2"
+pytest = "^8.2.2"
 
 
 [tool.poetry.group.development.dependencies]
 pre-commit = "*"
 sourcery = '*'
-flake8-pyproject ="*"
+flake8-pyproject = "*"
 poetry-plugin-export = "*"
+ruff = "*"
 
 [tool.poetry.group.test.dependencies]
 pytest = "*"
 pytest-cov = "*"
-pytest-regressions ="*"
+pytest-regressions = "*"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "*"
@@ -114,3 +116,9 @@ src = "./docs/conf.py"
 # [[tool.tbump.after_push]]
 # name = "build"
 # cmd = "poetry build"
+
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]

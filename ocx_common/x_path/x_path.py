@@ -2,7 +2,6 @@
 """A python XPath implementation for OCX types"""
 # System imports
 from typing import List, Any, Callable
-from enum import Enum
 
 # Third party imports
 from lxml import etree
@@ -35,12 +34,25 @@ class OcxPathBuilder:
         return f'parent::{namespace}:{parent}'
 
     @staticmethod
-    def select_nodes_with_attributes_name(attribute_name: str, namespace: str = 'ocx') -> str:
+    def select_named_nodes(node_name: str, namespace: str = 'ocx') -> str:
+        return f'//{namespace}:{node_name}'
+
+    @staticmethod
+    def select_any_nodes_with_attribute_name(attribute_name: str, namespace: str = 'ocx') -> str:
         return f'//{namespace}:*[@{namespace}:{attribute_name}]'
 
     @staticmethod
-    def select_all_children_with_attribute_name(attribute_name: str, namespace: str = 'ocx') -> str:
-        return f'//{namespace}:*[@{namespace}:{attribute_name}]'
+    def select_any_nodes_with_attribute_value(attribute_name: str, attribute_value: str, namespace: str = 'ocx') -> str:
+        return f'//{namespace}:*[@{namespace}:{attribute_name}="{attribute_value}"]'
+
+    @staticmethod
+    def select_named_nodes_with_attribute_name(node_name: str, attribute_name: str, namespace: str = 'ocx') -> str:
+        return f'//{namespace}:{node_name}[@{namespace}:{attribute_name}]'
+
+    @staticmethod
+    def select_named_nodes_with_attribute_value(node_name: str, attribute_name: str, attribute_value: str,
+                                                namespace: str = 'ocx') -> str:
+        return f'//{namespace}:{node_name}[@{namespace}:{attribute_name}="{attribute_value}"]'
 
 
 class OcxPath:
@@ -52,21 +64,41 @@ class OcxPath:
         self._regexp = regexp
         self._smart_strings = smart_strings
 
-    def get_ocx_attribute_value_collection(self, element: etree.Element, xpath: str,
+    def get_ocx_attribute_value_collection(self, element: etree.Element, attribute_name: str,
                                            namespace: str = 'ocx') -> List[Any]:
-        pass
+        search = etree.XPath(path=OcxPathBuilder.select_all_nodes_with_attribute_name(
+            attribute_name=attribute_name,
+            namespace=namespace),
+            namespaces=self._namespaces,
+            regexp=self._regexp, smart_strings=self._smart_strings)
+        result = search(element)
+        return [v.get(attribute_name) for v in result]
+
+    def get_ocx_attribute_with_value(self, element: etree.Element, attribute_name: str, attribute_value: str,
+                                     namespace: str = 'ocx') -> List[Any]:
+        search = etree.XPath(path=OcxPathBuilder.select_nodes_with_attribute_value(
+            attribute_name=attribute_name,
+            attribute_value=attribute_value,
+            namespace=namespace),
+            namespaces=self._namespaces,
+            regexp=self._regexp, smart_strings=self._smart_strings)
+        return search(element)
 
     def get_all_named_ocx_elements(self, name: str, namespace: str = 'ocx') -> List[Any]:
-        search = etree.XPath(path=OcxPathBuilder.select_all_named_nodes(name),
-                             namespaces=self._namespaces,
-                             regexp=self._regexp, smart_strings=self._smart_strings)
+        search = etree.XPath(path=OcxPathBuilder.select_all_named_nodes(
+            nodename=name,
+            namespace=namespace),
+            namespaces=self._namespaces,
+            regexp=self._regexp, smart_strings=self._smart_strings)
         return search(self._root)
 
     def get_all_named_children(self, node: etree.Element, child_name: str, namespace: str = 'ocx') -> List[Any]:
-        search = etree.XPath(path=OcxPathBuilder.select_all_named_nodes(child_name),
-                             namespaces=self._namespaces,
-                             regexp=self._regexp, smart_strings=self._smart_strings)
-        return search(self._root)
+        search = etree.XPath(path=OcxPathBuilder.select_all_named_nodes(
+            nodename=child_name,
+            namespace=namespace),
+            namespaces=self._namespaces,
+            regexp=self._regexp, smart_strings=self._smart_strings)
+        return search(node)
 
 
 class OcxGuidRef:
@@ -88,7 +120,7 @@ class OcxGuidRef:
 
     def get_all_guids(self) -> Callable:
         search = etree.XPath(
-            path=OcxPathBuilder.select_all_nodes_with_attributes_name(
+            path=OcxPathBuilder.select_any_nodes_with_attribute_name(
                 attribute_name='GUIDRef'),
             namespaces=self._namespaces, extensions=self._extensions,
             regexp=self._regexp, smart_strings=self._smart_strings)
@@ -97,7 +129,7 @@ class OcxGuidRef:
 
     def get_child_guids(self, node_name: str, namespace: str = 'ocx') -> Callable:
         search = etree.XPath(
-            path=OcxPathBuilder.select_nodes_with_attributes_name(
+            path=OcxPathBuilder.select_any_nodes_with_attribute_name(
                 attribute_name='GUIDRef'),
             namespaces=self._namespaces, extensions=self._extensions,
             regexp=self._regexp, smart_strings=self._smart_strings)

@@ -14,7 +14,7 @@ def test_find_vessel(shared_datadir):
     root = parser.get_root()
     xpath = 'ocx:Vessel'
     ocx_path = OcxPath(root, namespaces=root.nsmap)
-    node = ocx_path.find(xpath)
+    node = ocx_path.get_all_named_ocx_elements(name='Vessel', namespace='ocx')
     assert len(node) == 1
 
 
@@ -41,3 +41,5 @@ def test_get_all_named_nodes(shared_datadir):
     root = parser.get_root()
     nodes = OcxPath(root, namespaces=root.nsmap).get_all_named_ocx_elements('CoordinateSystem')
     assert len(nodes) == 1
+
+
