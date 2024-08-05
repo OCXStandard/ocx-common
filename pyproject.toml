@@ -17,7 +17,7 @@ packages = [{ include = "ocx_common" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-packaging = "^24.1"
+packaging = "^23.1"
 tbump = '*'
 loguru = "*"
 lxml = "*"
@@ -51,6 +51,7 @@ exclude = [
     ".idea",
     "docs",
     "htmlcov",
+    "tests",
 ]
 
 [tool.ruff.lint]
@@ -91,10 +92,6 @@ line-ending = "auto"
 # Enable auto-formatting of code examples in docstrings. Markdown,
 # reStructuredText code/literal blocks and doctests are all supported.
 #
-# This is currently disabled by default, but it is planned for this
-# to be opt-out in the future.
-docstring-code-format = false
-
 
 
 [tool.tbump]

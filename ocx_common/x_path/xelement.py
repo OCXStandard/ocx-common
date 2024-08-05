@@ -238,7 +238,7 @@ class LxmlElement:
         """Return the element cardinality formatted string."""
         lower, upper = cls.cardinality(element)
         if upper == "unbounded":
-            upper = "\u221E"  # UTF-8 Infinity symbol
+            upper = "\u221e"  # UTF-8 Infinity symbol
         return f"[{lower}, {upper}]"
 
     @staticmethod
