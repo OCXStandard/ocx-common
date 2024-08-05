@@ -1,9 +1,8 @@
 #  Copyright (c) 2024. #  OCX Consortium https://3docx.org. See the LICENSE
 
 # Project imports
-from .conftest import TEST_MODEL, SCHEMA_VERSION, NAMESPACE
+from .conftest import TEST_MODEL
 from ocx_common.parser.parsers import OcxNotifyParser, OcxParser, OcxParserError
-from ocx_common.utilities.utilities import SourceError
 
 
 class TestNotifyParser:
@@ -12,20 +11,23 @@ class TestNotifyParser:
         parser = OcxNotifyParser()
         root = parser.parse(str(file))
         name = root.header.name
-        assert name == 'OCX-MODEL1/A'
+        assert name == "OCX-MODEL1/A"
 
 
 def test_parser(shared_datadir):
     file = shared_datadir / TEST_MODEL
     parser = OcxParser(str(file))
     root = parser.get_root()
-    assert root.tag == '{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ocxXML'
+    assert (
+        root.tag
+        == "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ocxXML"
+    )
 
 
 def test_parser_invalid_source(shared_datadir):
-    file = shared_datadir / 'not_exist.3docx'
+    file = shared_datadir / "not_exist.3docx"
     try:
         OcxParser(str(file))
         assert False
-    except OcxParserError as e:
+    except OcxParserError:
         assert True

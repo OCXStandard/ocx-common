@@ -10,8 +10,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../"
 
 logger.disable("ocx_common")
 
-SCHEMA_VERSION = '3.0.0'
+SCHEMA_VERSION = "3.0.0"
 NAMESPACE = "https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd"
-MODEL1 = 'NAPA-OCX_M1.3docx'
+MODEL1 = "NAPA-OCX_M1.3docx"
 
 TEST_MODEL = MODEL1

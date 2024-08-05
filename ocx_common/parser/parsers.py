@@ -18,7 +18,7 @@ from xsdata.formats.dataclass.parsers.config import ParserConfig
 from xsdata.formats.dataclass.parsers.handlers import LxmlEventHandler
 
 # Project imports
-from ocx_common.interfaces import (IObservable)
+from ocx_common.interfaces import IObservable
 from ocx_common.utilities.utilities import SourceValidator, OcxXml, SourceError
 from ocx_common.loader.loader import DeclarationOfOcxImport, DynamicLoader
 
@@ -29,9 +29,10 @@ class OcxParserError(ParserError):
 
 class ObservableEvent(Enum):
     """Events that can be listened to and broadcast."""
-    DATACLASS = 'dataclass'
-    REPORT = 'report'
-    SERIALIZE = 'serialize'
+
+    DATACLASS = "dataclass"
+    REPORT = "report"
+    SERIALIZE = "serialize"
 
 
 class XmlParserError(ValueError):
@@ -58,7 +59,7 @@ class MetaData:
     def class_name(data_class: dataclass) -> str:
         """Return the name of the class"""
         declaration = str(data_class.__class__)
-        return declaration[declaration.rfind(".") + 1: -2]
+        return declaration[declaration.rfind(".") + 1 : -2]
 
     @staticmethod
     def namespace(data_class: dataclass) -> str:
@@ -74,7 +75,7 @@ class MetaData:
 
     @staticmethod
     def name(data_class: dataclass) -> str:
-        """Get the OCX name
+        """Get the OCX name.
 
         Args:
             data_class: The dataclass instance
@@ -88,25 +89,25 @@ class MetaData:
 class OcxNotifyParser(IObservable, ABC):
     """Ocx notification parser class for 3Docx XML files.
 
-     Args:
-         fail_on_unknown_properties: Don't bail out on unknown properties.
-         fail_on_unknown_attributes: Don't bail out on unknown attributes
-         fail_on_converter_warnings: bool = Convert warnings to exceptions
-
-     """
+    Args:
+        fail_on_unknown_properties: Don't bail out on unknown properties.
+        fail_on_unknown_attributes: Don't bail out on unknown attributes
+        fail_on_converter_warnings: bool = Convert warnings to exceptions
+    """
 
     def __init__(
-            self,
-            fail_on_unknown_properties: bool = False,
-            fail_on_unknown_attributes: bool = False,
-            fail_on_converter_warnings: bool = True,
+        self,
+        fail_on_unknown_properties: bool = False,
+        fail_on_unknown_attributes: bool = False,
+        fail_on_converter_warnings: bool = True,
     ):
         context = XmlContext()
         parser_config = ParserConfig(
             fail_on_unknown_properties=fail_on_unknown_properties,
             fail_on_unknown_attributes=fail_on_unknown_attributes,
             fail_on_converter_warnings=fail_on_converter_warnings,
-            class_factory=self.class_factory)
+            class_factory=self.class_factory,
+        )
         self._parser = XmlParser(config=parser_config, context=context)
         self._subscribers = set()
 
@@ -130,9 +131,9 @@ class OcxNotifyParser(IObservable, ABC):
         namespace = MetaData.namespace(clazz)
         # name = MetaData.name(clazz)
         fields = MetaData.meta_class_fields(clazz)
-        logger.debug(f'Meta fields: {fields}')
-        tag = '{' + namespace + '}' + name
-        self.update(ObservableEvent.DATACLASS, {'name': tag, 'object': new_data_class})
+        logger.debug(f"Meta fields: {fields}")
+        tag = "{" + namespace + "}" + name
+        self.update(ObservableEvent.DATACLASS, {"name": tag, "object": new_data_class})
         return new_data_class
 
     def parse(self, xml_file: str) -> dataclass:
@@ -200,10 +201,12 @@ class OcxParser:
     """
 
     def __init__(
-            self, ocx_model: str, ):
+        self,
+        ocx_model: str,
+    ):
         self._parser = XmlParser(handler=LxmlEventHandler)
         self._tree: lxml.etree = None
-        self._version: str = ''
+        self._version: str = ""
         try:
             file = SourceValidator.validate(ocx_model)
             self._version = OcxXml.get_version(file)
@@ -213,4 +216,5 @@ class OcxParser:
             raise OcxParserError(e) from e
 
     def get_root(self) -> lxml.etree.Element:
+        """Return the document root"""
         return self._tree.getroot()

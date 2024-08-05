@@ -2,6 +2,19 @@
 # You can set these variables from the command line, and also
 # from the environment for the first two.
 
+ifeq ($(OS),Windows_NT)
+    detected_OS := Windows
+else
+    detected_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
+endif
+
+ifeq ($(detected_OS),Windows)
+    open_browser := cmd /c start
+endif
+ifeq ($(detected_OS),Darwin)        # Mac OS X
+    open_browser := open
+endif
+
 SOURCEDIR = ./ocx_common
 CONDA_ENV = ocx_common
 COVDIR = htmlcov
@@ -10,6 +23,8 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 
+os: ## Print the detected os
+	@echo The operating system is $(detected_OS)
 # PROJECT setup using conda and powershell
 conda-create:  ## Create a new conda environment with the python version and basic development tools as specified in environment.yml
 	@conda env create -f environment.yml
@@ -63,12 +78,12 @@ sourcery:  ## Run sourcery with --fix
 test:  ## Run unit and integration tests
 	@pytest -m "not skip" --durations=5  --cov-report html --cov $(PACKAGE) .
 
-test-upd:  ## Run unit and integration tests
+test-upd:  ## Update baseline, run unit and integration tests
 	@pytest --force-regen --durations=5  --cov-report html --cov $(PACKAGE) .
 
 
 test-cov:  ## View the test coverage report
-	cmd /c start $(CURDIR)/htmlcov/index.html
+	@$(open_browser) $(COVDIR)/index.html
 
 .PHONY: help
 help: ## Show this help

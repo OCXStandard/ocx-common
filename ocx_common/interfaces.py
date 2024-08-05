@@ -13,6 +13,7 @@ class _Singleton:
     """A threadsafe singleton class.
     https://medium.com/gitconnected/design-patterns-in-python-singleton-pattern-f76dc26281f8
     """
+
     __instance = None
     __lock = threading.Lock()
 
@@ -78,6 +79,7 @@ class IObservable(ABC):
     def update(self, event: str, message: Dict):
         """
         update method.
+
         Args:
             event: The event type
             message: The event message
