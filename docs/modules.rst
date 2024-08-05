@@ -3,14 +3,14 @@ ocx-common
 
 loader
 ******
-.. automodule:: ocx_common.loader
+.. automodule:: ocx_common.loader.loader
    :members:
    :undoc-members:
    :show-inheritance:
 
 parser
 ******
-.. automodule:: ocx_common.parser
+.. automodule:: ocx_common.parser.parsers
    :members:
    :undoc-members:
    :show-inheritance:
@@ -25,7 +25,7 @@ interfaces
 
 utilities
 *********
-.. automodule:: ocx_common.utilities
+.. automodule:: ocx_common.utilities.utilities
    :members:
    :undoc-members:
    :show-inheritance:

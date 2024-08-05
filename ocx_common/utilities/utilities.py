@@ -1,5 +1,6 @@
 #  Copyright (c) 2023-2024. #  OCX Consortium https://3docx.org. See the LICENSE
 """Shared utility classes and functions"""
+
 # System imports
 import errno
 import os
@@ -123,7 +124,7 @@ def dromedary_case_split(str) -> List:
 
 def get_file_path(file_name):
     """Get the correct file path also when called within a one-file executable."""
-    base_path = sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.abspath("..")
+    base_path = sys._MEIPASS if hasattr(sys, "_MEIPASS") else os.path.abspath("..")
     return os.path.join(base_path, file_name)
 
 
@@ -156,7 +157,6 @@ class SourceValidator:
             if file_path.exists():
                 return str(file_path.resolve())
             else:
-
                 raise SourceError(f"The {source} does not exist.")
 
     @staticmethod
@@ -223,13 +223,13 @@ class OcxXml:
             content = ocx_model.read_text().split()
             for item in content:
                 if "schemaVersion" in item:
-                    version = item[item.find("=") + 2: -1]
+                    version = item[item.find("=") + 2 : -1]
             return version
         except SourceError as e:
             raise SourceError(e) from e
 
     @staticmethod
-    def ocx_namespace(model: str) -> str:
+    def get_ocx_namespace(model: str) -> str:
         """Return the OCX schema namespace of the model.
 
         Args:
@@ -240,8 +240,60 @@ class OcxXml:
         """
         namespace = "NA"
         ocx_model = Path(model).resolve()
+        if OcxXml.has_ocx_namespace(str(ocx_model)):
+            content = ocx_model.read_text().split()
+            for item in content:
+                if "xmlns:ocx" in item:
+                    # Extract all characters between double quotes
+                    namespace = re.findall(r'"(.*?)"', item)
+                    namespace = namespace[0]
+        return namespace
+
+    @staticmethod
+    def has_ocx_namespace(model: str) -> bool:
+        """Return True if the OCX schema namespace is defined.
+
+        Args:
+            model: The source path or uri
+
+        Returns:
+              True if the xmlns:ocx is defined, False otherwise.
+        """
+        ocx_model = Path(model).resolve()
+        content = ocx_model.read_text()
+        return "xmlns:ocx" in content
+
+    @staticmethod
+    def has_unitsml_namespace(model: str) -> bool:
+        """Return True if the OCX schema unitsml namespace is defined.
+
+        Args:
+            model: The source path or uri
+
+        Returns:
+              True if the xmlns:unitsml is defined, False otherwise.
+        """
+        ocx_model = Path(model).resolve()
+        content = ocx_model.read_text()
+        return "xmlns:unitsml" in content
+
+    @staticmethod
+    def get_all_namespaces(model: str) -> Dict:
+        """Return all the xmlns namespace map defined in the 3Docx model.
+
+        Args:
+            model: The source path or uri
+
+        Returns:
+              The namespace mappings.
+        """
+        namespaces = {}
+        ocx_model = Path(model).resolve()
         content = ocx_model.read_text().split()
         for item in content:
-            if "xmlns:ocx" in item:
-                namespace = item[item.find("=") + 2: -2]
-        return namespace
+            if "xmlns:" in item:
+                if match := re.search(r':([^=]+)="([^"]+)"', item):
+                    prefix = match[1]
+                    namespace = match[2]
+                    namespaces[prefix] = namespace
+        return namespaces

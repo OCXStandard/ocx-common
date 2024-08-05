@@ -1,5 +1,6 @@
 #  Copyright (c) 2023. OCX Consortium https://3docx.org. See the LICENSE
 """Dynamically load a python module."""
+
 # system imports
 import importlib
 import sys
@@ -12,6 +13,10 @@ from loguru import logger
 
 # Project imports
 from ocx_common.interfaces import IModuleDeclaration
+
+
+class DynamicLoaderError(BaseException):
+    """Dynamic import errors."""
 
 
 class ModuleDeclaration(IModuleDeclaration, ABC):
@@ -91,28 +96,31 @@ class DynamicLoader:
 
     @classmethod
     def import_class(
-            cls, module_declaration: IModuleDeclaration, class_name: str
+        cls, module_declaration: IModuleDeclaration, class_name: str
     ) -> Any:
         """
         The module import declaration.
+
         Args:
             class_name: The class name to load form the declared module
             module_declaration: The declaration of the python module to be loaded
 
         Returns:
             Return the loaded class, None if failed.
+
         """
+
         obj = None
         module_to_load = module_declaration.get_declaration()
         module = cls._load(module_to_load)
         try:
             obj = getattr(module, class_name)
-            # logger.debug(f"Loaded class {class_name!r}")
+            # logger.debug(f"Loaded class {class_name!r}"
+            return obj
         except AttributeError as e:
             raise DynamicLoaderError(
                 f"No class with name {class_name!r} in module {module_to_load!r}"
             ) from e
-        return obj
 
     @classmethod
     def get_all_class_names(cls, module_name: str, version: str) -> List:
@@ -124,6 +132,16 @@ class DynamicLoader:
 
         Returns:
             The list of available module class names.
+
+
+        Example:
+            >>> from ocx_common.loader.loader import DeclarationOfOcxImport , DynamicLoader
+            >>> class_name = "Vessel"
+            >>> declaration = DeclarationOfOcxImport("ocx", '3.0.1')
+            >>> data_class = DynamicLoader.import_class(declaration, class_name)()
+            >>> data_class.__doc__
+            Vessel asset subject to Classification.
+
         """
         all_names = []
         ocx_pkg = f'{module_name}_{version.replace(".", "")}'
@@ -137,7 +155,3 @@ class DynamicLoader:
         else:
             logger.error(f"No module with name {module_name!r} and version {version!r}")
         return all_names
-
-
-class DynamicLoaderError(AttributeError):
-    """Dynamic import errors."""
