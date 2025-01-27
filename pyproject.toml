@@ -16,25 +16,38 @@ readme = "README.md"
 packages = [{ include = "ocx_common" }]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-packaging = "^23.1"
-tbump = '*'
+python = "^3.9"
 loguru = "*"
 lxml = "*"
-ocx = "^3.0.2"
-pytest = "^8.2.2"
-
+ocx = "*"
+requests = "*"
+msal = "*"
+pycurl = "*"
 
 [tool.poetry.group.development.dependencies]
 pre-commit = "*"
-sourcery = '*'
 poetry-plugin-export = "*"
 ruff = "*"
+tbump = '*'
+
+
+
 
 [tool.poetry.group.test.dependencies]
-pytest = "*"
 pytest-cov = "*"
 pytest-regressions = "*"
+pytest = "^8.2.2"
+responses = "*"
+pytest_httpserver = "*"
+
+[tool.pytest.ini_options]
+markers = [
+    "production: marks tests as slow (deselect with '-m \"not production\"')",
+    "commit: run on every commit",
+]
+addopts = "-ra -q"
+testpaths = [
+    "tests",]
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "*"
@@ -147,9 +160,3 @@ src = "./docs/conf.py"
 # [[tool.tbump.after_push]]
 # name = "build"
 # cmd = "poetry build"
-
-[tool.pytest.ini_options]
-addopts = "-ra -q"
-testpaths = [
-    "tests",
-]

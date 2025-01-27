@@ -5,40 +5,6 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
-  #  - repo: https://github.com/ambv/black
-  #    rev: 23.11.0
-  #    hooks:
-  #      - id: black
-  #        language_version: python3.11
-  #  - repo: https://github.com/pycqa/flake8
-  #    rev: 6.1.0
-  #    hooks:
-  #      - id: flake8
-  #  -   repo: https://github.com/pycqa/isort
-  #      rev: 5.12.0
-  #      hooks:
-  #      -   id: isort
-  #  -   repo: https://github.com/pre-commit/mirrors-mypy
-  #      rev: v1.7.0
-  #      hooks:
-  #      -   id: mypy
-  #  -   repo: https://github.com/hadialqattan/pycln
-  #      rev: 'v2.3.0'
-  #      hooks:
-  #      -   id: pycln
-  #          args: ['.', "--all"]
-  #  - repo: https://github.com/pycqa/pydocstyle
-  #    rev: '6.3.0'
-  #    hooks:
-  #      - id: pydocstyle
-  #        args: [ '.' ]
-  #  - repo: local
-  #    hooks:
-  #      - id: unittest
-  #        name: run unit tests
-  #        language: system
-  #        pass_filenames: false
-  #        entry: poetry run coverage run -m pytest
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
     rev: v0.1.4
@@ -47,11 +13,10 @@ repos:
       - id: ruff
       # Run the formatter.
       - id: ruff-format
-#- repo: https://github.com/sourcery-ai/sourcery
-#  rev: v1.14.0
-#  hooks:
-#  - id: sourcery
-#    # The best way to use Sourcery in a pre-commit hook:
-#    # * review only changed lines:
-#    # * omit the summary
-#    args: [--diff=git diff HEAD, --no-summary]
+  - repo: local
+    hooks:
+      - id: unittest
+        name: run unit tests
+        language: system
+        pass_filenames: false
+        entry: poetry run coverage run -m pytest -m "commit"

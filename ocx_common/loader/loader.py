@@ -12,7 +12,7 @@ from typing import Any, List
 from loguru import logger
 
 # Project imports
-from ocx_common.interfaces import IModuleDeclaration
+from ocx_common.interfaces.interfaces import IModuleDeclaration
 
 
 class DynamicLoaderError(BaseException):

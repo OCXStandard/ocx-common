@@ -66,6 +66,13 @@ def nested_dict():
     return defaultdict(nested_dict)
 
 
+def get_key_from_value(my_dict, value):
+    for key, val in my_dict.items():
+        if val == value:
+            return key
+    return None  # Return None if the value is not found
+
+
 def default_to_regular(d) -> Dict:
     """
     Converts defaultdicts of defaultdicts to dict of dicts.

@@ -70,10 +70,6 @@ publish: ## Publishe the dist to pypi
 pre-commit:	## Run any pre-commit hooks
 	@pre-commit run --all-files
 
-sourcery:  ## Run sourcery with --fix
-# TESTS #######################################################################
-	@sourcery review --fix --no-summary $(SOURCEDIR)
-
 
 test:  ## Run unit and integration tests
 	@pytest -m "not skip" --durations=5  --cov-report html --cov $(PACKAGE) .

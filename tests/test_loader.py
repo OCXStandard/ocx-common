@@ -5,10 +5,13 @@ from ocx_common.parser.parsers import MetaData
 from tests.conftest import SCHEMA_VERSION
 
 
-def test_import_module():
+def test_import_ocx_286():
     declaration = DeclarationOfOcxImport("ocx", "2.8.6")
     assert DynamicLoader.import_module(declaration)
 
+def test_import_ocx_300():
+    declaration = DeclarationOfOcxImport("ocx", "3.0.0")
+    assert DynamicLoader.import_module(declaration)
 
 def test_import_class():
     declaration = DeclarationOfOcxImport("ocx", SCHEMA_VERSION)

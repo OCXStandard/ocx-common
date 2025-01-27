@@ -18,7 +18,7 @@ from xsdata.formats.dataclass.parsers.config import ParserConfig
 from xsdata.formats.dataclass.parsers.handlers import LxmlEventHandler
 
 # Project imports
-from ocx_common.interfaces import IObservable
+from ocx_common.interfaces.interfaces import IObservable
 from ocx_common.utilities.utilities import SourceValidator, OcxXml, SourceError
 from ocx_common.loader.loader import DeclarationOfOcxImport, DynamicLoader
 

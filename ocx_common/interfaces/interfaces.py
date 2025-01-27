@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from uuid import uuid4
 from typing import Dict, Iterator
 import threading
+from requests.models import Response
 
 
 class _Singleton:
@@ -130,3 +131,50 @@ class ISerializer(ABC):
     def serialize_to_string(self) -> str:
         """Abstract XML serialize to string method"""
         pass
+
+
+class IRestClient(ABC):
+    """Abstract IRestClient interface for REST server clients."""
+
+    def __init__(self, headers: Dict = None, timeout: int = 30):
+        """
+
+        Args:
+            headers: The request headers
+            timeout: The request timeout
+
+        Parameters:
+            base_url: base url
+            timeout: Timeout in ms
+        """
+        self._timeout: int = timeout
+        self._headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        }
+        if headers is not None:
+            self._headers = headers
+
+    @abstractmethod
+    def get(self, url: str, headers: Dict = None) -> Response:
+        """Abstract get method"""
+
+    @abstractmethod
+    def post(self, url: str, payload: Dict, headers: Dict = None) -> Response:
+        """Abstract post method"""
+
+    @abstractmethod
+    def delete(self, url: str, payload: Dict, headers: Dict = None) -> Response:
+        """Abstract delete  method"""
+
+    @abstractmethod
+    def put(self, url: str, payload: Dict, headers: Dict = None) -> Response:
+        """Abstract put  method"""
+
+    @abstractmethod
+    def patch(self, url: str, payload: Dict, headers: Dict = None) -> Response:
+        """Abstract patch  method"""
+
+    @abstractmethod
+    def set_headers(self, headers: Dict):
+        """Abstract set headers method"""
