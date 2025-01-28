@@ -152,6 +152,9 @@ src = "./ocx_common/__init__.py"
 [[tool.tbump.file]]
 src = "./docs/conf.py"
 
+[[tool.tbump.file]]
+src = "CHANGELOG.md"
+
 # You can specify a list of commands to
 # run after the files have been patched
 # and before the git commit is made

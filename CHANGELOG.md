@@ -13,16 +13,17 @@ and this project adheres to the Python [PEP 440 versioning recommendations](http
 * ``Fixed`` for any bug fixes.
 * ``Security`` in case of vulnerabilities.
 
-## [1.8.5] - 2025-01-17
-bump to [v1.8.5](https://github.com/OCXStandard/ocx-schema-parser/releases/tag/v1.8.5)
+## [1.0.0] - 2025-01-28
+bump to [v1.0.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.0)
 
 ### Change
 * Fixed bug in SchemaDownloader to correctly handling a local file as input
 * Updated baselines and tests
+* Collected more classes and functions
 
 
 ## [0.4.0] - 2024-12-11
-bump to [v1.8.0](https://github.com/OCXStandard/ocx-schema-parser/releases/tag/v1.8.0)
+bump to [v0.4.0](https://github.com/OCXStandard/ocx-common/releases/tag/v0.4.0)
 
 ### Change
 * Initial commit
