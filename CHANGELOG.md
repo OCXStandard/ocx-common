@@ -13,6 +13,14 @@ and this project adheres to the Python [PEP 440 versioning recommendations](http
 * ``Fixed`` for any bug fixes.
 * ``Security`` in case of vulnerabilities.
 
+
+## [1.0.1] - 2025-01-28
+bump to [v1.0.1](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.1)
+
+### Change
+* Updated GitHub workflow for python-publish
+
+
 ## [1.0.0] - 2025-01-28
 bump to [v1.0.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.0)
 
