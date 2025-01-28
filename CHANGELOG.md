@@ -21,8 +21,8 @@ bump to [v1.0.1](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.1)
 * Updated GitHub workflow for python-publish
 
 
-## [1.0.0] - 2025-01-28
-bump to [v1.0.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.0)
+## [1.0.1] - 2025-01-28
+bump to [v1.0.1](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.1)
 
 ### Change
 * Fixed bug in SchemaDownloader to correctly handling a local file as input
@@ -30,8 +30,8 @@ bump to [v1.0.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.0)
 * Collected more classes and functions
 
 
-## [1.0.0] - 2024-12-11
-bump to [v1.0.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.0)
+## [1.0.1] - 2024-12-11
+bump to [v1.0.1](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.1)
 
 ### Change
 * Initial commit
