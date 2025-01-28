@@ -89,26 +89,23 @@ def test_list_files_in_directory(shared_datadir):
 class TestSourceValidator:
     def test_validate(self, shared_datadir):
         file = shared_datadir / TEST_MODEL
-        assert SourceValidator.validate(str(file.resolve()))
+        assert SourceValidator.exists(str(file.resolve()))
 
     def test_validate_url(self):
         url = "https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd"
-        assert SourceValidator.validate(url)
+        assert SourceValidator.exists(url)
 
     def test_validate_invalid_url(self):
-        try:
-            url = "https:/fileadmin//ocx_schema//V300//OCX_Schema.xsd"
-            SourceValidator.validate(url)
-        except SourceError:
-            assert True
-            return
-        assert False
-
+        url = "https:/fileadmin//ocx_schema//V300//OCX_Schema.xsd"
+        assert SourceValidator.is_valid_uri(url) is False
     def test_is_url_1(self):
-        assert SourceValidator.is_url("https://google.com")
+        assert SourceValidator.is_valid_uri("https://google.com")
 
     def test_is_url_2(self):
-        assert SourceValidator.is_url("http://server.localhost")
+        assert SourceValidator.is_valid_uri("http://server.localhost")
+
+    def test_is_url_3(self):
+        assert SourceValidator.is_valid_uri("file://./OCX_Schema.xsd")
 
     def test_is_directory(self, shared_datadir):
         assert SourceValidator.is_directory(shared_datadir)

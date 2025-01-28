@@ -1,85 +1,98 @@
 # A self-documenting Makefile
 # You can set these variables from the command line, and also
 # from the environment for the first two.
+SOURCE = ./ocx_schema_parser/
+CONDA_ENV = ocx-common
+CONDA_YAML = environment.yaml
+# PS replacements for sh
+RM = 'del -Confirmed False'
 
-ifeq ($(OS),Windows_NT)
-    detected_OS := Windows
-else
-    detected_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
-endif
+PACKAGE := ocx_common
 
-ifeq ($(detected_OS),Windows)
-    open_browser := cmd /c start
-endif
-ifeq ($(detected_OS),Darwin)        # Mac OS X
-    open_browser := open
-endif
+# CONDA TASKS ##################################################################
+# PROJECT setup using conda and powershell
+.PHONY: conda-create
+conda-create:  ## Create a new conda environment with the python version and basic development tools
+	@conda env create -f $(CONDA_YAML)
+	@conda activate $(CONDA_ENV)
+cc: conda-create
+.PHONY: cc
+conda-upd:  environment.yml ## Update the conda development environment when environment.yaml has changed
+	@conda env update -f $(CONDA_YAML)
+cu: conda-upd
+.PHONY:cu
 
-SOURCEDIR = ./ocx_common
-CONDA_ENV = ocx_common
-COVDIR = htmlcov
+
+conda-activate: ## Activate the conda environment for the project
+	@conda activate $(CONDA_ENV)
+ca: conda-activate
+.PHONY: ca
+
+conda-clean: ## Purge all conda tarballs, log files and caches
+	conda clean -a -y
+.Phony: conda-clean
+
+
 # Color output
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-
-os: ## Print the detected os
-	@echo The operating system is $(detected_OS)
-# PROJECT setup using conda and powershell
-conda-create:  ## Create a new conda environment with the python version and basic development tools as specified in environment.yml
-	@conda env create -f environment.yml
-
-conda-upd:  ## Update the conda development environment when environment.yml has changed
-	@conda env update -f environment.yml
-
-
-conda-clean: ## Purge all conda tarballs, log files and caches
-	conda clean -a -y
-
-conda-activate: ## Activate the conda environment for the project
-	@conda activate $(CONDA_ENV)
-
-
+# DOCUMENTATION ##############################################################
+SPHINXBUILD = sphinx-build -E -b html docs dist/docs
+COVDIR = "htmlcov"
 
 doc-serve: ## Open the the html docs built by Sphinx
 	@cmd /c start "_build/index.html"
 
 ds: doc-serve
+.PHONY: ds
+
 
 doc: ## Build the html docs using Sphinx. For other Sphinx options, run make in the docs folder
 	@sphinx-build docs _build
+PHONY: doc
 
 doc-links: ## Check the internal and external links after building the documentation
 	@sphinx-build docs -W -b linkcheck -d _build/doctrees _build/html
+PHONY: doc-links
 
-# POETRY ########################################################################
-build:   ## Build the package dist with poetry
-	@poetry update
-	@poetry build
+doc-req: ## Export the requirements to docs/requirements.txt
+	@poetry export --without-hashes --with docs -o docs/requirements.txt
 
-poetry-fix:  ## Force pip poetry re-installation
-	@pip install poetry --upgrade
+# RUN ##################################################################
 
-export:   ## Export the dependencies to docs/requirements.txt
-	@poetry export --with=docs --without-hashes -o ./docs/requirements.txt
-
-publish: ## Publishe the dist to pypi
-	@poetry publish  --username=__token__ --password=<pypi token>
+PHONY: run
+run: ## Start ocx-tools CLI
+	python main.py
 
 # pre-commit ######################################################################
 pre-commit:	## Run any pre-commit hooks
 	@pre-commit run --all-files
 
+# TESTS #######################################################################
+
+FAILURES := .pytest_cache/pytest/v/cache/lastfailed
+
 
 test:  ## Run unit and integration tests
-	@pytest -m "not skip" --durations=5  --cov-report html --cov $(PACKAGE) .
+	@pytest --durations=5  --cov-report html --cov ${source_dir} .
 
-test-upd:  ## Update baseline, run unit and integration tests
+test-upd:  ## Run unit and integration tests
 	@pytest --force-regen --durations=5  --cov-report html --cov $(PACKAGE) .
 
 
 test-cov:  ## View the test coverage report
-	@$(open_browser) $(COVDIR)/index.html
+	cmd /c start $(CURDIR)/htmlcov/index.html
+
+install:   ## Install the current dev version in the local environment
+	@poetry update
+	@poetry install
+
+poetry-fix:  ## Force pip poetry re-installation
+	@pip install poetry --upgrade
+
+# HELP ########################################################################
+
 
 .PHONY: help
 help: ## Show this help

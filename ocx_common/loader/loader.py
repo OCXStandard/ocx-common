@@ -47,7 +47,7 @@ class DeclarationOfOcxImport(IModuleDeclaration):
 
     def get_declaration(self) -> str:
         """Return the module import declaration."""
-        ocx_pkg = f'{self._name}_{self._version.replace(".", "")}'
+        ocx_pkg = f"{self._name}_{self._version.replace('.', '')}"
         return f"{self._name}.{ocx_pkg}.{ocx_pkg}"
 
     def get_version(self) -> str:
@@ -144,7 +144,7 @@ class DynamicLoader:
 
         """
         all_names = []
-        ocx_pkg = f'{module_name}_{version.replace(".", "")}'
+        ocx_pkg = f"{module_name}_{version.replace('.', '')}"
         ocx_module = f"{module_name}.{ocx_pkg}"
         if (spec := importlib.util.find_spec(ocx_module)) is not None:
             module = importlib.util.module_from_spec(spec)

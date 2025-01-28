@@ -136,10 +136,10 @@ def get_file_path(file_name):
 
 
 class SourceValidator:
-    """Methods for validating the existence of a data source."""
+    """Methods for validating the existence and correctness of a data source."""
 
     @staticmethod
-    def validate(source: str) -> str:
+    def exists(source: str) -> str:
         """
         Validate the existence of a data source.
 
@@ -149,7 +149,7 @@ class SourceValidator:
         Returns:
             Returns the uri or full path if the source is valid.
         Raises:
-              Raises a ValueError if source is invalid
+              Raises a source error if source does not exist.
         """
         # Url
         if "http" in source:
@@ -167,10 +167,22 @@ class SourceValidator:
                 raise SourceError(f"The {source} does not exist.")
 
     @staticmethod
-    def is_url(source: str) -> bool:
-        """Return true if ``source`` is a valid url."""
-        parsed_url = urlparse(source)
-        return bool(parsed_url.scheme and parsed_url.netloc)
+    def is_valid_uri(uri: str) -> bool:
+        """Return true if uri ``source`` is a valid url."""
+        try:
+            parsed = urlparse(uri)
+            # A valid URI must have a scheme
+            if not parsed.scheme:
+                return False
+
+            # Special case for 'file:' scheme (netloc may be empty)
+            if parsed.scheme == "file":
+                return bool(parsed.path)
+
+            # For other schemes, both scheme and netloc must be present
+            return bool(parsed.netloc)
+        except ValueError:
+            return False
 
     @staticmethod
     def is_directory(source: str) -> bool:
@@ -226,7 +238,7 @@ class OcxXml:
         """
         try:
             version = "NA"
-            ocx_model = Path(SourceValidator.validate(model))
+            ocx_model = Path(SourceValidator.exists(model))
             content = ocx_model.read_text().split()
             for item in content:
                 if "schemaVersion" in item:

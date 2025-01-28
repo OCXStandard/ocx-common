@@ -1,6 +1,6 @@
 # Minimal conda environment with python, pip and poetry and windows Make file support.
 # Dependencies are managed by Poetry
-name: ocx_common
+name: ocx-common
 channels:
   - conda-forge
   - msys2 # for m2-grep
@@ -9,14 +9,13 @@ channels:
   # be listed explicitly here.
   - nodefaults
 dependencies:
-  - python=3.10
+  - python=3.9
   - pip
   - poetry
   - pycurl
-  - pyinstaller
-  - pywin32-ctypes
   - m2w64-make # GNU mMake for windows
   - m2-grep # Grep for windows. For Makefile sh
   - m2-gawk # awk for windows. for Makefile sh
   - pip:
-      - xsdata[lxml, soap]==23.8  # xsdata with all dependencies
+      - xsdata[cli,lxml, soap]  # xsdata with all dependencies
+      - poetry-plugin-export

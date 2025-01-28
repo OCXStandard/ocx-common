@@ -15,8 +15,10 @@ repos:
       - id: ruff-format
   - repo: local
     hooks:
-      - id: unittest
-        name: run unit tests
+      - id: pytest
+        name: Run pytest
+        entry: pytest -m commit
         language: system
+        types: [python]
+        always_run: true
         pass_filenames: false
-        entry: poetry run coverage run -m pytest -m "commit"

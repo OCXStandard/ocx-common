@@ -146,7 +146,7 @@ class OcxNotifyParser(IObservable, ABC):
             The root dataclass instance of the parsed 3Docx XML.
         """
         try:
-            file_path = SourceValidator.validate(xml_file)
+            file_path = SourceValidator.exists(xml_file)
             tree = lxml.etree.parse(xml_file)
             root = tree.getroot()
             version = OcxXml.get_version(file_path)
@@ -208,7 +208,7 @@ class OcxParser:
         self._tree: lxml.etree = None
         self._version: str = ""
         try:
-            file = SourceValidator.validate(ocx_model)
+            file = SourceValidator.exists(ocx_model)
             self._version = OcxXml.get_version(file)
             self._tree = lxml.etree.parse(file)
         except (SourceError, ParserError) as e:
