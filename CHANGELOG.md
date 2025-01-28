@@ -22,8 +22,8 @@ bump to [v1.0.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.0)
 * Collected more classes and functions
 
 
-## [0.4.0] - 2024-12-11
-bump to [v0.4.0](https://github.com/OCXStandard/ocx-common/releases/tag/v0.4.0)
+## [1.0.0] - 2024-12-11
+bump to [v1.0.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.0.0)
 
 ### Change
 * Initial commit
