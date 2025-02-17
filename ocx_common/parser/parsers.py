@@ -19,7 +19,8 @@ from xsdata.formats.dataclass.parsers.handlers import LxmlEventHandler
 
 # Project imports
 from ocx_common.interfaces.interfaces import IObservable
-from ocx_common.utilities.utilities import SourceValidator, OcxXml, SourceError
+from ocx_common.utilities.source_validator import SourceValidator, SourceError
+from ocx_common.utilities.ocx_xml import OcxXml
 from ocx_common.loader.loader import DeclarationOfOcxImport, DynamicLoader
 
 
@@ -146,7 +147,7 @@ class OcxNotifyParser(IObservable, ABC):
             The root dataclass instance of the parsed 3Docx XML.
         """
         try:
-            file_path = SourceValidator.exists(xml_file)
+            file_path = SourceValidator.validate(xml_file)
             tree = lxml.etree.parse(xml_file)
             root = tree.getroot()
             version = OcxXml.get_version(file_path)
@@ -208,7 +209,7 @@ class OcxParser:
         self._tree: lxml.etree = None
         self._version: str = ""
         try:
-            file = SourceValidator.exists(ocx_model)
+            file = SourceValidator.validate(ocx_model)
             self._version = OcxXml.get_version(file)
             self._tree = lxml.etree.parse(file)
         except (SourceError, ParserError) as e:

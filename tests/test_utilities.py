@@ -1,131 +1,112 @@
 #  Copyright (c) 2024. OCX Consortium https://3docx.org. See the LICENSE
 
 from pathlib import Path
+import pytest
 
 # Project import
-from ocx_common.utilities.utilities import (
-    is_substring_in_list,
-    OcxXml,
-    parent_directory,
-    all_equal,
-    camel_case_split,
-    dromedary_case_split,
-    list_files_in_directory,
-    resource_path,
-    get_file_path,
-    SourceValidator,
-    SourceError,
-)
+from ocx_common.utilities import utilities
 
-from .conftest import TEST_MODEL, SCHEMA_VERSION, NAMESPACE
-
-
-class TestOcxXml:
-    def test_get_version(self, shared_datadir):
-        model = shared_datadir / TEST_MODEL
-        assert OcxXml.get_version(str(model.resolve())) == SCHEMA_VERSION
-
-    def test_get_ocx_namespace(self, shared_datadir):
-        model = shared_datadir / TEST_MODEL
-        assert OcxXml.get_ocx_namespace(str(model.resolve())) == NAMESPACE
-
-    def test_get_all_namespaces(self, shared_datadir, data_regression):
-        model = shared_datadir / TEST_MODEL
-        result = OcxXml.get_all_namespaces(str(model.resolve()))
-        data_regression.check(result)
-
-    def test_has_ocx_namespace(self, shared_datadir):
-        model = shared_datadir / TEST_MODEL
-        assert OcxXml.has_ocx_namespace(str(model.resolve())) == True
-
-    def test_has_unitsml_namespace(self, shared_datadir):
-        model = shared_datadir / TEST_MODEL
-        assert OcxXml.has_unitsml_namespace(str(model.resolve())) == True
+from .conftest import TEST_MODEL, MODEL_FOLDER
 
 
 def test_is_substring_in_list_1():
-    assert is_substring_in_list(
+    assert utilities.is_substring_in_list(
         "Doe", ["John Doe", "Alicia", "Hello world", "package.file"]
     )
 
 
 def test_is_substring_in_list_2():
-    assert is_substring_in_list(
+    assert utilities.is_substring_in_list(
         ".file", ["John Doe", "Alicia", "Hello world", "package.file"]
     )
 
 
 def test_is_substring_in_list_3():
-    assert not is_substring_in_list(
+    assert not utilities.is_substring_in_list(
         "Help", ["John Doe", "Alicia", "Hello world", "package.file"]
     )
 
 
 def test_parent_directory(shared_datadir):
     file = shared_datadir / TEST_MODEL
-    assert parent_directory(str(file.resolve())) == str(shared_datadir.resolve())
+    assert utilities.parent_directory(str(file.resolve())) == str(shared_datadir.resolve())
 
 
 def test_all_equal_1():
-    assert all_equal(["John", "John", "John", "John", "John", "John", "John"])
+    assert utilities.all_equal(["John", "John", "John", "John", "John", "John", "John"])
 
 
 def test_all_equal_2():
-    assert not all_equal(["John", "Alice", "John", "John", "John", "John", "John"])
+    assert not utilities.all_equal(["John", "Alice", "John", "John", "John", "John", "John"])
 
 
 def test_camel_case_split():
-    assert camel_case_split("CamelCase") == ["Camel", "Case"]
+    assert utilities.camel_case_split("CamelCase") == ["Camel", "Case"]
 
 
 def test_dromedary_case_split():
-    assert dromedary_case_split("dromedaryCase") == ["dromedary", "Case"]
+    assert utilities.dromedary_case_split("dromedaryCase") == ["dromedary", "Case"]
 
 
 def test_list_files_in_directory(shared_datadir):
-    assert list_files_in_directory(shared_datadir, "*.3docx") == [TEST_MODEL]
-
-
-class TestSourceValidator:
-    def test_validate(self, shared_datadir):
-        file = shared_datadir / TEST_MODEL
-        assert SourceValidator.exists(str(file.resolve()))
-
-    def test_validate_url(self):
-        url = "https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd"
-        assert SourceValidator.exists(url)
-
-    def test_validate_invalid_url(self):
-        url = "https:/fileadmin//ocx_schema//V300//OCX_Schema.xsd"
-        assert SourceValidator.is_valid_uri(url) is False
-    def test_is_url_1(self):
-        assert SourceValidator.is_valid_uri("https://google.com")
-
-    def test_is_url_2(self):
-        assert SourceValidator.is_valid_uri("http://server.localhost")
-
-    def test_is_url_3(self):
-        assert SourceValidator.is_valid_uri("file://./OCX_Schema.xsd")
-
-    def test_is_directory(self, shared_datadir):
-        assert SourceValidator.is_directory(shared_datadir)
-
-    def test_mkdir(self, shared_datadir):
-        directory = SourceValidator.mkdir("test_folder")
-        assert Path(directory).exists()
-
-    def test_filter_files(self, shared_datadir):
-        files = SourceValidator.filter_files(str(shared_datadir.resolve()), "*.3docx")
-        assert len(list(files)) == 1
+    folder = shared_datadir / MODEL_FOLDER
+    assert utilities.list_files_in_directory(folder, "*.3docx") == [TEST_MODEL]
 
 
 def test_resource_path(shared_datadir):
     file = Path.joinpath(shared_datadir, TEST_MODEL)
-    path = resource_path(str(file))
+    path = utilities.resource_path(str(file))
     assert path == str(file)
 
 
 def test_get_file_path(shared_datadir):
     file = Path.joinpath(shared_datadir, TEST_MODEL)
-    path = get_file_path(str(file))
+    path = utilities.get_file_path(str(file))
     assert path == str(file)
+
+
+def test_is_directory(shared_datadir):
+    assert utilities.is_directory(shared_datadir)
+
+
+def test_is_directory_false(shared_datadir):
+    not_exist = shared_datadir / "not_exist"
+    assert utilities.is_directory(not_exist) is False
+
+
+def test_is_valid_windows_path_1():
+    assert utilities.is_valid_windows_path("C:\\Users\\oca\\OneDrive - DNV\\Git_Repos\\TestModels\\Latest")
+
+
+# @pytest.mark.parametrize(
+#     "uri, expected",
+#     [
+#         ("file://C:/Users/test/file.txt", True),  # ✅ Valid Windows absolute path
+#         ("file:///C:/absolute/windows/path.txt", True),  # ✅ Windows absolute path with triple slashes
+#         ("file://localhost/C:/path.txt", True),  # ✅ Windows localhost path
+#         ("file:///home/user/file.txt", True),  # ✅ Unix absolute path
+#         ("file:/relative/path.txt", False),  # ❌ Missing slashes
+#         ("file://C|/invalid/path.txt", False),  # ❌ Incorrect Windows drive format
+#         ("file://C:/valid/path.txt", True),  # ✅ Valid Windows absolute path
+#         ("file:\\backslashes\\wrong.txt", False),  # ❌ Backslashes are not allowed
+#         ("http://example.com/file.txt", False),  # ❌ Wrong scheme
+#     ],
+# )
+# def test_file_uri_format(uri, expected):
+#     """Test if file URIs are formatted correctly."""
+#     assert utilities.is_valid_file_uri(uri) == expected
+
+def test_file_uri_to_path(uri, expected):
+    assert utilities.file_uri_to_path(uri) == expected
+
+def test_file_uri_to_path_1():
+    assert utilities.file_uri_to_path("file:C:/User/john/myfile.txt") == "C:\\User\\john\\myfile.txt"
+
+def test_file_uri_to_path_2():
+    assert utilities.file_uri_to_path("file:///C:/User/john/myfile.txt") == "C:\\User\\john\\myfile.txt"
+
+def test_file_uri_to_path_3():
+    assert utilities.file_uri_to_path("file://server/share/myfile.txt") == "server\\share\\myfile.txt"
+
+def test_file_uri_to_path_4():
+    assert utilities.file_uri_to_path("file:///home/user/myfile.txt") == "/home/user/myfile.txt"

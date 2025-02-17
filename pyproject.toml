@@ -10,7 +10,7 @@ build-backend = "poetry.core.masonry.api"
 name = "ocx_common"
 version = "1.0.1"
 description = "A python package with common classes and functions used across several projects"
-authors = ["Ole Christian Astrup <ole.christianastrup@dnv.com>"]
+authors = ["Ole Christian Astrup <ole.christian.astrup@dnv.com>"]
 readme = "README.md"
 
 

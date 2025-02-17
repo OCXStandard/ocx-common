@@ -15,4 +15,6 @@ NAMESPACE = "https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd"
 MODEL1 = "NAPA-OCX_M1.3docx"
 
 MOCK_URL = "http://localhost:8080/rest/api"
+MODEL_FOLDER = "models"
+SCHEMA_FOLDER = "schemas"
 TEST_MODEL = MODEL1

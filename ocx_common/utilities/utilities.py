@@ -6,15 +6,16 @@ import errno
 import os
 import re
 import sys
+import urllib.parse
 from collections import defaultdict
 from itertools import groupby
 from pathlib import Path
 from typing import Dict, Generator, List
-from urllib.parse import urlparse
 
 
-class SourceError(ValueError):
-    """SourceValidator errors."""
+# Third party imports
+
+# Project imports
 
 
 def is_substring_in_list(substring, string_list):
@@ -135,184 +136,119 @@ def get_file_path(file_name):
     return os.path.join(base_path, file_name)
 
 
-class SourceValidator:
-    """Methods for validating the existence and correctness of a data source."""
+def is_valid_windows_path(path: str) -> bool:
+    windows_pattern = re.compile(
+        r"^(?:(?:[a-zA-Z]:\\|\\\\[^\\/:*?\"<>|\r\n]+\\[^\\/:*?\"<>|\r\n]+)|"
+        r"(?:(?:\.\.?\\)*[^\\/:*?\"<>|\r\n]+\\?)*)(?:[^\\/:*?\"<>|\r\n]+\\)*[^\\/:*?\"<>|\r\n]*$"
+    )
+    return bool(windows_pattern.match(path))
 
-    @staticmethod
-    def exists(source: str) -> str:
-        """
-        Validate the existence of a data source.
 
-        Args:
-            source: The source file path or url.
+def is_valid_file_uri(uri: str) -> bool:
+    """
+    Validate whether the given URI is a correctly formatted file:// URI.
+        Ensures file:// scheme is present (urllib.parse.urlparse(uri).scheme == "file").
+        Handles Windows paths correctly, including:
+        file://C:/path.txt
+        file:///C:/path.txt
+        file://localhost/C:/path.txt
+        Handles Unix paths correctly, ensuring / is present.
 
-        Returns:
-            Returns the uri or full path if the source is valid.
-        Raises:
-              Raises a source error if source does not exist.
-        """
-        # Url
-        if "http" in source:
-            parsed_url = urlparse(source)
-            if bool(parsed_url.scheme and parsed_url.netloc):
-                return parsed_url.geturl()
-            else:
-                raise SourceError(f"(The {source} is not a valid url.")
-        # File
-        else:
-            file_path = Path(source)
-            if file_path.exists():
-                return str(file_path.resolve())
-            else:
-                raise SourceError(f"The {source} does not exist.")
+    Args:
+        uri (str): The file URI to check.
 
-    @staticmethod
-    def is_valid_uri(uri: str) -> bool:
-        """Return true if uri ``source`` is a valid url."""
-        try:
-            parsed = urlparse(uri)
-            # A valid URI must have a scheme
-            if not parsed.scheme:
-                return False
+    Returns:
+        bool: True if the URI is correctly formatted, False otherwise.
+    """
 
-            # Special case for 'file:' scheme (netloc may be empty)
-            if parsed.scheme == "file":
-                return bool(parsed.path)
+    parsed = urllib.parse.urlparse(uri)
 
-            # For other schemes, both scheme and netloc must be present
-            return bool(parsed.netloc)
-        except ValueError:
+    # Must start with "file://"
+    if not uri.startswith("file://"):
+        return False
+
+    # Ensure netloc is empty or 'localhost' (except for Windows drive letters)
+    if parsed.netloc and parsed.netloc != "localhost":
+        # Windows paths might store drive letters in netloc
+        if not re.match(r"^[A-Za-z]:/.*", parsed.netloc + parsed.path):
             return False
 
-    @staticmethod
-    def is_directory(source: str) -> bool:
-        """Return True if the source is a directory, False otherwise"""
-        return Path(source).is_dir()
+    # Reject incorrect Windows drive formats (e.g., `C|/`)
+    if re.match(r"^/[A-Za-z]\|/", parsed.path):
+        return False
 
-    @staticmethod
-    def mkdir(source: str) -> str:
-        """Create the directory and any parent folders if missing.
+    # Windows absolute path: `/C:/path.txt` or `C:/path.txt` in netloc
+    windows_pattern = r"^/[A-Za-z]:/.*"
 
-        Args:
-            source: The folder name
+    # Unix absolute path: `/home/user/file.txt` (must start with single `/`)
+    unix_pattern = r"^/[^/].*"
 
-        Returns:
-            The folder name
-        """
-        folder = Path(source)
-        if not folder.exists():
-            folder.mkdir(parents=True, exist_ok=True)
-        return source
-
-    @staticmethod
-    def filter_files(directory: str, filter_str: str) -> Generator:
-        """
-        Filters files in a directory based on a specified filter pattern.
-
-        Args:
-            directory (str): The path to the directory.
-            filter_str (str): The filter pattern to apply when filtering files.
-
-        Returns:
-            Generator: A generator yielding file paths that match the filter criteria.
-        """
-        if SourceValidator.is_directory(directory):
-            # Specify the folder path
-            folder_path = Path(directory)
-            # Using glob to filter files based on a pattern
-            return folder_path.glob(filter_str)
+    return bool(
+        re.match(windows_pattern, parsed.path) or re.match(unix_pattern, parsed.path)
+    )
 
 
-class OcxXml:
-    """Find the schema version of an 3Docx XML model."""
+def is_uri(uri) -> bool:
+    """Return True if source is an uri, False otherwise"""
+    if "file:" in uri or "http" in uri:
+        return True
+    else:
+        return False
 
-    @staticmethod
-    def get_version(model: str) -> str:
-        """
-        The schema version of the model.
-        Args:
-            model: The source file path or uri
 
-        Returns:
-            The schema version of the 3Docx XML model.
-        """
-        try:
-            version = "NA"
-            ocx_model = Path(SourceValidator.exists(model))
-            content = ocx_model.read_text().split()
-            for item in content:
-                if "schemaVersion" in item:
-                    version = item[item.find("=") + 2 : -1]
-            return version
-        except SourceError as e:
-            raise SourceError(e) from e
+def is_file_uri(uri) -> bool:
+    """Return True if source is a file uri, False otherwise"""
+    if "file" in uri:
+        return True
+    else:
+        return False
 
-    @staticmethod
-    def get_ocx_namespace(model: str) -> str:
-        """Return the OCX schema namespace of the model.
 
-        Args:
-            model: The source path or uri
+def file_uri_to_path(uri: str) -> str:
+    """Converts a file:// URI to a proper file system path."""
+    if "file" in uri:
+        parsed = urllib.parse.urlparse(uri)
 
-        Returns:
-              The OCX schema namespace of the model.
-        """
-        namespace = "NA"
-        ocx_model = Path(model).resolve()
-        if OcxXml.has_ocx_namespace(str(ocx_model)):
-            content = ocx_model.read_text().split()
-            for item in content:
-                if "xmlns:ocx" in item:
-                    # Extract all characters between double quotes
-                    namespace = re.findall(r'"(.*?)"', item)
-                    namespace = namespace[0]
-        return namespace
+        # Handle Windows UNC paths (file://server/share/file.txt → \\server\share\file.txt)
+        if parsed.netloc:
+            file_path = f"\\\\{parsed.netloc}{parsed.path}"
+        else:
+            file_path = parsed.path
 
-    @staticmethod
-    def has_ocx_namespace(model: str) -> bool:
-        """Return True if the OCX schema namespace is defined.
+        # Strip leading slash for Windows drive letters (e.g., /C:/path → C:/path)
+        if (
+            os.name == "nt"
+            and file_path.startswith("/")
+            and len(file_path) > 2
+            and file_path[2] == ":"
+        ):
+            file_path = file_path[1:]
 
-        Args:
-            model: The source path or uri
+        # Normalize for the OS (Windows backslashes, Unix forward slashes)
+        return os.path.normpath(file_path)
+    else:
+        raise ValueError(f"{uri} is not a valid file uri")
 
-        Returns:
-              True if the xmlns:ocx is defined, False otherwise.
-        """
-        ocx_model = Path(model).resolve()
-        content = ocx_model.read_text()
-        return "xmlns:ocx" in content
 
-    @staticmethod
-    def has_unitsml_namespace(model: str) -> bool:
-        """Return True if the OCX schema unitsml namespace is defined.
+def is_directory(source: str) -> bool:
+    """Return True if the source is a directory, False otherwise"""
+    return Path(source).is_dir()
 
-        Args:
-            model: The source path or uri
 
-        Returns:
-              True if the xmlns:unitsml is defined, False otherwise.
-        """
-        ocx_model = Path(model).resolve()
-        content = ocx_model.read_text()
-        return "xmlns:unitsml" in content
+def iter_files(directory: str, filter_str: str) -> Generator:
+    """
+    Iterate over files in a directory based on a specified filter pattern.
 
-    @staticmethod
-    def get_all_namespaces(model: str) -> Dict:
-        """Return all the xmlns namespace map defined in the 3Docx model.
+    Args:
+        directory (str): The path to the directory.
+        filter_str (str): The filter pattern to apply when filtering files.
 
-        Args:
-            model: The source path or uri
+    Returns:
+        Generator: A generator yielding file paths that match the filter criteria.
 
-        Returns:
-              The namespace mappings.
-        """
-        namespaces = {}
-        ocx_model = Path(model).resolve()
-        content = ocx_model.read_text().split()
-        for item in content:
-            if "xmlns:" in item:
-                if match := re.search(r':([^=]+)="([^"]+)"', item):
-                    prefix = match[1]
-                    namespace = match[2]
-                    namespaces[prefix] = namespace
-        return namespaces
+    """
+    if is_directory(directory):
+        # Specify the folder path
+        folder_path = Path(directory)
+        # Using glob to filter files based on a pattern
+        return folder_path.glob(filter_str)

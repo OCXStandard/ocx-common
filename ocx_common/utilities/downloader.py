@@ -2,6 +2,7 @@
 from pathlib import Path
 from typing import Optional
 from loguru import logger
+import re
 
 # Third part imports
 from xsdata.utils.downloader import Downloader
@@ -9,7 +10,24 @@ from xsdata.codegen import opener
 
 
 # Module imports
-from ocx_common.utilities.utilities import SourceValidator
+from ocx_common.utilities import utilities
+
+
+def set_schema_location_to_local_file(xsd_content: str) -> str:
+    pattern = r'schemaLocation="([^"]+)"'  # Capture the value inside schemaLocation=""
+    match = re.search(pattern, xsd_content)  # Find the first occurrence
+    if match:
+        schema_location = match.group(1)  # Return the extracted schemaLocation value
+        schema_file = Path(schema_location).name
+        # Replace it with the new local location
+        new_location = f"file://.{schema_file}"
+        updated_xsd = re.sub(
+            pattern, f'schemaLocation="{new_location}"', xsd_content, count=1
+        )
+        return updated_xsd
+    else:
+        logger.debug("No schema location found")
+        return xsd_content
 
 
 class SchemaDownloader(Downloader):
@@ -20,13 +38,16 @@ class SchemaDownloader(Downloader):
 
     Args:
         folder: The download target folder.
+
     Properties:
         schema_folder: The path to the schema download folder
+        change_schema_location: Replace the ``schemaLocation`` attribute with the new schema location.
     """
 
-    def __init__(self, folder: Path):
+    def __init__(self, folder: Path, change_schema_location: bool = True):
         super().__init__(folder)
         self.schema_folder = folder
+        self.change_schema_location = change_schema_location
 
     def write_file(self, uri: str, location: Optional[str], content: str):
         """
@@ -55,31 +76,33 @@ class SchemaDownloader(Downloader):
         Override super class method to handle a local file.
 
         """
-        try:
-            if SourceValidator.is_valid_uri(uri):
-                if not (
-                    uri in self.downloaded or (location and location in self.downloaded)
-                ):
-                    self.downloaded[uri] = None
-                    self.downloaded[location] = None
-                    self.adjust_base_path(uri)
+        if utilities.is_uri(uri):
+            if not (
+                uri in self.downloaded or (location and location in self.downloaded)
+            ):
+                self.downloaded[uri] = None
+                self.downloaded[location] = None
+                self.adjust_base_path(uri)
 
-                    logger.info(f"Fetching {uri}")
-
+                logger.info(f"Fetching {uri}")
+                if utilities.is_file_uri(uri):
+                    uri_loc = (
+                        Path.cwd() / Path(utilities.file_uri_to_path(uri)).resolve()
+                    )
+                    with open(str(uri_loc), "rb") as file:
+                        input_stream = file.read()
+                else:
                     input_stream = opener.open(uri).read()  # nosec
-            else:
-                input_file = Path(uri).resolve()
-                with open(str(input_file), "rb") as file:
-                    input_stream = file.read()
-            if uri.endswith("wsdl"):
-                self.parse_definitions(uri, input_stream)
-            else:
-                self.parse_schema(uri, input_stream)
-
-                self.write_file(uri, location, input_stream.decode())
-
-        except FileNotFoundError:
-            print(f"The file at {uri} was not found.")
-
-        except Exception as e:
-            print(f"An error occurred: {e}")
+        else:
+            input_file = Path(uri).resolve()
+            with open(str(input_file), "rb") as file:
+                input_stream = file.read()
+        if uri.endswith("wsdl"):
+            self.parse_definitions(uri, input_stream)
+        else:
+            self.parse_schema(uri, input_stream)
+            # replace the schema location
+            content = input_stream.decode()
+            if self.change_schema_location:
+                content = set_schema_location_to_local_file(content)
+            self.write_file(uri, location, content)
