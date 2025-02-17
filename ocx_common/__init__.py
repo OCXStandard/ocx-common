@@ -2,6 +2,6 @@
 #  Copyright (c) 2024. OCX Consortium https://3docx.org. See the LICENSE
 from loguru import logger
 
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 logger.enable("ocx_common")
