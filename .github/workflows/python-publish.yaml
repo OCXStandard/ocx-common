@@ -32,8 +32,8 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install uv
-          uv pip compile > requirements.txt
-          uv pip install - requirements.txt
+          uv pip compile -q pyproject.tom -o requirements.txt
+          uv pip install -r requirements.txt
       - name: Build distribution
         run: |
           uv pip install build
