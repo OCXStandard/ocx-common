@@ -1,6 +1,6 @@
 [project]
 name = "ocx_common"
-version = "1.6.0"
+version = "2.0.0"
 description = "A python package with common classes and functions used across several projects"
 readme = "README.md"
 authors = [
@@ -109,7 +109,7 @@ line-ending = "auto"
 github_url = "OCXStandard/ocx-common"
 
 [tool.tbump.version]
-current = "1.6.0"
+current = "2.0.0"
 
 # Example of a semver regexp.
 # Make sure this matches current_version before using tbump
