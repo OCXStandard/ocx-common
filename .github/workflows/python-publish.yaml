@@ -6,66 +6,60 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
+
 name: Publish Python 🐍 distribution 📦 to PyPI
 
 on:
   push:
     tags:
       - 'v*'
-
 permissions:
   contents: read
-
 jobs:
   build:
     name: Build distribution 📦
     runs-on: ubuntu-latest
     steps:
-      - name: Log GitHub event details
-        run: |
-          echo "🎉 Triggered by event: ${{ github.event_name }}"
-          echo "🐧 Running on: ${{ runner.os }}"
-          echo "🔎 Branch: ${{ github.ref }}, Repository: ${{ github.repository }}"
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - uses: actions/checkout@v4
-      - name: Set up Python
+      - name: Check out repository code
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-      - name: Install uv and build tools
+      - name: Install uv and dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install uv build
-      - name: Install dependencies
-        run: uv pip install --system --dev
+          pip install uv
+          uv pip compile > requirements.txt
+          uv pip install - requirements.txt
       - name: Build distribution
         run: |
-          uv venv create
-          uv pip install . --system
+          uv pip install build
           python -m build
       - name: Store the distribution packages
         uses: actions/upload-artifact@v4
         with:
           name: python-package-distributions
           path: dist/
-
   publish-to-pypi:
-    name: Publish distribution 📦 to PyPI
-    needs: build  # Ensure it runs after build
+    name: >-
+      Publish Python 🐍 distribution 📦 to PyPI
+#    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
+    needs:
+    - build
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/ocx_common
+      url: https://pypi.org/p/ocx_common  # Replace <package-name> with your PyPI project name
     permissions:
-      id-token: write  # Needed for PyPI trusted publishing
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
     steps:
-      - name: Download built distributions
-        uses: actions/download-artifact@v4
-        with:
-          name: python-package-distributions
-          path: dist/
-      - name: Install uv
-        run: |
-          python -m pip install --upgrade pip
-          pip install uv
-      - name: Publish distribution 📦 to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
