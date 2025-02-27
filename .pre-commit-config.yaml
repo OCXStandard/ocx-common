@@ -21,20 +21,6 @@ repos:
       - id: ruff-format
   - repo: local
     hooks:
-      - id: sync-requirements
-        name: Sync and update .venv
-        entry: uv sync
-        language: system
-        pass_filenames: false
-  - repo: local
-    hooks:
-      - id: export-requirements
-        name: Export requirements.txt
-        entry: uv export --no-hashes --group docs -o docs/requirements.txt
-        language: system
-        pass_filenames: false
-  - repo: local
-    hooks:
     - id: pytest
       name: pytest
       entry: uv run pytest tests

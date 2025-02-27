@@ -2,7 +2,7 @@
 
 All notable changes to the ``ocx-common`` will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.2.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.3.0/),
 and this project adheres to the Python [PEP 440 versioning recommendations](https://peps.python.org/pep-0440/).
 
 ### Types of changes
@@ -14,22 +14,22 @@ and this project adheres to the Python [PEP 440 versioning recommendations](http
 * ``Security`` in case of vulnerabilities.
 
 
-## [1.2.0] - 2025-02-27
-bump to [v1.2.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.2.0)
+## [1.3.0] - 2025-02-27
+bump to [v1.3.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.3.0)
 
 ### Change
 * Moved from Poetry package management to uv from Astral
 
 
-## [1.2.0] - 2025-01-28
-bump to [v1.2.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.2.0)
+## [1.3.0] - 2025-01-28
+bump to [v1.3.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.3.0)
 
 ### Change
 * Updated GitHub workflow for python-publish
 
 
-## [1.2.0] - 2025-01-28
-bump to [v1.2.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.2.0)
+## [1.3.0] - 2025-01-28
+bump to [v1.3.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.3.0)
 
 ### Change
 * Fixed bug in SchemaDownloader to correctly handling a local file as input
@@ -37,8 +37,8 @@ bump to [v1.2.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.2.0)
 * Collected more classes and functions
 
 
-## [1.2.0] - 2024-12-11
-bump to [v1.2.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.2.0)
+## [1.3.0] - 2024-12-11
+bump to [v1.3.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.3.0)
 
 ### Change
 * Initial commit
