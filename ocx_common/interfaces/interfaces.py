@@ -2,11 +2,12 @@
 """Interfaces module."""
 
 # System imports
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from uuid import uuid4
-from typing import Dict, Iterator
 import threading
+from abc import ABC, abstractmethod
+from typing import Any, Dict, Iterator, Optional
+from uuid import uuid4
+from enum import Enum
+
 from requests.models import Response
 
 
@@ -50,9 +51,8 @@ class _Singleton:
 class IModuleDeclaration(ABC):
     """Abstract module import declaration Interface"""
 
-    @staticmethod
     @abstractmethod
-    def get_declaration() -> str:
+    def get_declaration(self) -> str:
         """Abstract Method: Return the module declaration string."""
         pass
 
@@ -77,7 +77,7 @@ class IObservable(ABC):
         """unsubscribe"""
 
     @abstractmethod
-    def update(self, event: str, message: Dict):
+    def update(self, event: Enum, message: Dict):
         """
         update method.
 
@@ -91,7 +91,7 @@ class IParser(ABC):
     """Abstract IParser interface."""
 
     @abstractmethod
-    def parse(self, model: str) -> dataclass:
+    def parse(self, model: str) -> Optional[Any]:
         """
         Abstract method for parsing a data model,
 
@@ -119,7 +119,7 @@ class IParser(ABC):
 class ISerializer(ABC):
     """OcxSerializer interface"""
 
-    def __init__(self, model: dataclass):
+    def __init__(self, model: Any):
         self.model = model
 
     @abstractmethod
@@ -136,7 +136,7 @@ class ISerializer(ABC):
 class IRestClient(ABC):
     """Abstract IRestClient interface for REST server clients."""
 
-    def __init__(self, headers: Dict = None, timeout: int = 30):
+    def __init__(self, headers: Dict, timeout: int = 30):
         """
 
         Args:
@@ -156,23 +156,23 @@ class IRestClient(ABC):
             self._headers = headers
 
     @abstractmethod
-    def get(self, url: str, headers: Dict = None) -> Response:
+    def get(self, url: str, headers: Dict) -> Response:
         """Abstract get method"""
 
     @abstractmethod
-    def post(self, url: str, payload: Dict, headers: Dict = None) -> Response:
+    def post(self, url: str, payload: Dict, headers: Dict) -> Response:
         """Abstract post method"""
 
     @abstractmethod
-    def delete(self, url: str, payload: Dict, headers: Dict = None) -> Response:
+    def delete(self, url: str, payload: Dict, headers: Dict) -> Response:
         """Abstract delete  method"""
 
     @abstractmethod
-    def put(self, url: str, payload: Dict, headers: Dict = None) -> Response:
+    def put(self, url: str, payload: Dict, headers: Dict) -> Response:
         """Abstract put  method"""
 
     @abstractmethod
-    def patch(self, url: str, payload: Dict, headers: Dict = None) -> Response:
+    def patch(self, url: str, payload: Dict, headers: Dict) -> Response:
         """Abstract patch  method"""
 
     @abstractmethod

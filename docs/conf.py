@@ -12,6 +12,7 @@ from __future__ import unicode_literals
 
 import os
 import sys
+import datetime
 
 sys.path.insert(0, os.path.abspath(".."))
 
@@ -32,9 +33,10 @@ autoclass_content = 'both'
 source_suffix = ".rst"
 master_doc = "index"
 project = "ocx-common"
-year = "2024"
+year = "2025"
 author = "Ole Christian Astrup"
-copyright = "{0}, {1}".format(year, "3Docx.org")
+organisation= '3Docx.org'
+copyright = f"{datetime.datetime.now().year}, {organisation}"
 version = "1.1.0"
 release = version
 pygments_style = "trac"

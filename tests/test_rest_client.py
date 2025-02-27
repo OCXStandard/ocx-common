@@ -1,9 +1,9 @@
 #  Copyright (c) 2023. OCX Consortium https://3docx.org. See the LICENSE
 
 import pytest
-import requests
+
 from ocx_common.clients.clients import RestClient
-from tests.conftest import (MOCK_URL)
+from tests.conftest import MOCK_URL
 from tests.mock_rest_responses import mock_server
 
 client = RestClient()

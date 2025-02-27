@@ -4,12 +4,12 @@
 from lxml import etree
 
 from ocx_common.parser.parsers import OcxParser
+from ocx_common.utilities.ocx_xml import OcxXml
 from ocx_common.x_path.x_path import OcxPathBuilder
 from ocx_common.x_path.xelement import LxmlElement
-from ocx_common.utilities.ocx_xml import OcxXml
 
 # Project imports
-from .conftest import TEST_MODEL, SCHEMA_VERSION, NAMESPACE, MODEL_FOLDER
+from .conftest import MODEL_FOLDER, NAMESPACE, SCHEMA_VERSION, TEST_MODEL
 
 
 class TestXPathBuilder:

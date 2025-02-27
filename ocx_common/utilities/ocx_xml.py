@@ -2,8 +2,9 @@
 import re
 from pathlib import Path
 from typing import Dict
+from loguru import logger
 
-from ocx_common.utilities.source_validator import SourceError, SourceValidator
+from ocx_common.utilities.validation import URIValidator
 
 
 class OcxXml:
@@ -17,18 +18,18 @@ class OcxXml:
             model: The source file path or uri
 
         Returns:
-            The schema version of the 3Docx XML model.
+            The schema version of the 3Docx XML model or None if the file cannot be found.
         """
-        try:
-            version = "NA"
-            ocx_model = Path(SourceValidator.validate(model))
-            content = ocx_model.read_text().split()
+        version = None
+        validator = URIValidator(model)
+        if validator.is_local_file():
+            content = Path(model).read_text().split()
             for item in content:
                 if "schemaVersion" in item:
                     version = item[item.find("=") + 2 : -1]
-            return version
-        except SourceError as e:
-            raise SourceError(e) from e
+        else:
+            logger.error(f"The uri {model} is not a file path")
+        return version
 
     @staticmethod
     def get_ocx_namespace(model: str) -> str:

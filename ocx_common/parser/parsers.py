@@ -3,9 +3,11 @@
 
 # system imports
 from abc import ABC
-from dataclasses import dataclass
-from typing import Dict
 from enum import Enum
+from pathlib import Path
+
+from typing import TypeVar, Dict, Optional
+from dataclasses import dataclass, is_dataclass
 
 # 3rd party imports
 import lxml.etree
@@ -19,9 +21,12 @@ from xsdata.formats.dataclass.parsers.handlers import LxmlEventHandler
 
 # Project imports
 from ocx_common.interfaces.interfaces import IObservable
-from ocx_common.utilities.source_validator import SourceValidator, SourceError
-from ocx_common.utilities.ocx_xml import OcxXml
 from ocx_common.loader.loader import DeclarationOfOcxImport, DynamicLoader
+from ocx_common.utilities.ocx_xml import OcxXml
+from ocx_common.utilities.validation import URIError, URIValidator
+
+
+T = TypeVar("T")
 
 
 class OcxParserError(ParserError):
@@ -137,7 +142,7 @@ class OcxNotifyParser(IObservable, ABC):
         self.update(ObservableEvent.DATACLASS, {"name": tag, "object": new_data_class})
         return new_data_class
 
-    def parse(self, xml_file: str) -> dataclass:
+    def parse(self, xml_file: str) -> Optional[T]:
         """Parse a 3Docx XML model and return the root dataclass.
 
         Args:
@@ -147,50 +152,52 @@ class OcxNotifyParser(IObservable, ABC):
             The root dataclass instance of the parsed 3Docx XML.
         """
         try:
-            file_path = SourceValidator.validate(xml_file)
-            tree = lxml.etree.parse(xml_file)
-            root = tree.getroot()
-            version = OcxXml.get_version(file_path)
-            declaration = DeclarationOfOcxImport("ocx", version)
-            # Load target schema version module
-            ocx_module = DynamicLoader.import_module(declaration)
-            return self._parser.parse(root, ocx_module.OcxXml)
-        except lxml.etree.XMLSyntaxError as e:
+            validator = URIValidator(xml_file)
+            if validator.is_local_file():
+                tree = lxml.etree.parse(xml_file)
+                root = tree.getroot()
+                version = OcxXml.get_version(xml_file)
+                declaration = DeclarationOfOcxImport("ocx", version)
+                # Load target schema version module
+                ocx_module = DynamicLoader.import_module(declaration)
+                ocx_xml = self._parser.parse(root, ocx_module.OcxXml)
+                if not is_dataclass(ocx_xml):
+                    logger.error(f"{ocx_xml.__class_name__} is not a data class")
+                    return None
+                return ocx_xml
+            else:
+                logger.error(f'The uri r"{xml_file}" is not a local file')
+        except (
+            lxml.etree.XMLSyntaxError,
+            ImportError,
+            XmlContextError,
+            ParserError,
+        ) as e:
             logger.error(e)
             raise XmlParserError(e) from e
-        except ImportError as e:
-            logger.error(e)
-            raise XmlParserError from e
-        except XmlContextError as e:
-            logger.error(e)
-            raise XmlParserError from e
-        except ParserError as e:
-            logger.error(e)
-            raise XmlParserError from e
 
-    def parse_element(self, element: Element, ocx_module) -> dataclass:
+    def parse_element(self, element: Element, ocx_module) -> Optional[T]:
         """Parse a 3Docx XML element and return the dataclass.
 
         Args:
             element: The 3Docx XML Element to parse.
 
         Returns:
-            The element dataclass instance.
+            The element dataclass instance if created, else returns None.
         """
         try:
-            return self._parser.parse(element, ocx_module)
-        except lxml.etree.XMLSyntaxError as e:
+            cls = self._parser.parse(element, ocx_module)
+            if not is_dataclass(cls):
+                logger.error(f"{cls.__name__} is not a dataclass")
+            return cls
+        except (
+            lxml.etree.XMLSyntaxError,
+            ImportError,
+            XmlContextError,
+            ParserError,
+        ) as e:
             logger.error(e)
             raise XmlParserError(e) from e
-        except ImportError as e:
-            logger.error(e)
-            raise XmlParserError from e
-        except XmlContextError as e:
-            logger.error(e)
-            raise XmlParserError from e
-        except ParserError as e:
-            logger.error(e)
-            raise XmlParserError from e
 
 
 class OcxParser:
@@ -209,10 +216,12 @@ class OcxParser:
         self._tree: lxml.etree = None
         self._version: str = ""
         try:
-            file = SourceValidator.validate(ocx_model)
-            self._version = OcxXml.get_version(file)
-            self._tree = lxml.etree.parse(file)
-        except (SourceError, ParserError) as e:
+            validator = URIValidator(ocx_model)
+            if validator.is_valid(check_source=True):
+                file = Path(ocx_model).resolve()
+                self._version = OcxXml.get_version(str(file))
+                self._tree = lxml.etree.parse(file)
+        except (URIError, ParserError) as e:
             logger.error(e)
             raise OcxParserError(e) from e
 
