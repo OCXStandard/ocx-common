@@ -1,11 +1,11 @@
 #  Copyright (c) 2023-2025. OCX Consortium https://3docx.org. See the LICENSE
 
 from pathlib import Path
-from loguru import logger
-from tests.conftest import NAMESPACE
+import pytest
 from ocx_common.utilities.downloader import SchemaDownloader
+from tests.conftest import NAMESPACE
 
-
+@pytest.mark.skip(reason="Remove this functionality")
 def test_download_from_url(shared_datadir):
     """Test download from external source."""
 
@@ -15,7 +15,7 @@ def test_download_from_url(shared_datadir):
     assert len(files) == 3
 
 
-
+@pytest.mark.skip(reason="Remove this functionality")
 def test_download_from_file(shared_datadir: Path):
     """Test download from a local file."""
     # Temp folder

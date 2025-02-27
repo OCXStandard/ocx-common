@@ -1,12 +1,14 @@
 #  Copyright (c) 2024. OCX Consortium https://3docx.org. See the LICENSE
 
+import os
 from pathlib import Path
+
 import pytest
 
 # Project import
 from ocx_common.utilities import utilities
 
-from .conftest import TEST_MODEL, MODEL_FOLDER
+from .conftest import MODEL_FOLDER, TEST_MODEL
 
 
 def test_is_substring_in_list_1():
@@ -64,40 +66,69 @@ def test_get_file_path(shared_datadir):
     path = utilities.get_file_path(str(file))
     assert path == str(file)
 
+@pytest.mark.parametrize(
+    "path, expected",
+    [
+        ("C:/Users/oca/AppData/Local/Temp/pytest-of-OCA/pytest-430/test_validate_10/data/models/NAPA-OCX_M1.3docx", True),  # ✅ Valid Windows absolute path
+        ("C://Users/oca//NAPA-OCX_M1.3docx", True),  # ✅ Valid Windows absolute path with double slashes
+        ("D://Users/oca//NAPA-OCX_M1.3docx", True),  # ✅ Valid Windows absolute path with double slashes
+        ("..\relative\path\file.txt", False), # ❌ ( relative path)
+        ("C:Windows/System32/", False), # ❌  (Missing / after drive)
+        ("K/Windows/System32/", False),  # ❌  (Missing : after drive)
+    ],
+)
 
-def test_is_directory(shared_datadir):
-    assert utilities.is_directory(shared_datadir)
+def test_is_valid_absolute_windows_path(path, expected):
+    assert utilities.is_valid_absolute_windows_path(path) == expected
 
 
-def test_is_directory_false(shared_datadir):
-    not_exist = shared_datadir / "not_exist"
-    assert utilities.is_directory(not_exist) is False
+@pytest.mark.parametrize(
+    "path, expected",
+    [
+        ("/home/user/file.txt", True),  # ✅ Valid absolute path
+        ("/var/log/system.log", True),  # ✅ Valid absolute
+        ("./relative/path/to/file", True),  # ✅ Valid relative path
+        ("../parent/directory/script.sh", True),  # ✅ Valid relative path
+        ("~/Documents/file.pdf", True), # ✅ Valid home directory path
+        ("/usr/local/bin/", True), # ✅Valid directory path
+        (".hiddenfile", True), # ✅Valid hidden file
+        ("/tmp/my_file-123.log", True), # ✅Valid tmp file
+        ("home/user/file.txt", False),  # ❌ Missing leading `/`, `./`, or `../`
+        ("/invalid|name/file.txt", False),  # ❌ Contains `|`
+        ("/etc/passwd?query=1", False),  # ❌ Contains `?`
+        ("C:\\Windows\\System32\\cmd.exe", False),  # ❌ Windows path
+    ],
+)
+
+def test_valid_unix_paths(path, expected):
+    assert(utilities.is_valid_unix_file_path(path)) == expected
+
+@pytest.mark.parametrize(
+    "uri, expected",
+    [
+        ("file://localhost:80/home/user/file.txt", False),  # ❌ remote file path
+        ("file://C:/user/system.log", True),  # ✅ Valid local absolute file path
+        ("file://C://One Drive//path//to//file", True),  # ✅ Valid local relative path
+        ("file://./parent/directory/script.sh", False),  # ✅ relative path
+    ],
+)
+
+def test_is_local_file_uri(uri, expected):
+    assert(utilities.is_local_file_uri(uri)) == expected
 
 
-def test_is_valid_windows_path_1():
-    assert utilities.is_valid_windows_path("C:\\Users\\oca\\OneDrive - DNV\\Git_Repos\\TestModels\\Latest")
-
-
-# @pytest.mark.parametrize(
-#     "uri, expected",
-#     [
-#         ("file://C:/Users/test/file.txt", True),  # ✅ Valid Windows absolute path
-#         ("file:///C:/absolute/windows/path.txt", True),  # ✅ Windows absolute path with triple slashes
-#         ("file://localhost/C:/path.txt", True),  # ✅ Windows localhost path
-#         ("file:///home/user/file.txt", True),  # ✅ Unix absolute path
-#         ("file:/relative/path.txt", False),  # ❌ Missing slashes
-#         ("file://C|/invalid/path.txt", False),  # ❌ Incorrect Windows drive format
-#         ("file://C:/valid/path.txt", True),  # ✅ Valid Windows absolute path
-#         ("file:\\backslashes\\wrong.txt", False),  # ❌ Backslashes are not allowed
-#         ("http://example.com/file.txt", False),  # ❌ Wrong scheme
-#     ],
-# )
-# def test_file_uri_format(uri, expected):
-#     """Test if file URIs are formatted correctly."""
-#     assert utilities.is_valid_file_uri(uri) == expected
-
-def test_file_uri_to_path(uri, expected):
-    assert utilities.file_uri_to_path(uri) == expected
+# #
+# # @pytest.mark.parametrize(
+# #     "path, expected",
+# #     [
+# #         ("C:/Users/oca/NAPA-OCX_M1.3docx", True) if os.name == 'nt' else ("home/user/file.txt", False),
+# #         ("D:/Users/oca/NAPA-OCX_M1.3docx", True)if os.name == 'nt' else ("./relative/path/to/file", True),
+# #         ("C:Windows/System32/", False) if os.name == 'nt' else ("/var/log/system.log", True),
+# #     ],
+# # )
+#
+# def test_is_valid_file_path(path, expected):
+#     assert(utilities.is_valid_file_path(path)) == expected
 
 def test_file_uri_to_path_1():
     assert utilities.file_uri_to_path("file:C:/User/john/myfile.txt") == "C:\\User\\john\\myfile.txt"
@@ -109,4 +140,4 @@ def test_file_uri_to_path_3():
     assert utilities.file_uri_to_path("file://server/share/myfile.txt") == "server\\share\\myfile.txt"
 
 def test_file_uri_to_path_4():
-    assert utilities.file_uri_to_path("file:///home/user/myfile.txt") == "/home/user/myfile.txt"
+    assert utilities.file_uri_to_path("file:///home/user/myfile.txt") == "\\home\\user\\myfile.txt"

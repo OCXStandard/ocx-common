@@ -2,7 +2,7 @@
 
 # Sys imports
 import re
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List, Optional, Union
 
 # Third party imports
 from loguru import logger
@@ -338,7 +338,7 @@ class LxmlElement:
             return False
 
     @staticmethod
-    def get_substitution_group(element: Element) -> str:
+    def get_substitution_group(element: Element) -> Optional[Any]:
         """Return the name of the element's substitutionGroup
 
         Args:
@@ -546,7 +546,10 @@ class LxmlElement:
 
     @staticmethod
     def find_all_children_with_name_and_attribute(
-        element: Element, child_name: str, attrib_name: str, namespace: str = "*"
+        element: Element,
+        child_name: str,
+        attrib_name: str,
+        namespace: str = "*",
     ) -> List:
         """Find all the XML elements with name ``name`` and attribute name ``attrib_name``
 
