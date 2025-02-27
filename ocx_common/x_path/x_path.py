@@ -2,7 +2,7 @@
 """A python XPath implementation for OCX types"""
 
 # System imports
-from typing import List, Any, Callable
+from typing import Any, Callable, List
 
 # Third party imports
 from lxml import etree
@@ -108,10 +108,13 @@ class OcxPath:
         self._smart_strings = smart_strings
 
     def get_ocx_attribute_value_collection(
-        self, element: etree.Element, attribute_name: str, namespace: str = "ocx"
+        self,
+        element: etree.Element,
+        attribute_name: str,
+        namespace: str = "ocx",
     ) -> List[Any]:
         search = etree.XPath(
-            path=OcxPathBuilder.select_all_nodes_with_attribute_name(
+            path=OcxPathBuilder.select_any_nodes_with_global_attribute_name(
                 attribute_name=attribute_name, namespace=namespace
             ),
             namespaces=self._namespaces,
@@ -129,7 +132,7 @@ class OcxPath:
         namespace: str = "ocx",
     ) -> List[Any]:
         search = etree.XPath(
-            path=OcxPathBuilder.select_nodes_with_attribute_value(
+            path=OcxPathBuilder.select_any_nodes_with_attribute_value(
                 attribute_name=attribute_name,
                 attribute_value=attribute_value,
                 namespace=namespace,

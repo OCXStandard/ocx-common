@@ -1,8 +1,9 @@
 #  Copyright (c) 2024. #  OCX Consortium https://3docx.org. See the LICENSE
 
 # Project imports
-from .conftest import TEST_MODEL, MODEL_FOLDER
-from ocx_common.parser.parsers import OcxNotifyParser, OcxParser, OcxParserError
+from ocx_common.parser.parsers import OcxNotifyParser, OcxParser
+
+from .conftest import MODEL_FOLDER, TEST_MODEL
 
 
 class TestNotifyParser:

@@ -7,13 +7,14 @@ from abc import ABC
 from enum import Enum
 from io import BytesIO
 from typing import Dict
+
 import pycurl
 import requests
-from requests.models import Response
 
 # Third party
 from loguru import logger
 from pycurl import error as pycurl_error
+from requests.models import Response
 
 # Project imports
 from ocx_common.interfaces.interfaces import IRestClient
@@ -51,7 +52,7 @@ class RestClient(IRestClient, ABC):
 
     def get(self, url: str, headers: dict = None) -> Response:
         """
-        Get method.
+            Get method.
 
         Args:
             headers: The request header dictionary
@@ -63,6 +64,7 @@ class RestClient(IRestClient, ABC):
         Raises:
              RequestClientError on (HTTPError, ConnectionError).
         """
+
         try:
             if headers is None:
                 headers = self._headers
@@ -77,7 +79,7 @@ class RestClient(IRestClient, ABC):
 
     def post(self, url: str, payload: Dict, headers: Dict = None) -> Response:
         """
-        Post method.
+            Post method.
         Args:
             headers: The request headers
             url: the resource.
@@ -89,6 +91,7 @@ class RestClient(IRestClient, ABC):
         Raises:
               RequestClientError on (HTTPError, ConnectionError).
         """
+
         try:
             if headers is None:
                 headers = self._headers
@@ -105,15 +108,17 @@ class RestClient(IRestClient, ABC):
 
     def set_headers(self, headers: Dict):
         """
-        Set the request headers
+            Set the request headers
         Args:
             headers: The headers declaration
+
         """
+
         self._headers = headers
 
     def put(self, url: str, payload: Dict, headers: Dict = None) -> Response:
         """
-        Post method.
+            Put method.
         Args:
             headers: Request header
             url: the resource.
@@ -124,12 +129,14 @@ class RestClient(IRestClient, ABC):
 
         Raises:
               RequestClientError on (HTTPError, ConnectionError).
+
         """
+
         raise RequestClientError("put method not implemented")
 
     def patch(self, url: str, payload: Dict, headers: Dict = None) -> Response:
         """
-        Post method.
+            Patch method.
         Args:
             headers: The request header
             url: the resource.
@@ -141,11 +148,12 @@ class RestClient(IRestClient, ABC):
         Raises:
               RequestClientError on (HTTPError, ConnectionError).
         """
+
         raise RequestClientError("patch method not implemented")
 
     def delete(self, url: str, payload: Dict, headers: Dict = None) -> Response:
         """
-        Post method.
+            Delete method.
         Args:
             headers: The request header
             url: the resource.
@@ -157,6 +165,7 @@ class RestClient(IRestClient, ABC):
         Raises:
               RequestClientError on (HTTPError, ConnectionError).
         """
+
         raise RequestClientError("delete method not implemented")
 
 
@@ -180,7 +189,7 @@ class CurlRestClient(IRestClient, ABC):
 
     def get(self, url: str, headers: dict = None) -> Response:
         """
-        Get method.
+            Get method.
 
         Args:
             headers: Request header
@@ -221,7 +230,7 @@ class CurlRestClient(IRestClient, ABC):
 
     def post(self, url: str, payload: Dict, headers: Dict = None) -> Response:
         """
-        Post method.
+            Post method.
         Args:
             headers: The request headers
             url: the resource.
@@ -233,6 +242,7 @@ class CurlRestClient(IRestClient, ABC):
         Raises:
               RequestClientError on pycurl.error.
         """
+
         curl = pycurl.Curl()
         curl.setopt(pycurl.URL, url)
         # curl.setopt(pycurl.TIMEOUT, self._timeout)
@@ -274,7 +284,7 @@ class CurlRestClient(IRestClient, ABC):
 
     def put(self, url: str, payload: Dict, headers: Dict = None) -> Response:
         """
-        Post method.
+            Put method.
         Args:
             headers: Request header
             url: the resource.
@@ -285,12 +295,14 @@ class CurlRestClient(IRestClient, ABC):
 
         Raises:
               RequestClientError on (HTTPError, ConnectionError).
+
         """
+
         raise CurlClientError("put method not implemented")
 
     def patch(self, url: str, payload: Dict, headers: Dict = None) -> Response:
         """
-        Post method.
+            Patch method.
         Args:
             headers: The request header
             url: the resource.
@@ -302,11 +314,12 @@ class CurlRestClient(IRestClient, ABC):
         Raises:
               RequestClientError on (HTTPError, ConnectionError).
         """
+
         raise CurlClientError("patch method not implemented")
 
     def delete(self, url: str, payload: Dict, headers: Dict = None) -> Response:
         """
-        Post method.
+            Delete method.
         Args:
             headers: The request header
             url: the resource.
@@ -318,4 +331,5 @@ class CurlRestClient(IRestClient, ABC):
         Raises:
               RequestClientError on (HTTPError, ConnectionError).
         """
+
         raise CurlClientError("delete method not implemented")

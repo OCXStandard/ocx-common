@@ -1,16 +1,18 @@
 #  Copyright (c) 2023-2025. OCX Consortium https://3docx.org. See the LICENSE
+import re
 from pathlib import Path
 from typing import Optional
+
 from loguru import logger
-import re
+from xsdata.codegen import opener
 
 # Third part imports
 from xsdata.utils.downloader import Downloader
-from xsdata.codegen import opener
 
+from ocx_common.decorators.decorators import exception_handler
 
 # Module imports
-from ocx_common.utilities import utilities
+from ocx_common.utilities.validation import URIValidator
 
 
 def set_schema_location_to_local_file(xsd_content: str) -> str:
@@ -71,12 +73,14 @@ class SchemaDownloader(Downloader):
         if location:
             self.downloaded[location] = file_path
 
+    @exception_handler(BaseException)
     def wget(self, uri: str, location: Optional[str] = None):
         """Download handler for any uri input with circular protection.
         Override super class method to handle a local file.
 
         """
-        if utilities.is_uri(uri):
+        validator = URIValidator(uri)
+        if validator.is_valid():
             if not (
                 uri in self.downloaded or (location and location in self.downloaded)
             ):
@@ -85,11 +89,8 @@ class SchemaDownloader(Downloader):
                 self.adjust_base_path(uri)
 
                 logger.info(f"Fetching {uri}")
-                if utilities.is_file_uri(uri):
-                    uri_loc = (
-                        Path.cwd() / Path(utilities.file_uri_to_path(uri)).resolve()
-                    )
-                    with open(str(uri_loc), "rb") as file:
+                if validator.is_local_file():
+                    with open(str(uri), "rb") as file:
                         input_stream = file.read()
                 else:
                     input_stream = opener.open(uri).read()  # nosec

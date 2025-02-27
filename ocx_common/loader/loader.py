@@ -7,6 +7,7 @@ import sys
 from abc import ABC
 from types import ModuleType
 from typing import Any, List
+import importlib.util
 
 # 3rd party imports
 from loguru import logger
@@ -24,7 +25,7 @@ class ModuleDeclaration(IModuleDeclaration, ABC):
 
     Args:
         package:the package name
-        sub_module: The submodule name
+        sub_module: The submodule-name
         name: The method name
     """
 
@@ -86,7 +87,7 @@ class DynamicLoader:
         """
 
         Args:
-            module_declaration: The declaration of the pyton module to load
+            module_declaration: The declaration of the python module to load
 
         Returns:
             Return the loaded module, None if failed.

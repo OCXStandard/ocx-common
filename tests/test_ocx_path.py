@@ -3,9 +3,10 @@
 
 # Project imports
 
-from .conftest import TEST_MODEL, MODEL_FOLDER
 from ocx_common.parser.parsers import OcxParser
 from ocx_common.x_path.x_path import OcxGuidRef, OcxPath
+
+from .conftest import MODEL_FOLDER, TEST_MODEL
 
 
 def test_find_vessel(shared_datadir):

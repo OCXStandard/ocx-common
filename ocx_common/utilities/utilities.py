@@ -10,11 +10,9 @@ import urllib.parse
 from collections import defaultdict
 from itertools import groupby
 from pathlib import Path
-from typing import Dict, Generator, List
-
+from typing import Any, Dict, Generator, List
 
 # Third party imports
-
 # Project imports
 
 
@@ -31,7 +29,7 @@ def is_substring_in_list(substring, string_list):
     return any(substring in string for string in string_list)
 
 
-def all_equal(iterable) -> True:
+def all_equal(iterable) -> bool:
     """
     Verify that all items in a list are equal
     Args:
@@ -67,16 +65,29 @@ def nested_dict():
     return defaultdict(nested_dict)
 
 
-def get_key_from_value(my_dict, value):
+def get_key_from_value(my_dict, value) -> Any:
+    """
+        Return the key associated with the value
+    Args:
+        my_dict: The dictionary of key, value pairs
+        value: The value to search for
+
+    Returns:
+        The key if found
+    Raises:
+        ValueError if the value does not exist in the dictionary.
+    """
     for key, val in my_dict.items():
         if val == value:
             return key
-    return None  # Return None if the value is not found
+    raise ValueError(
+        f"The value {value} does not exist in the dictionary"
+    )  # raise a ValueError if the value is not found
 
 
 def default_to_regular(d) -> Dict:
     """
-    Converts defaultdicts of defaultdicts to dict of dicts.
+    Converts defaultdict of defaultdict to dict of dicts.
 
     Args:
         d: The dict to be converted
@@ -136,70 +147,88 @@ def get_file_path(file_name):
     return os.path.join(base_path, file_name)
 
 
-def is_valid_windows_path(path: str) -> bool:
-    windows_pattern = re.compile(
-        r"^(?:(?:[a-zA-Z]:\\|\\\\[^\\/:*?\"<>|\r\n]+\\[^\\/:*?\"<>|\r\n]+)|"
-        r"(?:(?:\.\.?\\)*[^\\/:*?\"<>|\r\n]+\\?)*)(?:[^\\/:*?\"<>|\r\n]+\\)*[^\\/:*?\"<>|\r\n]*$"
-    )
-    return bool(windows_pattern.match(path))
-
-
-def is_valid_file_uri(uri: str) -> bool:
+def is_valid_absolute_windows_path(path: str) -> bool:
     """
-    Validate whether the given URI is a correctly formatted file:// URI.
-        Ensures file:// scheme is present (urllib.parse.urlparse(uri).scheme == "file").
-        Handles Windows paths correctly, including:
-        file://C:/path.txt
-        file:///C:/path.txt
-        file://localhost/C:/path.txt
-        Handles Unix paths correctly, ensuring / is present.
+    Returns True if the path is a valid absolute Windows path.
 
     Args:
-        uri (str): The file URI to check.
+        path (str): The path to validate.
 
     Returns:
-        bool: True if the URI is correctly formatted, False otherwise.
+        bool: True if valid, False otherwise.
+    """
+    if not path:
+        return False
+
+    # Normalize slashes (convert forward slashes to backslashes)
+    path = path.replace("/", "\\")
+
+    # Windows MAX_PATH limit (excluding long path support)
+    if len(path) > 260:
+        return False
+
+    # Ensure the path starts with a valid drive letter or UNC path
+    drive_letter_pattern = re.compile(r"^[a-zA-Z]:\\")
+    unc_pattern = re.compile(r"^\\\\[^\\/:*?\"<>|\r\n]+\\[^\\/:*?\"<>|\r\n]+")
+
+    if not (drive_letter_pattern.match(path) or unc_pattern.match(path)):
+        return False
+
+    # Ensure `os.path.isabs()` confirms it as an absolute path
+    if not os.path.isabs(path):
+        return False
+
+    return True
+
+
+def is_windows_drive_letter(scheme: str) -> bool:
     """
 
-    parsed = urllib.parse.urlparse(uri)
+    Args:
+        scheme: The urlparse scheme
 
-    # Must start with "file://"
-    if not uri.startswith("file://"):
-        return False
+    Returns:
+        True if the scheme is a valid Windows drive letter
+    """
+    return bool(re.fullmatch(r"[A-Za-z]:", scheme))
 
-    # Ensure netloc is empty or 'localhost' (except for Windows drive letters)
-    if parsed.netloc and parsed.netloc != "localhost":
-        # Windows paths might store drive letters in netloc
-        if not re.match(r"^[A-Za-z]:/.*", parsed.netloc + parsed.path):
-            return False
 
-    # Reject incorrect Windows drive formats (e.g., `C|/`)
-    if re.match(r"^/[A-Za-z]\|/", parsed.path):
-        return False
+def is_valid_unix_file_path(path: str) -> bool:
+    """
+        Return True if the path is a valid UNIX path
+    Args:
+        path: path to validate
 
-    # Windows absolute path: `/C:/path.txt` or `C:/path.txt` in netloc
-    windows_pattern = r"^/[A-Za-z]:/.*"
+    Returns: True if validated, False otherwise.
 
-    # Unix absolute path: `/home/user/file.txt` (must start with single `/`)
-    unix_pattern = r"^/[^/].*"
-
-    return bool(
-        re.match(windows_pattern, parsed.path) or re.match(unix_pattern, parsed.path)
+    """
+    unix_pattern = re.compile(
+        r"^(\/|\.{1,2}\/|~\/|\.)(?:[a-zA-Z0-9._-]+\/)*[a-zA-Z0-9._-]+\/?$"
     )
+    return bool(unix_pattern.fullmatch(path))
 
 
-def is_uri(uri) -> bool:
-    """Return True if source is an uri, False otherwise"""
-    if "file:" in uri or "http" in uri:
-        return True
+def is_valid_file_path(path: str) -> bool:
+    """
+
+    Args:
+        path:
+
+    Returns:
+
+    """
+    if os.name == "nt":
+        return is_valid_absolute_windows_path(path)
     else:
-        return False
+        return is_valid_unix_file_path(path)
 
 
-def is_file_uri(uri) -> bool:
-    """Return True if source is a file uri, False otherwise"""
-    if "file" in uri:
-        return True
+def is_local_file_uri(uri: str) -> bool:
+    """Return True if the file uri is a local file"""
+    parsed = urllib.parse.urlparse(uri)
+    if parsed.scheme == "file" and is_windows_drive_letter(parsed.netloc):
+        file_path = f"{parsed.netloc}{parsed.path}"
+        return is_valid_file_path(file_path)
     else:
         return False
 
@@ -211,7 +240,7 @@ def file_uri_to_path(uri: str) -> str:
 
         # Handle Windows UNC paths (file://server/share/file.txt → \\server\share\file.txt)
         if parsed.netloc:
-            file_path = f"\\\\{parsed.netloc}{parsed.path}"
+            file_path = f"{parsed.netloc}{parsed.path}"
         else:
             file_path = parsed.path
 
@@ -230,11 +259,6 @@ def file_uri_to_path(uri: str) -> str:
         raise ValueError(f"{uri} is not a valid file uri")
 
 
-def is_directory(source: str) -> bool:
-    """Return True if the source is a directory, False otherwise"""
-    return Path(source).is_dir()
-
-
 def iter_files(directory: str, filter_str: str) -> Generator:
     """
     Iterate over files in a directory based on a specified filter pattern.
@@ -247,8 +271,7 @@ def iter_files(directory: str, filter_str: str) -> Generator:
         Generator: A generator yielding file paths that match the filter criteria.
 
     """
-    if is_directory(directory):
-        # Specify the folder path
-        folder_path = Path(directory)
+    folder_path = Path(directory)
+    if folder_path.is_dir():
         # Using glob to filter files based on a pattern
-        return folder_path.glob(filter_str)
+        yield folder_path.glob(filter_str)
