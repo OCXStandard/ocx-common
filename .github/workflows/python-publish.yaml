@@ -32,7 +32,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install uv
-          uv pip compile -q pyproject.tom -o requirements.txt
+          uv pip compile -q pyproject.toml -o requirements.txt
           uv pip install -r requirements.txt
       - name: Build distribution
         run: |
