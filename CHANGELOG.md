@@ -14,7 +14,9 @@ and this project adheres to the Python [PEP 440 versioning recommendations](http
 * ``Security`` in case of vulnerabilities.
 
 
-## [1.2.5] - 2025-03-14
+## [2.1.5] - 2025-03-14
+
+bump to [v2.1.5](https://github.com/OCXStandard/ocx-common/releases/tag/v2.1.5)
 
 ### Change
 * Added serialising to json and xml
