@@ -19,10 +19,10 @@ PHONY: it
 init: ## Initiate the project using uv. Install all dependencies in the virtual environment and activate it
 	@uv sync
 
-activate-venv:  ## Activate the virtual environment for powershell terminal
+ps-venv:  ## Activate the virtual environment for powershell terminal
 	@powershell -NoProfile -ExecutionPolicy Bypass -Command "& { . .venv/Scripts/activate.ps1 }"
 	@powershell -NoProfile -ExecutionPolicy Bypass -Command "Write-Host 'Activated virtual environment' -ForegroundColor Blue"
-av: activate-venv
+av: ps-venv
 
 # Color output
 BLUE='\033[0;34m'
@@ -46,23 +46,22 @@ doc-links: ## Check the internal and external links after building the documenta
 	@uv run sphinx-build docs -W -b linkcheck -d _build/doctrees _build/html
 PHONY: doc-links
 
-export: ## Export the requirements to docs/requirements.txt
+doc-export: ## Export the requirements to docs/requirements.txt
 	@uv export --no-hashes --group docs -o docs/requirements.txt
 
 # RUN ##################################################################
 
 PHONY: run
-run: ## Start ocx-tools CLI
+run: ## Run the
 	uv run main.py
 
 # pre-commit ######################################################################
-pre-commit:	## Run any pre-commit hooks
+pre-commit:	## Run the pre-commit hooks
 	@uv run pre-commit run --all-files
 
 # TESTS #######################################################################
 
 FAILURES := .pytest_cache/pytest/v/cache/lastfailed
-
 
 test:  ## Run unit and integration tests
 	@uv run pytest --log-disable=test --durations=5  --cov-report html --cov=$(SOURCE)

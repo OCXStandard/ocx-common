@@ -14,6 +14,21 @@ and this project adheres to the Python [PEP 440 versioning recommendations](http
 * ``Security`` in case of vulnerabilities.
 
 
+## [1.2.5] - 2025-03-14
+
+### Change
+* Added serialising to json and xml
+* Added more tests
+* Added XSD schema parser
+
+
+## [1.2.0] - 2025-02-27
+bump to [v1.2.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.2.0)
+
+### Change
+* Moved from Poetry package management to uv from Astral
+
+
 ## [1.2.0] - 2025-02-27
 bump to [v1.2.0](https://github.com/OCXStandard/ocx-common/releases/tag/v1.2.0)
 

@@ -274,4 +274,5 @@ def iter_files(directory: str, filter_str: str) -> Generator:
     folder_path = Path(directory)
     if folder_path.is_dir():
         # Using glob to filter files based on a pattern
-        yield folder_path.glob(filter_str)
+        for file_path in folder_path.glob(filter_str):
+            yield file_path

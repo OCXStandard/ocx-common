@@ -90,7 +90,7 @@ class SchemaDownloader(Downloader):
 
                 logger.info(f"Fetching {uri}")
                 if validator.is_local_file():
-                    with open(str(uri), "rb") as file:
+                    with open(uri, "rb") as file:
                         input_stream = file.read()
                 else:
                     input_stream = opener.open(uri).read()  # nosec

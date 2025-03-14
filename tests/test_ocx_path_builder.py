@@ -3,7 +3,7 @@
 # Third party imports
 from lxml import etree
 
-from ocx_common.parser.parsers import OcxParser
+from ocx_common.parser.parsers import OcxModelParser
 from ocx_common.utilities.ocx_xml import OcxXml
 from ocx_common.x_path.x_path import OcxPathBuilder
 from ocx_common.x_path.xelement import LxmlElement
@@ -15,7 +15,7 @@ from .conftest import MODEL_FOLDER, NAMESPACE, SCHEMA_VERSION, TEST_MODEL
 class TestXPathBuilder:
     def test_select_all_named_nodes(self, shared_datadir):
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser =OcxModelParser(str(file))
         root = parser.get_root()
         search = etree.XPath(
             path=OcxPathBuilder.select_all_named_nodes("RefPlane", namespace="ocx"),
@@ -26,7 +26,7 @@ class TestXPathBuilder:
 
     def test_select_all_named_unitsml_nodes(self, shared_datadir):
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         print(root.nsmap)
         search = etree.XPath(
@@ -38,7 +38,7 @@ class TestXPathBuilder:
 
     def test_select_current_node_is_root(self, shared_datadir):
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         search = etree.XPath(
             path=OcxPathBuilder.select_current_node(),
@@ -53,7 +53,7 @@ class TestXPathBuilder:
 
     def test_select_current_node_is_vessel(self, shared_datadir):
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         vessel = LxmlElement.find_child_with_name(element=root, child_name="Vessel")
         search = etree.XPath(
@@ -69,7 +69,7 @@ class TestXPathBuilder:
 
     def test_select_parent_node_is_vessel(self, shared_datadir):
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         panel = LxmlElement.find_child_with_name(root, "Panel")
         search = etree.XPath(
@@ -85,7 +85,7 @@ class TestXPathBuilder:
 
     def test_select_named_parent_node_is_coordinate_system(self, shared_datadir):
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         x_ref = LxmlElement.find_child_with_name(root, "XRefPlanes")
         search = etree.XPath(
@@ -102,7 +102,7 @@ class TestXPathBuilder:
 
     def test_select_named_node_xrefplanes(self, shared_datadir):
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         search = etree.XPath(
             path=OcxPathBuilder.select_named_nodes("XRefPlanes"),
@@ -113,7 +113,7 @@ class TestXPathBuilder:
 
     def test_select_all_nodes_with_attribute_name_guidref(self, shared_datadir):
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         search = etree.XPath(
             path=OcxPathBuilder.select_any_nodes_with_global_attribute_name("GUIDRef"),
@@ -124,7 +124,7 @@ class TestXPathBuilder:
 
     def test_select_named_nodes_with_attribute_name_panel(self, shared_datadir):
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         search = etree.XPath(
             path=OcxPathBuilder.select_named_nodes_with_global_attribute_name(
@@ -141,7 +141,7 @@ class TestXPathBuilder:
     def select_named_nodes_with_attribute_value_of_guidref(self, shared_datadir):
         guidref = "6e17c799-8e76-416d-ba75-ca0565dd3c42"
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         search = etree.XPath(
             path=OcxPathBuilder.select_named_nodes_with_global_attribute_value(
@@ -155,7 +155,7 @@ class TestXPathBuilder:
     def select_any_nodes_with_attribute_value(self, shared_datadir):
         guidref = "6e17c799-8e76-416d-ba75-ca0565dd3c42"
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         search = etree.XPath(
             path=OcxPathBuilder.select_any_nodes_with_attribute_value(
@@ -168,7 +168,7 @@ class TestXPathBuilder:
 
     def test_select_all_nodes_with_attribute_name(self, shared_datadir):
         file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxParser(str(file))
+        parser = OcxModelParser(str(file))
         root = parser.get_root()
         search = etree.XPath(
             path=OcxPathBuilder.select_named_nodes_with_local_attribute_name(

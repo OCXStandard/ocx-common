@@ -72,7 +72,7 @@ def test_get_file_path(shared_datadir):
         ("C:/Users/oca/AppData/Local/Temp/pytest-of-OCA/pytest-430/test_validate_10/data/models/NAPA-OCX_M1.3docx", True),  # ✅ Valid Windows absolute path
         ("C://Users/oca//NAPA-OCX_M1.3docx", True),  # ✅ Valid Windows absolute path with double slashes
         ("D://Users/oca//NAPA-OCX_M1.3docx", True),  # ✅ Valid Windows absolute path with double slashes
-        ("..\relative\path\file.txt", False), # ❌ ( relative path)
+        ("../relative/path/file.txt", False), # ❌ ( relative path)
         ("C:Windows/System32/", False), # ❌  (Missing / after drive)
         ("K/Windows/System32/", False),  # ❌  (Missing : after drive)
     ],
@@ -107,6 +107,7 @@ def test_valid_unix_paths(path, expected):
     "uri, expected",
     [
         ("file://localhost:80/home/user/file.txt", False),  # ❌ remote file path
+        ("file://server/path/to/file.txt", False),  # Added test case for remote file URI
         ("file://C:/user/system.log", True),  # ✅ Valid local absolute file path
         ("file://C://One Drive//path//to//file", True),  # ✅ Valid local relative path
         ("file://./parent/directory/script.sh", False),  # ✅ relative path

@@ -18,6 +18,8 @@ from xsdata.formats.dataclass.context import XmlContext, XmlContextError
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.parsers.config import ParserConfig
 from xsdata.formats.dataclass.parsers.handlers import LxmlEventHandler
+from xsdata.models.xsd import Schema
+from xsdata.codegen.parsers.schema import SchemaParser
 
 # Project imports
 from ocx_common.interfaces.interfaces import IObservable
@@ -200,8 +202,41 @@ class OcxNotifyParser(IObservable, ABC):
             raise XmlParserError(e) from e
 
 
-class OcxParser:
-    """OcxParser class for 3Docx XML files.
+class XsdParser:
+    """A general XSD schema parser class .
+
+    Args:
+        target_namespace: The target namespace of the schema.
+        location: The path to the schema XSD file.
+
+    """
+
+    def __init__(
+        self,
+        target_namespace: str,
+        location: str,
+    ):
+        self.parser = SchemaParser(target_namespace=target_namespace, location=location)
+
+    def parse_from_bytes(self, input_stream: bytes) -> Schema:
+        """Parse the XSD from bytes and return the Schema object.
+
+        Args:
+            input_stream:
+        """
+        return self.parser.from_bytes(input_stream, Schema)
+
+    def parse_from_string(self, input_string: str) -> Schema:
+        """Parse the XSD and return the Schema object"""
+        return self.parser.from_string(input_string, Schema)
+
+    def parse_from_path(self, path: Path) -> Schema:
+        """Parse the XSD and return the Schema object"""
+        return self.parser.from_path(path, Schema)
+
+
+class OcxModelParser:
+    """OcxModelParser class for 3Docx XML files.
 
     Args:
         ocx_model: The file path or URL to the source model.
