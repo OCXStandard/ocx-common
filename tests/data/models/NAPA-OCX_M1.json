@@ -1,0 +1,1898 @@
+{
+  "Header": {
+    "time_stamp": "2024-05-13T18:17:18.255422400+03:00",
+    "name": "OCX-MODEL1/A",
+    "author": "MJ",
+    "originating_system": "NAPA Steel",
+    "organization": "NAPA",
+    "application_version": "NAPA Release B85 2024.1 x64 P",
+    "documentation": "OCX Export"
+  },
+  "schemaVersion": "3.0.0",
+  "language": "en",
+  "Vessel": {
+    "CustomProperties": null,
+    "id": "nplcid1",
+    "Description": null,
+    "name": "OCX-MODEL1/A",
+    "GUIDRef": "fdc042d8-d154-45eb-b44f-c3dc8c639555",
+    "DistanceTolerance": {
+      "numericvalue": 1.0,
+      "unit": "Umm"
+    },
+    "AngleTolerance": {
+      "numericvalue": 0.05,
+      "unit": "URad"
+    },
+    "CoordinateSystem": [
+      {
+        "CustomProperties": null,
+        "id": "nplcid7",
+        "Description": null,
+        "name": null,
+        "GUIDRef": "9fdb988c-7583-45bc-b23b-cba0e5122021",
+        "XRefPlanes": {
+          "RefPlane": [
+            {
+              "CustomProperties": null,
+              "id": "FR0",
+              "Description": null,
+              "name": "X0",
+              "GUIDRef": "0da53e77-81cf-4139-9996-4901dc800a24",
+              "ReferenceLocation": {
+                "numericvalue": 0.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "FR1",
+              "Description": null,
+              "name": "X1",
+              "GUIDRef": "ea39dd34-b6f3-432c-93ce-c5689e89ca32",
+              "ReferenceLocation": {
+                "numericvalue": 1.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "FR2",
+              "Description": null,
+              "name": "X2",
+              "GUIDRef": "53a80461-480b-4e15-9efc-4fd0798b8481",
+              "ReferenceLocation": {
+                "numericvalue": 2.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "FR3",
+              "Description": null,
+              "name": "X3",
+              "GUIDRef": "58e29831-940c-4746-8483-9b0468735446",
+              "ReferenceLocation": {
+                "numericvalue": 3.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "FR4",
+              "Description": null,
+              "name": "X4",
+              "GUIDRef": "22278f5d-5eb2-41e8-aec8-66ced2505afa",
+              "ReferenceLocation": {
+                "numericvalue": 4.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "FR5",
+              "Description": null,
+              "name": "X5",
+              "GUIDRef": "d5138d53-6f4d-47c9-9a6b-a51323741c2c",
+              "ReferenceLocation": {
+                "numericvalue": 5.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "FR6",
+              "Description": null,
+              "name": "X6",
+              "GUIDRef": "03747a78-be9b-4b2a-b381-2ca043de2cee",
+              "ReferenceLocation": {
+                "numericvalue": 6.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "FR7",
+              "Description": null,
+              "name": "X7",
+              "GUIDRef": "184660a7-8335-42fc-af75-0a68fb84412a",
+              "ReferenceLocation": {
+                "numericvalue": 7.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "FR8",
+              "Description": null,
+              "name": "X8",
+              "GUIDRef": "ef9a0c84-2373-4e7b-97c9-a751c93bebe4",
+              "ReferenceLocation": {
+                "numericvalue": 8.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "FR9",
+              "Description": null,
+              "name": "X9",
+              "GUIDRef": "92566358-a9ab-48e5-88a3-0b2bcb8d0fd9",
+              "ReferenceLocation": {
+                "numericvalue": 9.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "FR10",
+              "Description": null,
+              "name": "X10",
+              "GUIDRef": "bc7dc2d0-a1ef-45a1-a6ef-59b705ad95b6",
+              "ReferenceLocation": {
+                "numericvalue": 10.0,
+                "unit": "Um"
+              }
+            }
+          ],
+          "isMainSystem": true,
+          "DistanceToAP": null,
+          "isReversed": false
+        },
+        "YRefPlanes": {
+          "RefPlane": [
+            {
+              "CustomProperties": null,
+              "id": "nplcid17",
+              "Description": null,
+              "name": "Y0",
+              "GUIDRef": "ceb0387f-7363-4115-a35c-7712092d2f13",
+              "ReferenceLocation": {
+                "numericvalue": 0.0,
+                "unit": "Um"
+              }
+            },
+            {
+              "CustomProperties": null,
+              "id": "nplcid18",
+              "Description": null,
+              "name": "Y10",
+              "GUIDRef": "bf5020a8-8c06-43fd-a58e-0c324eda8ed5",
+              "ReferenceLocation": {
+                "numericvalue": 10.0,
+                "unit": "Um"
+              }
+            }
+          ],
+          "isMainSystem": true
+        },
+        "ZRefPlanes": null,
+        "LocalCartesian": {
+          "Origin": {
+            "coordinates": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "unit": "Um"
+          },
+          "PrimaryAxis": {
+            "direction": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          "SecondaryAxis": {
+            "direction": [
+              0.0,
+              1.0,
+              0.0
+            ]
+          }
+        },
+        "isGlobal": true
+      }
+    ],
+    "ClassificationData": {
+      "PrincipalParticulars": {
+        "Lpp": {
+          "numericvalue": 10.0,
+          "unit": "Um"
+        },
+        "RuleLength": {
+          "numericvalue": 10.0,
+          "unit": "Um"
+        },
+        "BlockCoefficient": {
+          "numericvalue": 0.0,
+          "unit": "UDimless"
+        },
+        "FP_Pos": {
+          "numericvalue": 10.0,
+          "unit": "Um"
+        },
+        "MouldedBreadth": {
+          "numericvalue": 10.0,
+          "unit": "Um"
+        },
+        "MouldedDepth": {
+          "numericvalue": NaN,
+          "unit": "Um"
+        },
+        "ScantlingDraught": {
+          "numericvalue": 1.0,
+          "unit": "Um"
+        },
+        "DesignSpeed": {
+          "numericvalue": 0.0,
+          "unit": "UKnots"
+        },
+        "FreeboardLength": {
+          "numericvalue": 10.0,
+          "unit": "Um"
+        },
+        "NormalBallastDraught": null,
+        "HeavyBallastDraught": null,
+        "SlammingDraughtEmptyFP": null,
+        "SlammingDraughtFullFP": null,
+        "LengthOfWaterline": null,
+        "FreeboardDeckHeight": null,
+        "AP_Pos": {
+          "numericvalue": 0.0,
+          "unit": "Um"
+        },
+        "ZPosOfDeck": null,
+        "DeepestEquilibriumWL": null,
+        "UpperDeckArea": null,
+        "WaterPlaneArea": null,
+        "ZPosDeckline": null,
+        "SpeedFactor": null,
+        "hasDeadweightLessThan": null,
+        "hasBilgeKeel": null,
+        "freeboardType": "A",
+        "numberOfDecksAbove": null
+      },
+      "ClassNotation": null,
+      "newbuildingSociety": "DNV",
+      "identification": "S01",
+      "newbuildingSocietyName": null,
+      "society": null,
+      "societyName": null
+    },
+    "BuilderInformation": {
+      "yard": "OCXV3",
+      "designer": "LEEVI",
+      "owner": "Tapio",
+      "yearOfBuild": "2023-01-01"
+    },
+    "TonnageData": null,
+    "StatutoryData": null,
+    "ShipDesignation": null,
+    "DesignView": [],
+    "Arrangement": null,
+    "ReferenceSurfaces": {
+      "Plane3D": [
+        {
+          "CustomProperties": null,
+          "id": "nplcid9",
+          "Description": null,
+          "name": "REF_PANEL",
+          "GUIDRef": "bb465c05-a542-4269-8ffc-c1ded07bc1c1",
+          "FaceBoundaryCurve": {
+            "CircumArc3D": [],
+            "NURBS3D": [],
+            "CompositeCurve3D": [
+              {
+                "CustomProperties": null,
+                "id": "nplcid10",
+                "Description": null,
+                "name": null,
+                "GUIDRef": "8bf00952-96d7-4bc3-a451-41a92f2ca09f",
+                "CurveLength": {
+                  "numericvalue": 0.0,
+                  "unit": "Um"
+                },
+                "is2D": false,
+                "PolyLine3D": [],
+                "Line3D": [],
+                "NURBS3D": [
+                  {
+                    "CustomProperties": null,
+                    "id": "nplcid11",
+                    "Description": null,
+                    "name": null,
+                    "GUIDRef": "1a8695cf-c9af-4229-b356-30a482f77489",
+                    "CurveLength": {
+                      "numericvalue": 0.0,
+                      "unit": "Um"
+                    },
+                    "is2D": false,
+                    "NURBSproperties": {
+                      "degree": 3,
+                      "numCtrlPts": 13,
+                      "numKnots": 17,
+                      "form": "Unknown",
+                      "isRational": false
+                    },
+                    "KnotVector": {
+                      "value": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        2.0,
+                        2.0,
+                        2.0,
+                        3.0,
+                        3.0,
+                        3.0,
+                        4.0,
+                        4.0,
+                        4.0,
+                        4.0
+                      ]
+                    },
+                    "ControlPtList": {
+                      "ControlPoint": [
+                        {
+                          "coordinates": [
+                            0.0,
+                            0.0,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            3.33333,
+                            0.0,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            6.66667,
+                            0.0,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            10.0,
+                            0.0,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            10.0,
+                            3.33333,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            10.0,
+                            6.66667,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            10.0,
+                            10.0,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            6.66667,
+                            10.0,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            3.33333,
+                            10.0,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            0.0,
+                            10.0,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            0.0,
+                            6.66667,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            0.0,
+                            3.33333,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        },
+                        {
+                          "coordinates": [
+                            0.0,
+                            0.0,
+                            0.0
+                          ],
+                          "unit": "Um",
+                          "weight": 1.0
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "CircumArc3D": []
+              }
+            ],
+            "Line3D": [],
+            "PolyLine3D": [],
+            "CircumCircle3D": [],
+            "Ellipse3D": [],
+            "Circle3D": [],
+            "isUVspace": false
+          },
+          "Origin": {
+            "coordinates": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "unit": "Um"
+          },
+          "Normal": {
+            "direction": [
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          "UDirection": null,
+          "LimitedBy": null
+        }
+      ],
+      "NURBSSurface": [],
+      "ExtrudedSurface": [],
+      "Sphere3D": [],
+      "Cone3D": [],
+      "Cylinder3D": [],
+      "SurfaceCollection": []
+    },
+    "Panel": [
+      {
+        "CustomProperties": null,
+        "id": "nplcid8",
+        "Description": "Hull Trans. Bulkhead, watertight",
+        "name": "PANEL",
+        "GUIDRef": "6e17c799-8e76-416d-ba75-ca0565dd3c42",
+        "UnboundedGeometry": {
+          "Plane3D": [],
+          "NURBSSurface": [],
+          "ExtrudedSurface": [],
+          "Sphere3D": [],
+          "Cone3D": [],
+          "Cylinder3D": [],
+          "GridRef": [],
+          "SurfaceRef": [
+            {
+              "localRef": "nplcid9",
+              "GUIDRef": "bb465c05-a542-4269-8ffc-c1ded07bc1c1",
+              "name": "PANEL",
+              "ContourBounds": null,
+              "refType": "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}Surface"
+            }
+          ]
+        },
+        "LimitedBy": {
+          "FreeEdgeCurve3D": [],
+          "EdgeReinforcementRef": [],
+          "StiffenerRef": [],
+          "PanelRef": [],
+          "SeamRef": [],
+          "SurfaceRef": [],
+          "EdgeCurveRef": [],
+          "GridRef": [
+            {
+              "localRef": "nplcid17",
+              "GUIDRef": "ceb0387f-7363-4115-a35c-7712092d2f13",
+              "name": "Y0",
+              "ContourBounds": {
+                "ContourStart": {
+                  "coordinates": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "unit": "Um"
+                },
+                "ContourEnd": {
+                  "coordinates": [
+                    10.0,
+                    0.0,
+                    0.0
+                  ],
+                  "unit": "Um"
+                }
+              },
+              "Offset": null,
+              "refType": "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ReferencePlane"
+            },
+            {
+              "localRef": "FR10",
+              "GUIDRef": "bc7dc2d0-a1ef-45a1-a6ef-59b705ad95b6",
+              "name": "X10",
+              "ContourBounds": {
+                "ContourStart": {
+                  "coordinates": [
+                    10.0,
+                    0.0,
+                    0.0
+                  ],
+                  "unit": "Um"
+                },
+                "ContourEnd": {
+                  "coordinates": [
+                    10.0,
+                    10.0,
+                    0.0
+                  ],
+                  "unit": "Um"
+                }
+              },
+              "Offset": null,
+              "refType": "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ReferencePlane"
+            },
+            {
+              "localRef": "nplcid18",
+              "GUIDRef": "bf5020a8-8c06-43fd-a58e-0c324eda8ed5",
+              "name": "Y10",
+              "ContourBounds": {
+                "ContourStart": {
+                  "coordinates": [
+                    10.0,
+                    10.0,
+                    0.0
+                  ],
+                  "unit": "Um"
+                },
+                "ContourEnd": {
+                  "coordinates": [
+                    0.0,
+                    10.0,
+                    0.0
+                  ],
+                  "unit": "Um"
+                }
+              },
+              "Offset": null,
+              "refType": "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ReferencePlane"
+            },
+            {
+              "localRef": "FR0",
+              "GUIDRef": "0da53e77-81cf-4139-9996-4901dc800a24",
+              "name": "X0",
+              "ContourBounds": {
+                "ContourStart": {
+                  "coordinates": [
+                    0.0,
+                    10.0,
+                    0.0
+                  ],
+                  "unit": "Um"
+                },
+                "ContourEnd": {
+                  "coordinates": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "unit": "Um"
+                }
+              },
+              "Offset": null,
+              "refType": "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ReferencePlane"
+            }
+          ]
+        },
+        "ComposedOf": {
+          "Plate": [
+            {
+              "CustomProperties": null,
+              "id": "nplcid12",
+              "Description": null,
+              "name": "P:P1/PANEL",
+              "GUIDRef": "eb46993f-bc48-4636-963c-05bf77acf2c8",
+              "PhysicalProperties": {
+                "DryWeight": {
+                  "numericvalue": 7850.0,
+                  "unit": "UKg"
+                },
+                "CenterOfGravity": {
+                  "coordinates": [
+                    5.0,
+                    5.0,
+                    0.0
+                  ],
+                  "unit": "Um"
+                }
+              },
+              "ExternalGeometryRef": null,
+              "NetArea": {
+                "numericvalue": 100.0,
+                "unit": "Um2"
+              },
+              "OuterContour": {
+                "CircumArc3D": [],
+                "NURBS3D": [],
+                "CompositeCurve3D": [
+                  {
+                    "CustomProperties": null,
+                    "id": "nplcid15",
+                    "Description": null,
+                    "name": null,
+                    "GUIDRef": "ae2920b8-86d5-4298-b24e-3be780dd30f7",
+                    "CurveLength": {
+                      "numericvalue": 0.0,
+                      "unit": "Um"
+                    },
+                    "is2D": false,
+                    "PolyLine3D": [],
+                    "Line3D": [],
+                    "NURBS3D": [
+                      {
+                        "CustomProperties": null,
+                        "id": "nplcid16",
+                        "Description": null,
+                        "name": null,
+                        "GUIDRef": "c13c1478-c21a-449d-bf7b-5f2150120804",
+                        "CurveLength": {
+                          "numericvalue": 0.0,
+                          "unit": "Um"
+                        },
+                        "is2D": false,
+                        "NURBSproperties": {
+                          "degree": 3,
+                          "numCtrlPts": 13,
+                          "numKnots": 17,
+                          "form": "Unknown",
+                          "isRational": false
+                        },
+                        "KnotVector": {
+                          "value": [
+                            0.0,
+                            0.0,
+                            0.0,
+                            0.0,
+                            1.0,
+                            1.0,
+                            1.0,
+                            2.0,
+                            2.0,
+                            2.0,
+                            3.0,
+                            3.0,
+                            3.0,
+                            4.0,
+                            4.0,
+                            4.0,
+                            4.0
+                          ]
+                        },
+                        "ControlPtList": {
+                          "ControlPoint": [
+                            {
+                              "coordinates": [
+                                0.0,
+                                0.0,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                3.33333,
+                                0.0,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                6.66667,
+                                0.0,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                10.0,
+                                0.0,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                10.0,
+                                3.33333,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                10.0,
+                                6.66667,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                10.0,
+                                10.0,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                6.66667,
+                                10.0,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                3.33333,
+                                10.0,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                0.0,
+                                10.0,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                0.0,
+                                6.66667,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                0.0,
+                                3.33333,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            },
+                            {
+                              "coordinates": [
+                                0.0,
+                                0.0,
+                                0.0
+                              ],
+                              "unit": "Um",
+                              "weight": 1.0
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "CircumArc3D": []
+                  }
+                ],
+                "Line3D": [],
+                "PolyLine3D": [],
+                "CircumCircle3D": [],
+                "Ellipse3D": [],
+                "Circle3D": []
+              },
+              "PlateMaterial": {
+                "localRef": "nplcid4",
+                "GUIDRef": "7014a1ab-77c8-42ea-8322-e7a777da1327",
+                "name": "A",
+                "Thickness": {
+                  "numericvalue": 0.01,
+                  "unit": "Um"
+                },
+                "refType": "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}Material"
+              },
+              "LimitedBy": {
+                "FreeEdgeCurve3D": [],
+                "EdgeReinforcementRef": [],
+                "StiffenerRef": [],
+                "PanelRef": [],
+                "SeamRef": [],
+                "SurfaceRef": [],
+                "EdgeCurveRef": [],
+                "GridRef": [
+                  {
+                    "localRef": "nplcid17",
+                    "GUIDRef": "ceb0387f-7363-4115-a35c-7712092d2f13",
+                    "name": "Y0",
+                    "ContourBounds": {
+                      "ContourStart": {
+                        "coordinates": [
+                          0.0,
+                          0.0,
+                          0.0
+                        ],
+                        "unit": "Um"
+                      },
+                      "ContourEnd": {
+                        "coordinates": [
+                          10.0,
+                          0.0,
+                          0.0
+                        ],
+                        "unit": "Um"
+                      }
+                    },
+                    "Offset": null,
+                    "refType": "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ReferencePlane"
+                  },
+                  {
+                    "localRef": "FR10",
+                    "GUIDRef": "bc7dc2d0-a1ef-45a1-a6ef-59b705ad95b6",
+                    "name": "X10",
+                    "ContourBounds": {
+                      "ContourStart": {
+                        "coordinates": [
+                          10.0,
+                          0.0,
+                          0.0
+                        ],
+                        "unit": "Um"
+                      },
+                      "ContourEnd": {
+                        "coordinates": [
+                          10.0,
+                          10.0,
+                          0.0
+                        ],
+                        "unit": "Um"
+                      }
+                    },
+                    "Offset": null,
+                    "refType": "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ReferencePlane"
+                  },
+                  {
+                    "localRef": "nplcid18",
+                    "GUIDRef": "bf5020a8-8c06-43fd-a58e-0c324eda8ed5",
+                    "name": "Y10",
+                    "ContourBounds": {
+                      "ContourStart": {
+                        "coordinates": [
+                          10.0,
+                          10.0,
+                          0.0
+                        ],
+                        "unit": "Um"
+                      },
+                      "ContourEnd": {
+                        "coordinates": [
+                          0.0,
+                          10.0,
+                          0.0
+                        ],
+                        "unit": "Um"
+                      }
+                    },
+                    "Offset": null,
+                    "refType": "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ReferencePlane"
+                  },
+                  {
+                    "localRef": "FR0",
+                    "GUIDRef": "0da53e77-81cf-4139-9996-4901dc800a24",
+                    "name": "X0",
+                    "ContourBounds": {
+                      "ContourStart": {
+                        "coordinates": [
+                          0.0,
+                          10.0,
+                          0.0
+                        ],
+                        "unit": "Um"
+                      },
+                      "ContourEnd": {
+                        "coordinates": [
+                          0.0,
+                          0.0,
+                          0.0
+                        ],
+                        "unit": "Um"
+                      }
+                    },
+                    "Offset": null,
+                    "refType": "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ReferencePlane"
+                  }
+                ]
+              },
+              "Offset": {
+                "numericvalue": -0.005,
+                "unit": "Um"
+              },
+              "UnboundedGeometry": null,
+              "PlateCutBy": null,
+              "functionType": null
+            }
+          ],
+          "Bracket": [],
+          "Pillar": []
+        },
+        "PhysicalProperties": null,
+        "OuterContour": {
+          "CircumArc3D": [],
+          "NURBS3D": [],
+          "CompositeCurve3D": [
+            {
+              "CustomProperties": null,
+              "id": "nplcid13",
+              "Description": null,
+              "name": null,
+              "GUIDRef": "1412c841-c28a-40f7-899b-bdcc1fc5ac08",
+              "CurveLength": {
+                "numericvalue": 0.0,
+                "unit": "Um"
+              },
+              "is2D": false,
+              "PolyLine3D": [],
+              "Line3D": [],
+              "NURBS3D": [
+                {
+                  "CustomProperties": null,
+                  "id": "nplcid14",
+                  "Description": null,
+                  "name": null,
+                  "GUIDRef": "9d58128e-0a39-443b-837a-367e77d15ba2",
+                  "CurveLength": {
+                    "numericvalue": 0.0,
+                    "unit": "Um"
+                  },
+                  "is2D": false,
+                  "NURBSproperties": {
+                    "degree": 3,
+                    "numCtrlPts": 13,
+                    "numKnots": 17,
+                    "form": "Unknown",
+                    "isRational": false
+                  },
+                  "KnotVector": {
+                    "value": [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      1.0,
+                      1.0,
+                      1.0,
+                      2.0,
+                      2.0,
+                      2.0,
+                      3.0,
+                      3.0,
+                      3.0,
+                      4.0,
+                      4.0,
+                      4.0,
+                      4.0
+                    ]
+                  },
+                  "ControlPtList": {
+                    "ControlPoint": [
+                      {
+                        "coordinates": [
+                          0.0,
+                          0.0,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          3.33333,
+                          0.0,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          6.66667,
+                          0.0,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          10.0,
+                          0.0,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          10.0,
+                          3.33333,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          10.0,
+                          6.66667,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          10.0,
+                          10.0,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          6.66667,
+                          10.0,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          3.33333,
+                          10.0,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          0.0,
+                          10.0,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          0.0,
+                          6.66667,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          0.0,
+                          3.33333,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      },
+                      {
+                        "coordinates": [
+                          0.0,
+                          0.0,
+                          0.0
+                        ],
+                        "unit": "Um",
+                        "weight": 1.0
+                      }
+                    ]
+                  }
+                }
+              ],
+              "CircumArc3D": []
+            }
+          ],
+          "Line3D": [],
+          "PolyLine3D": [],
+          "CircumCircle3D": [],
+          "Ellipse3D": [],
+          "Circle3D": []
+        },
+        "StiffenedBy": null,
+        "SplitBy": null,
+        "CutBy": null,
+        "functionType": "TRANSVERSAL_BULKHEAD",
+        "tightness": "WaterTight"
+      }
+    ],
+    "Plate": [],
+    "Stiffener": [],
+    "Bracket": [],
+    "Pillar": []
+  },
+  "ClassCatalogue": {
+    "CustomProperties": null,
+    "id": "nplcid2",
+    "Description": null,
+    "name": null,
+    "MaterialCatalogue": {
+      "CustomProperties": null,
+      "id": "nplcid3",
+      "Description": null,
+      "name": null,
+      "Material": [
+        {
+          "CustomProperties": null,
+          "id": "nplcid4",
+          "Description": null,
+          "name": "A",
+          "Density": {
+            "numericvalue": 7850.0,
+            "unit": "UKgOverm3"
+          },
+          "YoungsModulus": {
+            "numericvalue": 210000.0,
+            "unit": "UNOvermm2"
+          },
+          "PoissonRatio": {
+            "numericvalue": 0.3,
+            "unit": "UDimless"
+          },
+          "YieldStress": {
+            "numericvalue": 235.0,
+            "unit": "UNOvermm2"
+          },
+          "UltimateStress": {
+            "numericvalue": 400.0,
+            "unit": "UNOvermm2"
+          },
+          "ThermalExpansionCoefficient": null,
+          "grade": "A",
+          "GUIDRef": "7014a1ab-77c8-42ea-8322-e7a777da1327"
+        }
+      ]
+    },
+    "XSectionCatalogue": null,
+    "HoleShapeCatalogue": null
+  },
+  "UnitsML": {
+    "UnitSet": {
+      "Unit": [
+        {
+          "UnitName": [
+            {
+              "value": "meter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "m",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": 1
+              }
+            ]
+          },
+          "id": "Um",
+          "dimensionURL": "D_L"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "square meter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "m2",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": 2
+              }
+            ]
+          },
+          "id": "Um2",
+          "dimensionURL": "D_L2"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "cubic meter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "m3",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": 3
+              }
+            ]
+          },
+          "id": "Um3",
+          "dimensionURL": "D_L3"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "centimeter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "cm",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": "c",
+                "powerNumerator": 1
+              }
+            ]
+          },
+          "id": "Ucm",
+          "dimensionURL": "D_L"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "square centimeter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "cm2",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": "c",
+                "powerNumerator": 2
+              }
+            ]
+          },
+          "id": "Ucm2",
+          "dimensionURL": "D_L2"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "double square centimeter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "cm4",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": "c",
+                "powerNumerator": 4
+              }
+            ]
+          },
+          "id": "Ucm4",
+          "dimensionURL": "D_L4"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "millimeter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "mm",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": "m",
+                "powerNumerator": 1
+              }
+            ]
+          },
+          "id": "Umm",
+          "dimensionURL": "D_L"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "knot",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "kn",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "knot",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": 1
+              }
+            ]
+          },
+          "id": "UKnots",
+          "dimensionURL": "D_L.T-1"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "radian",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "rad",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "radian",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": 1
+              }
+            ]
+          },
+          "id": "URad",
+          "dimensionURL": "D_L"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "kilogram",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "kg",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "gram",
+                "sourceURL": null,
+                "prefix": "k",
+                "powerNumerator": 1
+              }
+            ]
+          },
+          "id": "UKg",
+          "dimensionURL": "D_Kg"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "kilogram per cubic meter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "kg/m3",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "gram",
+                "sourceURL": null,
+                "prefix": "k",
+                "powerNumerator": 1
+              },
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": -3
+              }
+            ]
+          },
+          "id": "UKgOverm3",
+          "dimensionURL": "D_Kg.M-3"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "newton per square millimeter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "N/mm2",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "newton",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": 1
+              },
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": "m",
+                "powerNumerator": -2
+              }
+            ]
+          },
+          "id": "UNOvermm2",
+          "dimensionURL": "D_N.MM-2"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "newton per square meter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "N/m2",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "newton",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": 1
+              },
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": -2
+              }
+            ]
+          },
+          "id": "UNOverm2",
+          "dimensionURL": "D_N.MM-2"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "dimensionless",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "",
+              "content": []
+            }
+          ],
+          "RootUnits": null,
+          "id": "UDimless",
+          "dimensionURL": "D_None"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "ton",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "t",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "metric_ton",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": 1
+              }
+            ]
+          },
+          "id": "Ut",
+          "dimensionURL": "D_Kg"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "kilo newton",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "kN",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "newton",
+                "sourceURL": null,
+                "prefix": "k",
+                "powerNumerator": 1
+              }
+            ]
+          },
+          "id": "UkN",
+          "dimensionURL": "D_Kg"
+        },
+        {
+          "UnitName": [
+            {
+              "value": "kilonewton meter",
+              "lang": "en-us"
+            }
+          ],
+          "UnitSymbol": [
+            {
+              "type": "kNm",
+              "content": []
+            }
+          ],
+          "RootUnits": {
+            "EnumeratedRootUnit": [
+              {
+                "unit": "newton",
+                "sourceURL": null,
+                "prefix": "k",
+                "powerNumerator": 1
+              },
+              {
+                "unit": "meter",
+                "sourceURL": null,
+                "prefix": null,
+                "powerNumerator": 1
+              }
+            ]
+          },
+          "id": "UkN-M",
+          "dimensionURL": "D_NM"
+        }
+      ]
+    },
+    "DimensionSet": {
+      "Dimension": [
+        {
+          "Length": [
+            {
+              "symbol": "L",
+              "powerNumerator": 1
+            }
+          ],
+          "Mass": [],
+          "Time": [],
+          "ElectricCurrent": [],
+          "ThermodynamicTemperature": [],
+          "AmountOfSubstance": [],
+          "LuminousIntensity": [],
+          "id": "D_L",
+          "dimensionless": false
+        },
+        {
+          "Length": [
+            {
+              "symbol": "L",
+              "powerNumerator": 2
+            }
+          ],
+          "Mass": [],
+          "Time": [],
+          "ElectricCurrent": [],
+          "ThermodynamicTemperature": [],
+          "AmountOfSubstance": [],
+          "LuminousIntensity": [],
+          "id": "D_L2",
+          "dimensionless": false
+        },
+        {
+          "Length": [
+            {
+              "symbol": "L",
+              "powerNumerator": 3
+            }
+          ],
+          "Mass": [],
+          "Time": [],
+          "ElectricCurrent": [],
+          "ThermodynamicTemperature": [],
+          "AmountOfSubstance": [],
+          "LuminousIntensity": [],
+          "id": "D_L3",
+          "dimensionless": false
+        },
+        {
+          "Length": [
+            {
+              "symbol": "L",
+              "powerNumerator": 4
+            }
+          ],
+          "Mass": [],
+          "Time": [],
+          "ElectricCurrent": [],
+          "ThermodynamicTemperature": [],
+          "AmountOfSubstance": [],
+          "LuminousIntensity": [],
+          "id": "D_L4",
+          "dimensionless": false
+        },
+        {
+          "Length": [
+            {
+              "symbol": "L",
+              "powerNumerator": 1
+            }
+          ],
+          "Mass": [],
+          "Time": [
+            {
+              "symbol": "T",
+              "powerNumerator": -1
+            }
+          ],
+          "ElectricCurrent": [],
+          "ThermodynamicTemperature": [],
+          "AmountOfSubstance": [],
+          "LuminousIntensity": [],
+          "id": "D_L.T-1",
+          "dimensionless": false
+        },
+        {
+          "Length": [],
+          "Mass": [
+            {
+              "symbol": "M",
+              "powerNumerator": 1
+            }
+          ],
+          "Time": [],
+          "ElectricCurrent": [],
+          "ThermodynamicTemperature": [],
+          "AmountOfSubstance": [],
+          "LuminousIntensity": [],
+          "id": "D_Kg",
+          "dimensionless": false
+        },
+        {
+          "Length": [
+            {
+              "symbol": "L",
+              "powerNumerator": -3
+            }
+          ],
+          "Mass": [
+            {
+              "symbol": "M",
+              "powerNumerator": 1
+            }
+          ],
+          "Time": [],
+          "ElectricCurrent": [],
+          "ThermodynamicTemperature": [],
+          "AmountOfSubstance": [],
+          "LuminousIntensity": [],
+          "id": "D_Kg.M-3",
+          "dimensionless": false
+        },
+        {
+          "Length": [
+            {
+              "symbol": "L",
+              "powerNumerator": -1
+            }
+          ],
+          "Mass": [
+            {
+              "symbol": "M",
+              "powerNumerator": 1
+            }
+          ],
+          "Time": [
+            {
+              "symbol": "T",
+              "powerNumerator": -2
+            }
+          ],
+          "ElectricCurrent": [],
+          "ThermodynamicTemperature": [],
+          "AmountOfSubstance": [],
+          "LuminousIntensity": [],
+          "id": "D_N.MM-2",
+          "dimensionless": false
+        },
+        {
+          "Length": [
+            {
+              "symbol": "L",
+              "powerNumerator": 1
+            }
+          ],
+          "Mass": [
+            {
+              "symbol": "M",
+              "powerNumerator": 1
+            }
+          ],
+          "Time": [],
+          "ElectricCurrent": [],
+          "ThermodynamicTemperature": [],
+          "AmountOfSubstance": [],
+          "LuminousIntensity": [],
+          "id": "D_NM",
+          "dimensionless": false
+        },
+        {
+          "Length": [],
+          "Mass": [],
+          "Time": [],
+          "ElectricCurrent": [],
+          "ThermodynamicTemperature": [],
+          "AmountOfSubstance": [],
+          "LuminousIntensity": [],
+          "id": "D_None",
+          "dimensionless": true
+        }
+      ]
+    }
+  },
+  "Equipments": null
+}

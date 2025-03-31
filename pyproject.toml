@@ -41,6 +41,7 @@ docs = [
     "sphinx-autodoc-typehints>=2.3.0",
     "sphinx-automodapi>=0.18.0",
     "sphinx-click>=6.0.0",
+    "sphinx-multiversion>=0.2.4",
     "sphinx-rtd-theme>=3.0.2",
 ]
 

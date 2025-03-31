@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2024 (x64) (http://www.altova.com) by Astrup, Ole Christian (DNV AS) -->
+<xs:schema xmlns:cmnt="urn:3docx.org:schema:xsd:ocx_comments-0.1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ocx="https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd" targetNamespace="urn:3docx.org:schema:xsd:ocx_comments-0.1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" cmnt:schemaLocation="urn:3docx:org:schema:xsd:ocx_comments-0.1.0 https://3docx.org/fileadmin//ocx_comments//V010//ocx_comments.xsd">
+	<xs:import namespace="https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd" schemaLocation="https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd"/>
+	<!-- ===== Global ATTRIBUTES  ======-->
+	<xs:attribute name="projectId">
+		<xs:annotation>
+			<xs:documentation>A unique project ID.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="projectName" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The name of the project.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="commentId" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A server assigned comment Id provided by the authoring system.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="commentType">
+		<xs:annotation>
+			<xs:documentation>The comment type.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Action Required"/>
+				<xs:enumeration value="Important Note"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<xs:attribute name="oid" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A unique object id.</xs:documentation>
+		</xs:annotation>
+	</xs:attribute>
+	<xs:attribute name="status">
+		<xs:annotation>
+			<xs:documentation>The comment status. One of Open, Closed, Closed but disagreed, NA</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Open"/>
+				<xs:enumeration value="Closed"/>
+				<xs:enumeration value="Closed but disagreed"/>
+				<xs:enumeration value="NA - Not appliccable"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+	<!-- ===== Global ELEMENTS  ======-->
+	<xs:complexType name="Project_T">
+		<xs:annotation>
+			<xs:documentation>Type definition of Project.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ocx:IdBase_T"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Project">
+		<xs:annotation>
+			<xs:documentation>The project that is the context for the comments.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="cmnt:Project_T">
+					<xs:sequence>
+						<xs:element ref="cmnt:Comments"/>
+					</xs:sequence>
+					<xs:attribute ref="cmnt:oid" use="required"/>
+					<xs:attribute name="designId" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>A unique vessel design ID</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="vesselId" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>A unique vessel ID</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="contractBuilderBuildNo" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The yard build number</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="contractBuilderBuildName" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The yard name</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="imoNumber" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The vessel assigned IMO number</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute ref="cmnt:projectId"/>
+					<xs:attribute ref="cmnt:projectName"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Comment_T">
+		<xs:annotation>
+			<xs:documentation>Type definition of a Comment.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ocx:IdBase_T">
+				<xs:sequence>
+					<xs:element ref="cmnt:IssueDate"/>
+					<xs:element ref="cmnt:ClosedDate" minOccurs="0"/>
+					<xs:element ref="cmnt:Title"/>
+					<xs:element ref="cmnt:CommentDescription"/>
+					<xs:element ref="cmnt:Attachment" minOccurs="0"/>
+					<xs:element ref="cmnt:Reference" minOccurs="0"/>
+					<xs:element ref="cmnt:Note" minOccurs="0"/>
+					<xs:element ref="cmnt:Replies" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute ref="cmnt:oid" use="required"/>
+				<xs:attribute ref="cmnt:commentId" use="required"/>
+				<xs:attribute ref="cmnt:status" use="required"/>
+				<xs:attribute ref="cmnt:commentType" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Comment">
+		<xs:annotation>
+			<xs:documentation>A comment issued by a Classification Society.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="cmnt:Comment_T"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Title" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> The comment title.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Comments">
+		<xs:annotation>
+			<xs:documentation>Container for comments.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element ref="cmnt:Comment"/>
+				<xs:element ref="cmnt:MarkupComment"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IssueDate" type="xs:dateTime">
+		<xs:annotation>
+			<xs:documentation>The date of issue.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ClosedDate" type="xs:dateTime">
+		<xs:annotation>
+			<xs:documentation> The closed date.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Reference" type="xs:string">
+		<xs:annotation>
+			<xs:documentation> A reference for this comment to an external source, e.g. a rule reference, a regulatory requirement or other relevant rferences.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CommentDescription" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The textual description of the comment.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Note" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A note that can be attached to a comment.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Reply" type="cmnt:Reply_T">
+		<xs:annotation>
+			<xs:documentation>A comment reply.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="Reply_T">
+		<xs:annotation>
+			<xs:documentation>The type definition of a Reply.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ocx:IdBase_T">
+				<xs:sequence>
+					<xs:element ref="cmnt:ReplyDescription"/>
+					<xs:element ref="cmnt:IssueDate"/>
+					<xs:element ref="cmnt:Attachment" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute ref="cmnt:oid" use="required"/>
+				<xs:attribute name="replyId" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>A unuqui reply id</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="issuedBy" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>The name of the issuer.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ReplyDescription" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The textual description of the reply.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Replies" type="cmnt:Replies_T">
+		<xs:annotation>
+			<xs:documentation>Container of comment replies.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="Replies_T">
+		<xs:annotation>
+			<xs:documentation>Type definition of container for Replies.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="cmnt:Reply" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Attachment" type="cmnt:Attachment_T"/>
+	<xs:complexType name="Attachment_T">
+		<xs:sequence>
+			<xs:element name="Document"/>
+		</xs:sequence>
+		<xs:attribute ref="cmnt:oid" use="required"/>
+		<xs:attribute name="embedding" use="required">
+			<xs:annotation>
+				<xs:documentation>The attachment embedding methond One of: STRING, URL or BASE64</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="STRING"/>
+					<xs:enumeration value="URL"/>
+					<xs:enumeration value="BASE64"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:element name="MarkupComment" type="cmnt:MarkupComment_T">
+		<xs:annotation>
+			<xs:documentation>A 3D comment with markup of the 3D model</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="MarkupComment_T">
+		<xs:annotation>
+			<xs:documentation>Type definiition af a MarkupComment</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="cmnt:Comment_T">
+				<xs:sequence>
+					<xs:element ref="cmnt:VisualizationInfo"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrthogonalCamera">
+		<xs:annotation>
+			<xs:documentation>The definition of an orthogonal camera view.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CameraViewPoint" type="ocx:Point3D_T">
+				<xs:annotation>
+					<xs:documentation>Camera location in model coordinates.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CameraDirection" type="ocx:Vector3D_T">
+				<xs:annotation>
+					<xs:documentation>The pointing direction of the camera.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CameraUpVector" type="ocx:Vector3D_T">
+				<xs:annotation>
+					<xs:documentation>Camera up vector.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ViewToWorldScale" type="ocx:Quantity_T">
+				<xs:annotation>
+					<xs:documentation>Vertical scaling from view to world. View's visible vertical size in meters</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="aspectRatio" use="required">
+			<xs:annotation>
+				<xs:documentation>  Proportional relationship between the width and the height of the view (w/h).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PerspectiveCamera">
+		<xs:annotation>
+			<xs:documentation>The definition of a perspective camera view.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CameraViewPoint" type="ocx:Point3D_T"/>
+			<xs:element name="CameraDirection" type="ocx:Vector3D_T"/>
+			<xs:element name="CameraUpVector" type="ocx:Vector3D_T"/>
+		</xs:sequence>
+		<xs:attribute name="fieldOfView" type="xs:double" use="required">
+			<xs:annotation>
+				<xs:documentation>Vertical field of view, in degrees.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="aspectRatio" use="required">
+			<xs:annotation>
+				<xs:documentation> Proportional relationship between the width and the height of the view (w/h).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="Component">
+		<xs:annotation>
+			<xs:documentation>The components/parts associated with a 3D comment.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute ref="ocx:GUIDRef" use="required"/>
+		<xs:attribute name="name">
+			<xs:annotation>
+				<xs:documentation>The component/part name</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ClippingPlane">
+		<xs:annotation>
+			<xs:documentation>The clipping plane definition.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Location" type="ocx:Point3D_T"/>
+			<xs:element name="Direction" type="ocx:Vector3D_T"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VisualizationInfo">
+		<xs:annotation>
+			<xs:documentation>VisualizationInfo documentation</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="cmnt:VisualizationInfo_T"/>
+			</xs:complexContent>
+			<!-- Guid of the viewpoint -->
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="VisualizationInfo_T">
+		<xs:annotation>
+			<xs:documentation>Type definition of VisualizationInfo</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<!--
+                Although plural, 'Components' is not a collection
+                -->
+			<xs:choice>
+				<xs:element name="OrthogonalCamera" type="cmnt:OrthogonalCamera"/>
+				<xs:element name="PerspectiveCamera" type="cmnt:PerspectiveCamera"/>
+			</xs:choice>
+			<xs:element name="ClippingPlanes" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ClippingPlane" type="cmnt:ClippingPlane" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SnapShot" type="cmnt:Attachment_T"/>
+		</xs:sequence>
+		<xs:attribute ref="cmnt:oid" use="required"/>
+	</xs:complexType>
+</xs:schema>
