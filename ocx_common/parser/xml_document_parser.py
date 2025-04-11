@@ -688,6 +688,13 @@ class LxmlElement:
             element = element[i + 1 : len(element)]
         return element
 
+    @staticmethod
+    def count_elements(root: Element, name: str, namespace: str = "*") -> int:
+        """Count all elements with ``name`` found as children to the root."""
+
+        elements = LxmlElement.find_all_children_with_name(root, name, namespace)
+        return len(elements)
+
 
 class LxmlParser:
     """A wrapper of the lxml etree document tree and parser.

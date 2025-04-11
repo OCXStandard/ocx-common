@@ -8,7 +8,7 @@ import pytest
 # Project import
 from ocx_common.utilities import utilities
 
-from .conftest import MODEL_FOLDER, TEST_MODEL
+from .conftest import MODEL_FOLDER, TEST_MODEL, MODEL9, MODEL1
 
 
 def test_is_substring_in_list_1():
@@ -52,7 +52,7 @@ def test_dromedary_case_split():
 
 def test_list_files_in_directory(shared_datadir):
     folder = shared_datadir / MODEL_FOLDER
-    assert utilities.list_files_in_directory(folder, "*.3docx") == [TEST_MODEL]
+    assert utilities.list_files_in_directory(folder, "*.3docx") == [MODEL1, MODEL9]
 
 
 def test_resource_path(shared_datadir):

@@ -17,7 +17,6 @@ from xsdata.exceptions import ParserError
 from xsdata.formats.dataclass.context import XmlContext, XmlContextError
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.parsers.config import ParserConfig
-from xsdata.formats.dataclass.parsers.handlers import LxmlEventHandler
 from xsdata.models.xsd import Schema
 from xsdata.codegen.parsers.schema import SchemaParser
 
@@ -25,7 +24,7 @@ from xsdata.codegen.parsers.schema import SchemaParser
 from ocx_common.interfaces.interfaces import IObservable
 from ocx_common.loader.loader import DeclarationOfOcxImport, DynamicLoader
 from ocx_common.utilities.ocx_xml import OcxXml
-from ocx_common.utilities.validation import URIError, URIValidator
+from ocx_common.utilities.validation import URIValidator
 
 
 T = TypeVar("T")
@@ -202,12 +201,12 @@ class OcxNotifyParser(IObservable, ABC):
             raise XmlParserError(e) from e
 
 
-class XsdParser:
-    """A general XSD schema parser class .
+class XsdSchemaParser:
+    """A schema parser parsing an XSD schema and returning the xsdata.models.xsd.Schema.
 
     Args:
-        target_namespace: The target namespace of the schema.
-        location: The path to the schema XSD file.
+        - target_namespace: The target namespace of the schema.
+        - location: The path to the schema XSD file.
 
     """
 
@@ -245,21 +244,79 @@ class OcxModelParser:
 
     def __init__(
         self,
-        ocx_model: str,
+        fail_on_unknown_properties: bool = False,
+        fail_on_unknown_attributes: bool = False,
+        fail_on_converter_warnings: bool = True,
     ):
-        self._parser = XmlParser(handler=LxmlEventHandler)
-        self._tree: lxml.etree = None
-        self._version: str = ""
-        try:
-            validator = URIValidator(ocx_model)
-            if validator.is_valid(check_source=True):
-                file = Path(ocx_model).resolve()
-                self._version = OcxXml.get_version(str(file))
-                self._tree = lxml.etree.parse(file)
-        except (URIError, ParserError) as e:
-            logger.error(e)
-            raise OcxParserError(e) from e
+        context = XmlContext()
+        parser_config = ParserConfig(
+            fail_on_unknown_properties=fail_on_unknown_properties,
+            fail_on_unknown_attributes=fail_on_unknown_attributes,
+            fail_on_converter_warnings=fail_on_converter_warnings,
+        )
+        self._parser = XmlParser(config=parser_config, context=context)
+        self.root: Element = None
 
-    def get_root(self) -> lxml.etree.Element:
-        """Return the document root"""
-        return self._tree.getroot()
+    def parse(self, xml_file: str) -> Optional[lxml.etree.Element]:
+        """Parse the XML file and return the root element.
+        Arg:
+            - model: The location of the XML file
+        Returns:
+            The etree root
+        Raises:
+            OcxParserError
+
+        """
+
+        try:
+            validator = URIValidator(xml_file)
+            if validator.is_local_file():
+                tree = lxml.etree.parse(xml_file)
+                self.root = tree.getroot()
+                version = OcxXml.get_version(xml_file)
+                declaration = DeclarationOfOcxImport("ocx", version)
+                # Load target schema version module
+                ocx_module = DynamicLoader.import_module(declaration)
+                ocx_xml = self._parser.parse(self.root, ocx_module.OcxXml)
+                if not is_dataclass(ocx_xml):
+                    logger.error(f"{ocx_xml.__class_name__} is not a data class")
+                    return None
+                return ocx_xml
+            else:
+                logger.error(f'The uri r"{xml_file}" is not a local file')
+        except (
+            lxml.etree.XMLSyntaxError,
+            ImportError,
+            XmlContextError,
+            ParserError,
+        ) as e:
+            logger.error(e)
+            raise XmlParserError(e) from e
+
+    def parse_element(self, element: Element, clazz: T) -> Optional[T]:
+        """Parse a 3Docx XML element and return the dataclass.
+
+        Args:
+            - element: The 3Docx XML Element to parse.
+            - clazz: The class to be instantiated
+
+        Returns:
+            The element dataclass instance if created, else returns None.
+        """
+        try:
+            cls = self._parser.parse(element, clazz)
+            if not is_dataclass(cls):
+                logger.error(f"{cls.__name__} is not a dataclass")
+            return cls
+        except (
+            lxml.etree.XMLSyntaxError,
+            ImportError,
+            XmlContextError,
+            ParserError,
+        ) as e:
+            logger.error(e)
+            raise XmlParserError(e) from e
+
+    def get_root(self) -> Optional[Element]:
+        """Return the XML document root."""
+        return self.root

@@ -1,7 +1,7 @@
 #  Copyright (c) 2024. #  OCX Consortium https://3docx.org. See the LICENSE
 from pathlib import Path
 # Project imports
-from ocx_common.parser.parsers import OcxNotifyParser, OcxModelParser, XsdParser
+from ocx_common.parser.parsers import OcxNotifyParser, XsdSchemaParser
 
 from .conftest import MODEL_FOLDER, TEST_MODEL, NAMESPACE
 
@@ -15,21 +15,12 @@ class TestNotifyParser:
         assert name == "OCX-MODEL1/A"
 
 
-class TestOcxParser:
-    def test_parse(self, shared_datadir):
-        file = shared_datadir / MODEL_FOLDER / TEST_MODEL
-        parser = OcxModelParser(str(file))
-        root = parser.get_root()
-        assert (
-            root.tag
-            == "{https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd}ocxXML"
-        )
 
 
 class TestXSDParser:
     def test_parse(self, shared_datadir):
         schema_path = shared_datadir / "schemas" / "OCX_Schema.xsd"
-        schema_parser = XsdParser(target_namespace="https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd",
+        schema_parser = XsdSchemaParser(target_namespace="https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd",
                                   location="https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd")
         schema_content = schema_path.read_text()
         schema = schema_parser.parse_from_string(schema_content)

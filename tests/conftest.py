@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../"
 SCHEMA_VERSION = "3.0.0"
 NAMESPACE = "https://3docx.org/fileadmin//ocx_schema//V300//OCX_Schema.xsd"
 MODEL1 = "NAPA-OCX_M1.3docx"
+MODEL9 = "NAPA-OCX_M9.3docx"
 
 MOCK_URL = "http://localhost:8080/rest/api"
 MODEL_FOLDER = "models"
@@ -30,6 +31,24 @@ def load_schema_from_file(shared_datadir) -> LxmlParser:
     """Load the schema from file and make it available for processing."""
     parser = LxmlParser()
     file = shared_datadir / SCHEMA_FOLDER / "OCX_Schema.xsd"
+    parser.parse(file.absolute())
+    assert parser.lxml_version() == (5, 3, 1, 0)
+    return parser
+
+@pytest.fixture
+def load_model_1(shared_datadir) -> LxmlParser:
+    """Load the schema from file and make it available for processing."""
+    parser = LxmlParser()
+    file = shared_datadir / MODEL_FOLDER / MODEL1
+    parser.parse(file.absolute())
+    assert parser.lxml_version() == (5, 3, 1, 0)
+    return parser
+
+@pytest.fixture
+def load_model_9(shared_datadir) -> LxmlParser:
+    """Load the schema from file and make it available for processing."""
+    parser = LxmlParser()
+    file = shared_datadir / MODEL_FOLDER / MODEL9
     parser.parse(file.absolute())
     assert parser.lxml_version() == (5, 3, 1, 0)
     return parser

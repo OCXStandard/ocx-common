@@ -1,6 +1,6 @@
 #  Copyright (c) 2022-2025. OCX Consortium https://3docx.org. See the LICENSE
-from ocx_common.parser.xml_document_parser import LxmlElement
-
+from ocx_common.parser.xml_document_parser import LxmlElement, LxmlParser
+from .conftest import MODEL_FOLDER, TEST_MODEL, NAMESPACE, MODEL9
 
 class TestLxmlElement:
     def test_items(self):
@@ -125,6 +125,13 @@ class TestLxmlElement:
     def test_iter(self, load_schema_from_file):
         # ToDo: write test
         pass
+
+    def test_count_elements_with_name(self, load_model_9):
+
+        root = load_model_9.get_root()
+        num_stiff = LxmlElement.count_elements(root, "Stiffener")
+        assert num_stiff == 146
+
 
     def test_find_all_children_with_name(self, load_schema_from_file):
         root = load_schema_from_file.get_root()
