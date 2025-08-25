@@ -14,6 +14,16 @@ and this project adheres to the Python [PEP 440 versioning recommendations](http
 * ``Security`` in case of vulnerabilities.
 
 
+## [2.7.0] - 2025-08-25
+
+bump to [v2.7.0](https://github.com/OCXStandard/ocx-common/releases/tag/v2.7.0)
+
+### Change
+
+* Added more tests
+* Added XSD schema parser
+* Replaced OcxParser with LxmlParser
+
 ## [2.1.5] - 2025-03-14
 
 bump to [v2.1.5](https://github.com/OCXStandard/ocx-common/releases/tag/v2.1.5)
