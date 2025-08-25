@@ -2,14 +2,13 @@
 """A python XPath implementation for OCX types"""
 
 # System imports
-from typing import Any, Callable, List
+from typing import Any, List
 
 # Third party imports
 from lxml import etree
-from lxml.etree import QName, XPathError
+from lxml.etree import XPathError
 
 # Project imports
-from ocx_common.x_path.xelement import LxmlElement
 
 
 class OcxPathError(ValueError, XPathError):
@@ -113,6 +112,16 @@ class OcxPath:
         attribute_name: str,
         namespace: str = "ocx",
     ) -> List[Any]:
+        """
+
+        Args:
+            element: The lxml Element instance
+            attribute_name: The attribute name to be retrieved
+            namespace: Optional namespace prefix. Default = "ocx"
+
+        Returns:
+            A list of attributes.
+        """
         search = etree.XPath(
             path=OcxPathBuilder.select_any_nodes_with_global_attribute_name(
                 attribute_name=attribute_name, namespace=namespace
@@ -131,6 +140,17 @@ class OcxPath:
         attribute_value: str,
         namespace: str = "ocx",
     ) -> List[Any]:
+        """
+
+        Args:
+            element:
+            attribute_name:
+            attribute_value:
+            namespace:
+
+        Returns:
+
+        """
         search = etree.XPath(
             path=OcxPathBuilder.select_any_nodes_with_attribute_value(
                 attribute_name=attribute_name,
@@ -146,10 +166,9 @@ class OcxPath:
     def get_all_named_ocx_elements(
         self, name: str, namespace: str = "ocx"
     ) -> List[Any]:
+        path = OcxPathBuilder.select_all_named_nodes(nodename=name, namespace=namespace)
         search = etree.XPath(
-            path=OcxPathBuilder.select_all_named_nodes(
-                nodename=name, namespace=namespace
-            ),
+            path=path,
             namespaces=self._namespaces,
             regexp=self._regexp,
             smart_strings=self._smart_strings,
@@ -168,55 +187,3 @@ class OcxPath:
             smart_strings=self._smart_strings,
         )
         return search(node)
-
-
-class OcxGuidRef:
-    def __init__(
-        self,
-        element_node: etree.Element,
-        namespaces: Any,
-        extensions: Any = None,
-        regexp: bool = True,
-        smart_strings: bool = True,
-    ):
-        self._node = element_node
-        self._namespaces = namespaces
-        self._extensions = extensions
-        self._regexp = regexp
-        self._smart_strings = smart_strings
-
-    def _get_guids(self, nodes: List) -> Any:
-        guids = []
-        for element in nodes:
-            ns = QName(element).namespace
-            if element.get(f"{LxmlElement.namespaces_decorate(ns)}refType") is None:
-                guids.append(
-                    element.get(f"{LxmlElement.namespaces_decorate(ns)}GUIDRef")
-                )
-        return guids
-
-    def get_all_guids(self) -> Callable:
-        search = etree.XPath(
-            path=OcxPathBuilder.select_any_nodes_with_global_attribute_name(
-                attribute_name="GUIDRef"
-            ),
-            namespaces=self._namespaces,
-            extensions=self._extensions,
-            regexp=self._regexp,
-            smart_strings=self._smart_strings,
-        )
-        nodes = search(self._node)
-        return self._get_guids(nodes)
-
-    def get_child_guids(self, node_name: str, namespace: str = "ocx") -> Callable:
-        search = etree.XPath(
-            path=OcxPathBuilder.select_any_nodes_with_global_attribute_name(
-                attribute_name="GUIDRef"
-            ),
-            namespaces=self._namespaces,
-            extensions=self._extensions,
-            regexp=self._regexp,
-            smart_strings=self._smart_strings,
-        )
-        nodes = search(self._node)
-        return self._get_guids(nodes)

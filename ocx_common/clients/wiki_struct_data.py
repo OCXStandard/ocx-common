@@ -3,9 +3,9 @@
 """Manage structured data on wiki pages."""
 
 # System imports
-from typing import Dict
 import re
-from dataclasses import dataclass, fields, field
+from dataclasses import dataclass, field, fields
+from typing import Dict
 
 # Third party imports
 # Module imports

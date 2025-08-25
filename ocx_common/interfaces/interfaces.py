@@ -4,9 +4,9 @@
 # System imports
 import threading
 from abc import ABC, abstractmethod
+from enum import Enum
 from typing import Any, Dict, Iterator, Optional
 from uuid import uuid4
-from enum import Enum
 
 from requests.models import Response
 

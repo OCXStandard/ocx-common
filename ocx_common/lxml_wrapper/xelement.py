@@ -10,8 +10,9 @@ from lxml import etree
 from lxml.etree import Element, ElementTextIterator, QName
 
 
-class LxmlElement:
-    """A wrapper class for the lxml etree.Element class main functions."""
+class XsdElement:
+    """A wrapper class for the lxml etree.Element class main functions
+    ."""
 
     @staticmethod
     def items(element: Element) -> List:
@@ -97,7 +98,7 @@ class LxmlElement:
         return element.findall(".//")
 
     @staticmethod
-    def get_xml_attrib(element: Element) -> Dict:
+    def get_all_attributes(element: Element) -> Dict:
         """The XML attributes of an element
 
         Args:
@@ -108,6 +109,23 @@ class LxmlElement:
 
         """
         return element.attrib
+
+    @staticmethod
+    def get_named_attribute(element: Element, attribute_name: str) -> Optional[dict]:
+        """Return the named attribute if it exists
+
+        Args:
+            element: The XML parent node
+            attribute_name: the name of the attribute
+
+        Returns:
+            A dictionary of ``(key,value)`` pairs of the element attributes
+
+        """
+        result = {}
+        if attribute_name in element.attrib:
+            result = element.get(attribute_name)
+        return result
 
     @staticmethod
     def get_localname(element: Element) -> str:
@@ -136,7 +154,7 @@ class LxmlElement:
         """
         name = element.get("name")
         ns = cls.get_namespace(element)
-        return f"{LxmlElement.namespaces_decorate(ns)}{name}"
+        return f"{XsdElement.namespaces_decorate(ns)}{name}"
 
     @staticmethod
     def get_name(element: Element) -> Any:
@@ -151,7 +169,7 @@ class LxmlElement:
         """
         name = element.get("name")
         if name is None:
-            name = LxmlElement.strip_namespace_prefix(element.get("ref"))
+            name = XsdElement.strip_namespace_prefix(element.get("ref"))
         return name
 
     @staticmethod
@@ -199,7 +217,7 @@ class LxmlElement:
             true if the attribute is an enumeratos, false otherwise
 
         """
-        return LxmlElement.has_child_with_name(element, "enumeration")
+        return XsdElement.has_child_with_name(element, "enumeration")
 
     @staticmethod
     def is_reference(element: Element) -> bool:
@@ -227,7 +245,7 @@ class LxmlElement:
             True if the element is mandatory, false otherwise
 
         """
-        lower, upper = LxmlElement.cardinality(element)
+        lower, upper = XsdElement.cardinality(element)
         if lower == 0:
             return False
         else:
@@ -254,7 +272,7 @@ class LxmlElement:
 
         """
 
-        attributes = LxmlElement.get_xml_attrib(element)
+        attributes = XsdElement.get_all_attributes(element)
         if "minOccurs" in attributes:
             lower = int(attributes["minOccurs"])
         else:
@@ -313,7 +331,7 @@ class LxmlElement:
             True if the element is a  substitutionGroup, false otherwise
 
         """
-        attributes = LxmlElement.get_xml_attrib(element)
+        attributes = XsdElement.get_all_attributes(element)
         if "substitutionGroup" in attributes:
             return True
         else:
@@ -331,7 +349,7 @@ class LxmlElement:
             True if the element abstract, false otherwise
 
         """
-        attributes = LxmlElement.get_xml_attrib(element)
+        attributes = XsdElement.get_all_attributes(element)
         if "abstract" in attributes:
             return True
         else:
@@ -348,7 +366,7 @@ class LxmlElement:
             name of substitutionGroup, None if no substitutionGroup
 
         """
-        attributes = LxmlElement.get_xml_attrib(element)
+        attributes = XsdElement.get_all_attributes(element)
         return attributes.get("substitutionGroup")
 
     @staticmethod
@@ -363,7 +381,7 @@ class LxmlElement:
 
         """
         restriction = ""
-        for item in LxmlElement.iter(element, "{*}restriction"):
+        for item in XsdElement.iter(element, "{*}restriction"):
             restriction = item.get("base")
         return restriction
 
@@ -425,7 +443,7 @@ class LxmlElement:
             .. highlight:: python
             .. code-block:: python
 
-                for type in LxmlElement.iter(root, {*}complexType)
+                for type in XsdElement.iter(root, {*}complexType)
                     print(type.tag)
 
             will iterate over all ``complexType`` tags and print the tag starting from the document root .
@@ -449,7 +467,7 @@ class LxmlElement:
             A list of elements. Empty list if no children can be found
 
         """
-        xpath = f".//{LxmlElement.namespaces_decorate(namespace)}{child_name}"
+        xpath = f".//{XsdElement.namespaces_decorate(namespace)}{child_name}"
         return element.findall(xpath)
 
     @staticmethod
@@ -467,7 +485,7 @@ class LxmlElement:
             The child element as etree.Element. None if no child can be found
 
         """
-        xpath = f".//{LxmlElement.namespaces_decorate(namespace)}{child_name}"
+        xpath = f".//{XsdElement.namespaces_decorate(namespace)}{child_name}"
         return element.find(xpath)
 
     @staticmethod
@@ -483,7 +501,7 @@ class LxmlElement:
             The list of the xs:attribute type found
 
         """
-        xpath = f".//{LxmlElement.namespaces_decorate(namespace)}attribute"
+        xpath = f".//{XsdElement.namespaces_decorate(namespace)}attribute"
         return element.findall(xpath)
 
     @staticmethod
@@ -498,7 +516,7 @@ class LxmlElement:
             Attribute groups
 
         """
-        xpath = f".//{LxmlElement.namespaces_decorate(namespace)}attributeGroup"
+        xpath = f".//{XsdElement.namespaces_decorate(namespace)}attributeGroup"
         return element.findall(xpath)
 
     @staticmethod
@@ -516,7 +534,7 @@ class LxmlElement:
             True if the element has a child with name ``child_name`` False otherwise
 
         """
-        xpath = f".//{LxmlElement.namespaces_decorate(namespace)}{child_name}"
+        xpath = f".//{XsdElement.namespaces_decorate(namespace)}{child_name}"
         return len(element.findall(xpath)) > 0
 
     @staticmethod
@@ -541,7 +559,7 @@ class LxmlElement:
             Empty list if no children can be found
 
         """
-        xpath = f'.//{LxmlElement.namespaces_decorate(namespace)}{name}[@{attrib_name}="{attrib_value}"]'
+        xpath = f'.//{XsdElement.namespaces_decorate(namespace)}{name}[@{attrib_name}="{attrib_value}"]'
         return element.findall(xpath)
 
     @staticmethod
@@ -565,7 +583,7 @@ class LxmlElement:
             An empty list if no children can be found
 
         """
-        xpath = f".//{LxmlElement.namespaces_decorate(namespace)}{child_name}[@{attrib_name}]"
+        xpath = f".//{XsdElement.namespaces_decorate(namespace)}{child_name}[@{attrib_name}]"
         return element.findall(xpath)
 
     @staticmethod
@@ -584,7 +602,7 @@ class LxmlElement:
         """
         test = None
         # Assertions
-        xpath = f".//{LxmlElement.namespaces_decorate(namespace)}{'assert'}"
+        xpath = f".//{XsdElement.namespaces_decorate(namespace)}{'assert'}"
         asserts = element.findall(xpath)
         if len(asserts) > 0:
             attrib = asserts[0].attrib

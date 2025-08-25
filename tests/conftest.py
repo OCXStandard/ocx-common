@@ -2,9 +2,14 @@
 
 import os
 import sys
+
 import pytest
 from icecream import ic
 from loguru import logger
+
+from ocx_common.ocx_query.query import OcxQuery
+
+logger.enable("ocx_common")
 # Project imports
 from ocx_common.parser.xml_document_parser import LxmlParser
 
@@ -52,3 +57,11 @@ def load_model_9(shared_datadir) -> LxmlParser:
     parser.parse(file.absolute())
     assert parser.lxml_version() == (5, 3, 1, 0)
     return parser
+
+@pytest.fixture
+def query_model_1(shared_datadir) -> OcxQuery:
+    """Load the model 1 from file."""
+    query = OcxQuery()
+    file = shared_datadir / MODEL_FOLDER / MODEL1
+    query.parse(file.absolute())
+    return query

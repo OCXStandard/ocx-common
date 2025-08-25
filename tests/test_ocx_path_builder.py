@@ -3,14 +3,11 @@
 # Third party imports
 from lxml import etree
 
-from ocx_common.parser.xml_document_parser import LxmlParser
-from ocx_common.utilities.ocx_xml import OcxXml
+from ocx_common.lxml_wrapper.xelement import XsdElement
 from ocx_common.x_path.x_path import OcxPathBuilder
-from ocx_common.x_path.xelement import LxmlElement
 
 # Project imports
-from .conftest import MODEL_FOLDER, NAMESPACE, SCHEMA_VERSION, TEST_MODEL
-
+from .conftest import NAMESPACE, SCHEMA_VERSION
 
 
 class TestXPathBuilder:
@@ -22,15 +19,20 @@ class TestXPathBuilder:
         )
         result = search(root)
         assert len(result) == 13
-    # ToDo: Reimplement to get all namespaces as unitsml is missing
-    # def test_select_all_named_unitsml_nodes(self, load_model_1):
-    #     root = load_model_1.get_root()
-    #     search = etree.XPath(
-    #         path=OcxPathBuilder.select_all_named_nodes("Unit", namespace="unitsml"),
-    #         namespaces=root.nsmap,
-    #     )
-    #     result = search(root)
-    #     assert len(result) == 17
+
+    def test_select_all_named_unitsml_nodes(self, load_model_1):
+        try:
+            root = load_model_1.get_root()
+            ns_map = load_model_1.get_namespaces()
+            path = OcxPathBuilder.select_all_named_nodes("Unit", namespace="unitsml")
+            search = etree.XPath(path=path,
+                namespaces=ns_map
+            )
+            result = search(root)
+            assert len(result) == 17
+        except etree.XPathEvalError as e:
+            print(e)
+            print(search.error_log)
 
     def test_select_current_node_is_root(self, load_model_1):
         root = load_model_1.get_root()
@@ -42,12 +44,12 @@ class TestXPathBuilder:
         node = result[0]
         assert (
             node.get("schemaVersion") == SCHEMA_VERSION
-            and node.tag == f"{LxmlElement.namespaces_decorate(NAMESPACE)}ocxXML"
+            and node.tag == f"{XsdElement.namespaces_decorate(NAMESPACE)}ocxXML"
         )
 
     def test_select_current_node_is_vessel(self, load_model_1):
         root = load_model_1.get_root()
-        vessel = LxmlElement.find_child_with_name(element=root, child_name="Vessel")
+        vessel = XsdElement.find_child_with_name(element=root, child_name="Vessel")
         search = etree.XPath(
             path=OcxPathBuilder.select_current_node(),
             namespaces=root.nsmap,
@@ -56,12 +58,12 @@ class TestXPathBuilder:
         node = result[0]
         assert (
             node.get("name") == "OCX-MODEL1/A"
-            and node.tag == f"{LxmlElement.namespaces_decorate(NAMESPACE)}Vessel"
+            and node.tag == f"{XsdElement.namespaces_decorate(NAMESPACE)}Vessel"
         )
 
     def test_select_parent_node_is_vessel(self, load_model_1):
         root = load_model_1.get_root()
-        panel = LxmlElement.find_child_with_name(root, "Panel")
+        panel = XsdElement.find_child_with_name(root, "Panel")
         search = etree.XPath(
             path=OcxPathBuilder.select_parent_node(),
             namespaces=root.nsmap,
@@ -70,12 +72,12 @@ class TestXPathBuilder:
         parent = result[0]
         assert (
             parent.get("id") == "nplcid1"
-            and parent.tag == f"{LxmlElement.namespaces_decorate(NAMESPACE)}Vessel"
+            and parent.tag == f"{XsdElement.namespaces_decorate(NAMESPACE)}Vessel"
         )
 
     def test_select_named_parent_node_is_coordinate_system(self, load_model_1):
         root = load_model_1.get_root()
-        x_ref = LxmlElement.find_child_with_name(root, "XRefPlanes")
+        x_ref = XsdElement.find_child_with_name(root, "XRefPlanes")
         search = etree.XPath(
             path=OcxPathBuilder.select_named_parent_node(parent="CoordinateSystem"),
             namespaces=root.nsmap,
@@ -85,13 +87,14 @@ class TestXPathBuilder:
         assert (
             parent.get("id") == "nplcid7"
             and parent.tag
-            == f"{LxmlElement.namespaces_decorate(NAMESPACE)}CoordinateSystem"
+            == f"{XsdElement.namespaces_decorate(NAMESPACE)}CoordinateSystem"
         )
 
     def test_select_named_node_xrefplanes(self, load_model_1):
         root = load_model_1.get_root()
+        path = OcxPathBuilder.select_named_nodes("XRefPlanes")
         search = etree.XPath(
-            path=OcxPathBuilder.select_named_nodes("XRefPlanes"),
+            path=path,
             namespaces=root.nsmap,
         )
         result = search(root)
@@ -99,12 +102,14 @@ class TestXPathBuilder:
 
     def test_select_all_nodes_with_attribute_name_guidref(self, load_model_1):
         root = load_model_1.get_root()
+        """The search will return all attrubutes with name "ocx:GUIDRef"""
         search = etree.XPath(
             path=OcxPathBuilder.select_any_nodes_with_global_attribute_name("GUIDRef"),
             namespaces=root.nsmap,
         )
         result = search(root)
         assert len(result) == 35
+
 
     def test_select_named_nodes_with_attribute_name_panel(self, load_model_1):
         root = load_model_1.get_root()
@@ -117,7 +122,7 @@ class TestXPathBuilder:
         result = search(root)
         assert (
             len(result) == 1
-            and result[0].tag == f"{LxmlElement.namespaces_decorate(NAMESPACE)}Panel"
+            and result[0].tag == f"{XsdElement.namespaces_decorate(NAMESPACE)}Panel"
         )
 
     def select_named_nodes_with_attribute_value_of_guidref(self, load_model_1):
@@ -144,18 +149,18 @@ class TestXPathBuilder:
         result = search(root)
         assert len(result) == 1 and result[0].get("GUIDRef") == guidref
 
-    # ToDo: Need to implement retriveing all namespaces. root.nsmap does not contain the imported namespace unitsml
-    # def test_select_all_nodes_with_attribute_name(self, load_model_1):
-    #     root = load_model_1.get_root()
-    #     nsmap = root.nsmap
-    #     search = etree.XPath(
-    #         path=OcxPathBuilder.select_named_nodes_with_local_attribute_name(
-    #             node_name="EnumeratedRootUnit",
-    #             attribute_name="prefix",
-    #             namespace="unitsml",
-    #         ),
-    #         namespaces=root.nsmap,
-    #     )
-    #     result = search(root)
-    #
-    #     assert len(result) == 9
+
+    def test_select_all_nodes_with_attribute_name(self, load_model_1):
+        root = load_model_1.get_root()
+        nsmap = load_model_1.get_namespaces()
+        path = OcxPathBuilder.select_named_nodes_with_local_attribute_name(
+                node_name="EnumeratedRootUnit",
+                attribute_name="prefix",
+                namespace="unitsml")
+        search = etree.XPath(
+            path=path,
+            namespaces=nsmap,
+        )
+        result = search(root)
+
+        assert len(result) == 9

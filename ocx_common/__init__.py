@@ -4,4 +4,4 @@ from loguru import logger
 
 __version__ = "2.6.1"
 
-logger.disable("src.ocx_common")
+logger.enable("ocx_common")
