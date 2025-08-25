@@ -3,29 +3,27 @@
 
 # system imports
 from abc import ABC
+from dataclasses import dataclass, is_dataclass
 from enum import Enum
 from pathlib import Path
-
-from typing import TypeVar, Dict, Optional
-from dataclasses import dataclass, is_dataclass
+from typing import Dict, Optional, TypeVar
 
 # 3rd party imports
 import lxml.etree
 from loguru import logger
 from lxml.etree import Element
+from xsdata.codegen.parsers.schema import SchemaParser
 from xsdata.exceptions import ParserError
 from xsdata.formats.dataclass.context import XmlContext, XmlContextError
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.parsers.config import ParserConfig
 from xsdata.models.xsd import Schema
-from xsdata.codegen.parsers.schema import SchemaParser
 
 # Project imports
 from ocx_common.interfaces.interfaces import IObservable
 from ocx_common.loader.loader import DeclarationOfOcxImport, DynamicLoader
 from ocx_common.utilities.ocx_xml import OcxXml
 from ocx_common.utilities.validation import URIValidator
-
 
 T = TypeVar("T")
 

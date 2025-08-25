@@ -6,9 +6,10 @@ import time
 from functools import wraps
 from typing import Dict
 
+from icecream import ic
+
 # Third party imports
 from loguru import logger
-from icecream import ic
 
 
 def timer(func):

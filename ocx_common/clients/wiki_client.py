@@ -2,9 +2,9 @@
 """Python xml-rpc client for the OCX wiki."""
 
 # System imports
-from typing import Dict
 import datetime
 from pathlib import Path
+from typing import Dict
 
 # Third party imports
 from dokuwiki import DokuWiki, DokuWikiError
@@ -116,7 +116,12 @@ class WikiClient:
         return self._wiki.pages.changes(timestamp)
 
     def append_page(
-        self, page: str, content: str, summary: str, namespace: str, minor: bool = False
+        self,
+        page: str,
+        content: str,
+        summary: str,
+        namespace: str,
+        minor: bool = False,
     ):
         """Appends content to ''page''.
 
@@ -140,7 +145,12 @@ class WikiClient:
         return result
 
     def set_page(
-        self, page: str, content: str, summary: str, namespace: str, minor: bool = False
+        self,
+        page: str,
+        content: str,
+        summary: str,
+        namespace: str,
+        minor: bool = False,
     ) -> bool:
         """Set/replace the content of ''page''.
 

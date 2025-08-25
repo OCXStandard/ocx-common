@@ -1,9 +1,10 @@
 #  Copyright (c) 2024. #  OCX Consortium https://3docx.org. See the LICENSE
 from pathlib import Path
+
 # Project imports
 from ocx_common.parser.parsers import OcxNotifyParser, XsdSchemaParser
 
-from .conftest import MODEL_FOLDER, TEST_MODEL, NAMESPACE
+from .conftest import MODEL_FOLDER, NAMESPACE, TEST_MODEL
 
 
 class TestNotifyParser:

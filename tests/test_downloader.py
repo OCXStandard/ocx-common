@@ -1,9 +1,12 @@
 #  Copyright (c) 2023-2025. OCX Consortium https://3docx.org. See the LICENSE
 
 from pathlib import Path
+
 import pytest
+
 from ocx_common.utilities.downloader import SchemaDownloader
 from tests.conftest import NAMESPACE
+
 
 @pytest.mark.skip(reason="Remove this functionality")
 def test_download_from_url(shared_datadir):

@@ -8,7 +8,7 @@ import pytest
 # Project import
 from ocx_common.utilities import utilities
 
-from .conftest import MODEL_FOLDER, TEST_MODEL, MODEL9, MODEL1
+from .conftest import MODEL1, MODEL9, MODEL_FOLDER, TEST_MODEL
 
 
 def test_is_substring_in_list_1():

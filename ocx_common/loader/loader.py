@@ -3,11 +3,11 @@
 
 # system imports
 import importlib
+import importlib.util
 import sys
 from abc import ABC
 from types import ModuleType
 from typing import Any, List
-import importlib.util
 
 # 3rd party imports
 from loguru import logger

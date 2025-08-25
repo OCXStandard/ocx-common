@@ -5,12 +5,10 @@
 from dataclasses import dataclass
 from enum import Enum
 
-
 # 3rd party imports
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.serializers import JsonSerializer, XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
-
 
 # Project imports
 from ocx_common.parser.parsers import MetaData
