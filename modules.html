@@ -1,0 +1,1853 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ocx-common &mdash; ocx-common 2.7.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=34bb78ad" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=dfec817d"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Contents" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ocx-common
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ocx-common</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-ocx_common.clients.clients">clients</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.clients.clients.CurlClientError"><code class="docutils literal notranslate"><span class="pre">CurlClientError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.clients.clients.CurlRestClient"><code class="docutils literal notranslate"><span class="pre">CurlRestClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.CurlRestClient.delete"><code class="docutils literal notranslate"><span class="pre">CurlRestClient.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.CurlRestClient.get"><code class="docutils literal notranslate"><span class="pre">CurlRestClient.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.CurlRestClient.patch"><code class="docutils literal notranslate"><span class="pre">CurlRestClient.patch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.CurlRestClient.post"><code class="docutils literal notranslate"><span class="pre">CurlRestClient.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.CurlRestClient.put"><code class="docutils literal notranslate"><span class="pre">CurlRestClient.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.CurlRestClient.pycurl_to_requests_response"><code class="docutils literal notranslate"><span class="pre">CurlRestClient.pycurl_to_requests_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.CurlRestClient.set_headers"><code class="docutils literal notranslate"><span class="pre">CurlRestClient.set_headers()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.clients.clients.EmbeddingMethod"><code class="docutils literal notranslate"><span class="pre">EmbeddingMethod</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.EmbeddingMethod.BASE64"><code class="docutils literal notranslate"><span class="pre">EmbeddingMethod.BASE64</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.EmbeddingMethod.STRING"><code class="docutils literal notranslate"><span class="pre">EmbeddingMethod.STRING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.EmbeddingMethod.URL"><code class="docutils literal notranslate"><span class="pre">EmbeddingMethod.URL</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.clients.clients.RequestClientError"><code class="docutils literal notranslate"><span class="pre">RequestClientError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.clients.clients.RestClient"><code class="docutils literal notranslate"><span class="pre">RestClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.RestClient.delete"><code class="docutils literal notranslate"><span class="pre">RestClient.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.RestClient.get"><code class="docutils literal notranslate"><span class="pre">RestClient.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.RestClient.patch"><code class="docutils literal notranslate"><span class="pre">RestClient.patch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.RestClient.post"><code class="docutils literal notranslate"><span class="pre">RestClient.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.RestClient.put"><code class="docutils literal notranslate"><span class="pre">RestClient.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.clients.clients.RestClient.set_headers"><code class="docutils literal notranslate"><span class="pre">RestClient.set_headers()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ocx_common.decorators.decorators">decorators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.decorators.decorators.debugger"><code class="docutils literal notranslate"><span class="pre">debugger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.decorators.decorators.exception_handler"><code class="docutils literal notranslate"><span class="pre">exception_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.decorators.decorators.memoize"><code class="docutils literal notranslate"><span class="pre">memoize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.decorators.decorators.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ocx_common.interfaces.interfaces">interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IModuleDeclaration"><code class="docutils literal notranslate"><span class="pre">IModuleDeclaration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IModuleDeclaration.get_declaration"><code class="docutils literal notranslate"><span class="pre">IModuleDeclaration.get_declaration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IObservable"><code class="docutils literal notranslate"><span class="pre">IObservable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IObservable.subscribe"><code class="docutils literal notranslate"><span class="pre">IObservable.subscribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IObservable.unsubscribe"><code class="docutils literal notranslate"><span class="pre">IObservable.unsubscribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IObservable.update"><code class="docutils literal notranslate"><span class="pre">IObservable.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IObserver"><code class="docutils literal notranslate"><span class="pre">IObserver</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IObserver.update"><code class="docutils literal notranslate"><span class="pre">IObserver.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IParser"><code class="docutils literal notranslate"><span class="pre">IParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IParser.iterator"><code class="docutils literal notranslate"><span class="pre">IParser.iterator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IParser.parse"><code class="docutils literal notranslate"><span class="pre">IParser.parse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IRestClient"><code class="docutils literal notranslate"><span class="pre">IRestClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IRestClient.delete"><code class="docutils literal notranslate"><span class="pre">IRestClient.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IRestClient.get"><code class="docutils literal notranslate"><span class="pre">IRestClient.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IRestClient.patch"><code class="docutils literal notranslate"><span class="pre">IRestClient.patch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IRestClient.post"><code class="docutils literal notranslate"><span class="pre">IRestClient.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IRestClient.put"><code class="docutils literal notranslate"><span class="pre">IRestClient.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.IRestClient.set_headers"><code class="docutils literal notranslate"><span class="pre">IRestClient.set_headers()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.interfaces.interfaces.ISerializer"><code class="docutils literal notranslate"><span class="pre">ISerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.ISerializer.serialize_to_file"><code class="docutils literal notranslate"><span class="pre">ISerializer.serialize_to_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.interfaces.interfaces.ISerializer.serialize_to_string"><code class="docutils literal notranslate"><span class="pre">ISerializer.serialize_to_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ocx_common.loader.loader">loader</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.loader.loader.DeclarationOfOcxImport"><code class="docutils literal notranslate"><span class="pre">DeclarationOfOcxImport</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.loader.loader.DeclarationOfOcxImport.get_declaration"><code class="docutils literal notranslate"><span class="pre">DeclarationOfOcxImport.get_declaration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.loader.loader.DeclarationOfOcxImport.get_name"><code class="docutils literal notranslate"><span class="pre">DeclarationOfOcxImport.get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.loader.loader.DeclarationOfOcxImport.get_version"><code class="docutils literal notranslate"><span class="pre">DeclarationOfOcxImport.get_version()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.loader.loader.DynamicLoader"><code class="docutils literal notranslate"><span class="pre">DynamicLoader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.loader.loader.DynamicLoader.get_all_class_names"><code class="docutils literal notranslate"><span class="pre">DynamicLoader.get_all_class_names()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.loader.loader.DynamicLoader.import_class"><code class="docutils literal notranslate"><span class="pre">DynamicLoader.import_class()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.loader.loader.DynamicLoader.import_module"><code class="docutils literal notranslate"><span class="pre">DynamicLoader.import_module()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.loader.loader.DynamicLoaderError"><code class="docutils literal notranslate"><span class="pre">DynamicLoaderError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.loader.loader.ModuleDeclaration"><code class="docutils literal notranslate"><span class="pre">ModuleDeclaration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.loader.loader.ModuleDeclaration.get_declaration"><code class="docutils literal notranslate"><span class="pre">ModuleDeclaration.get_declaration()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ocx_common.parser.parsers">parser</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.parser.parsers.MetaData"><code class="docutils literal notranslate"><span class="pre">MetaData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.MetaData.class_name"><code class="docutils literal notranslate"><span class="pre">MetaData.class_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.MetaData.meta_class_fields"><code class="docutils literal notranslate"><span class="pre">MetaData.meta_class_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.MetaData.name"><code class="docutils literal notranslate"><span class="pre">MetaData.name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.MetaData.namespace"><code class="docutils literal notranslate"><span class="pre">MetaData.namespace()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.parser.parsers.ObservableEvent"><code class="docutils literal notranslate"><span class="pre">ObservableEvent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.ObservableEvent.DATACLASS"><code class="docutils literal notranslate"><span class="pre">ObservableEvent.DATACLASS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.ObservableEvent.REPORT"><code class="docutils literal notranslate"><span class="pre">ObservableEvent.REPORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.ObservableEvent.SERIALIZE"><code class="docutils literal notranslate"><span class="pre">ObservableEvent.SERIALIZE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.parser.parsers.OcxModelParser"><code class="docutils literal notranslate"><span class="pre">OcxModelParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.OcxModelParser.get_root"><code class="docutils literal notranslate"><span class="pre">OcxModelParser.get_root()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.OcxModelParser.parse"><code class="docutils literal notranslate"><span class="pre">OcxModelParser.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.OcxModelParser.parse_element"><code class="docutils literal notranslate"><span class="pre">OcxModelParser.parse_element()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.parser.parsers.OcxNotifyParser"><code class="docutils literal notranslate"><span class="pre">OcxNotifyParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.OcxNotifyParser.class_factory"><code class="docutils literal notranslate"><span class="pre">OcxNotifyParser.class_factory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.OcxNotifyParser.parse"><code class="docutils literal notranslate"><span class="pre">OcxNotifyParser.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.OcxNotifyParser.parse_element"><code class="docutils literal notranslate"><span class="pre">OcxNotifyParser.parse_element()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.OcxNotifyParser.subscribe"><code class="docutils literal notranslate"><span class="pre">OcxNotifyParser.subscribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.OcxNotifyParser.unsubscribe"><code class="docutils literal notranslate"><span class="pre">OcxNotifyParser.unsubscribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.OcxNotifyParser.update"><code class="docutils literal notranslate"><span class="pre">OcxNotifyParser.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.parser.parsers.OcxParserError"><code class="docutils literal notranslate"><span class="pre">OcxParserError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.parser.parsers.XmlParserError"><code class="docutils literal notranslate"><span class="pre">XmlParserError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.parser.parsers.XsdSchemaParser"><code class="docutils literal notranslate"><span class="pre">XsdSchemaParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.XsdSchemaParser.parse_from_bytes"><code class="docutils literal notranslate"><span class="pre">XsdSchemaParser.parse_from_bytes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.XsdSchemaParser.parse_from_path"><code class="docutils literal notranslate"><span class="pre">XsdSchemaParser.parse_from_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.parser.parsers.XsdSchemaParser.parse_from_string"><code class="docutils literal notranslate"><span class="pre">XsdSchemaParser.parse_from_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ocx_common.utilities.utilities">utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.all_equal"><code class="docutils literal notranslate"><span class="pre">all_equal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.camel_case_split"><code class="docutils literal notranslate"><span class="pre">camel_case_split()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.default_to_grid"><code class="docutils literal notranslate"><span class="pre">default_to_grid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.default_to_regular"><code class="docutils literal notranslate"><span class="pre">default_to_regular()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.dromedary_case_split"><code class="docutils literal notranslate"><span class="pre">dromedary_case_split()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.file_uri_to_path"><code class="docutils literal notranslate"><span class="pre">file_uri_to_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.get_file_path"><code class="docutils literal notranslate"><span class="pre">get_file_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.get_key_from_value"><code class="docutils literal notranslate"><span class="pre">get_key_from_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.is_local_file_uri"><code class="docutils literal notranslate"><span class="pre">is_local_file_uri()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.is_substring_in_list"><code class="docutils literal notranslate"><span class="pre">is_substring_in_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.is_valid_absolute_windows_path"><code class="docutils literal notranslate"><span class="pre">is_valid_absolute_windows_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.is_valid_file_path"><code class="docutils literal notranslate"><span class="pre">is_valid_file_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.is_valid_unix_file_path"><code class="docutils literal notranslate"><span class="pre">is_valid_unix_file_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.is_windows_drive_letter"><code class="docutils literal notranslate"><span class="pre">is_windows_drive_letter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.iter_files"><code class="docutils literal notranslate"><span class="pre">iter_files()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.list_files_in_directory"><code class="docutils literal notranslate"><span class="pre">list_files_in_directory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.nested_dict"><code class="docutils literal notranslate"><span class="pre">nested_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.parent_directory"><code class="docutils literal notranslate"><span class="pre">parent_directory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.utilities.utilities.resource_path"><code class="docutils literal notranslate"><span class="pre">resource_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ocx_common.x_path.x_path">x_path</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPath"><code class="docutils literal notranslate"><span class="pre">OcxPath</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPath.get_all_named_children"><code class="docutils literal notranslate"><span class="pre">OcxPath.get_all_named_children()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPath.get_all_named_ocx_elements"><code class="docutils literal notranslate"><span class="pre">OcxPath.get_all_named_ocx_elements()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPath.get_ocx_attribute_value_collection"><code class="docutils literal notranslate"><span class="pre">OcxPath.get_ocx_attribute_value_collection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPath.get_ocx_attribute_with_value"><code class="docutils literal notranslate"><span class="pre">OcxPath.get_ocx_attribute_with_value()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_all_named_nodes"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_all_named_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_attribute_value"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_any_nodes_with_attribute_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_global_attribute_name"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_any_nodes_with_global_attribute_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_local_attribute_name"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_any_nodes_with_local_attribute_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_local_value"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_any_nodes_with_local_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_current_node"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_current_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_named_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_global_attribute_name"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_named_nodes_with_global_attribute_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_global_attribute_value"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_named_nodes_with_global_attribute_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_local_attribute_name"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_named_nodes_with_local_attribute_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_local_attribute_value"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_named_nodes_with_local_attribute_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_parent_node"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_named_parent_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_parent_node"><code class="docutils literal notranslate"><span class="pre">OcxPathBuilder.select_parent_node()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ocx_common.x_path.x_path.OcxPathError"><code class="docutils literal notranslate"><span class="pre">OcxPathError</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ocx-common</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ocx-common</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ocx-common">
+<h1>ocx-common<a class="headerlink" href="#ocx-common" title="Link to this heading"></a></h1>
+<section id="module-ocx_common.clients.clients">
+<span id="clients"></span><h2>clients<a class="headerlink" href="#module-ocx_common.clients.clients" title="Link to this heading"></a></h2>
+<p>Module for server clients.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.CurlClientError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.clients.clients.</span></span><span class="sig-name descname"><span class="pre">CurlClientError</span></span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#CurlClientError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.CurlClientError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">error</span></code></p>
+<p>Curl client errors.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.CurlRestClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.clients.clients.</span></span><span class="sig-name descname"><span class="pre">CurlRestClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#CurlRestClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.CurlRestClient" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ocx_common.interfaces.interfaces.IRestClient" title="ocx_common.interfaces.interfaces.IRestClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRestClient</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>cURL client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – The request headers</p></li>
+<li><p><strong>timeout</strong> – The request timeout</p></li>
+</ul>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>base_url</strong> – base url</p></li>
+<li><p><strong>timeout</strong> – Timeout in ms</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.CurlRestClient.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#CurlRestClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.CurlRestClient.delete" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Delete method.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – The request header</p></li>
+<li><p><strong>url</strong> – the resource.</p></li>
+<li><p><strong>payload</strong> – The request body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Response object.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RequestClientError on</strong><strong> (</strong><strong>HTTPError</strong><strong>, </strong><strong>ConnectionError</strong><strong>)</strong><strong>.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.CurlRestClient.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#CurlRestClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.CurlRestClient.get" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Get method.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – Request header</p></li>
+<li><p><strong>url</strong> – The resource endpoint</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Response object.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>CurlClientError if the status code is not 200.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.CurlRestClient.patch">
+<span class="sig-name descname"><span class="pre">patch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#CurlRestClient.patch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.CurlRestClient.patch" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Patch method.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – The request header</p></li>
+<li><p><strong>url</strong> – the resource.</p></li>
+<li><p><strong>payload</strong> – The request body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Response object.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RequestClientError on</strong><strong> (</strong><strong>HTTPError</strong><strong>, </strong><strong>ConnectionError</strong><strong>)</strong><strong>.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.CurlRestClient.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#CurlRestClient.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.CurlRestClient.post" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Post method.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – The request headers</p></li>
+<li><p><strong>url</strong> – the resource.</p></li>
+<li><p><strong>payload</strong> – The request body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Response object.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RequestClientError on pycurl.error.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.CurlRestClient.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#CurlRestClient.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.CurlRestClient.put" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Put method.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – Request header</p></li>
+<li><p><strong>url</strong> – the resource.</p></li>
+<li><p><strong>payload</strong> – The request body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Response object.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RequestClientError on</strong><strong> (</strong><strong>HTTPError</strong><strong>, </strong><strong>ConnectionError</strong><strong>)</strong><strong>.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.CurlRestClient.pycurl_to_requests_response">
+<span class="sig-name descname"><span class="pre">pycurl_to_requests_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#CurlRestClient.pycurl_to_requests_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.CurlRestClient.pycurl_to_requests_response" title="Link to this definition"></a></dt>
+<dd><p>A function to convert pycurl response to a requests Response object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.CurlRestClient.set_headers">
+<span class="sig-name descname"><span class="pre">set_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#CurlRestClient.set_headers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.CurlRestClient.set_headers" title="Link to this definition"></a></dt>
+<dd><p>Set the request headers
+:Parameters: <strong>headers</strong> – The headers declaration</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.EmbeddingMethod">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.clients.clients.</span></span><span class="sig-name descname"><span class="pre">EmbeddingMethod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#EmbeddingMethod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.EmbeddingMethod" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Embedding type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.EmbeddingMethod.BASE64">
+<span class="sig-name descname"><span class="pre">BASE64</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BASE64'</span></em><a class="headerlink" href="#ocx_common.clients.clients.EmbeddingMethod.BASE64" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.EmbeddingMethod.STRING">
+<span class="sig-name descname"><span class="pre">STRING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'STRING'</span></em><a class="headerlink" href="#ocx_common.clients.clients.EmbeddingMethod.STRING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.EmbeddingMethod.URL">
+<span class="sig-name descname"><span class="pre">URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'URL'</span></em><a class="headerlink" href="#ocx_common.clients.clients.EmbeddingMethod.URL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.RequestClientError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.clients.clients.</span></span><span class="sig-name descname"><span class="pre">RequestClientError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#RequestClientError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.RequestClientError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RequestException</span></code></p>
+<p>Request client errors.</p>
+<p>Initialize RequestException with <cite>request</cite> and <cite>response</cite> objects.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.RestClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.clients.clients.</span></span><span class="sig-name descname"><span class="pre">RestClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#RestClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.RestClient" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ocx_common.interfaces.interfaces.IRestClient" title="ocx_common.interfaces.interfaces.IRestClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRestClient</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Request client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – The request headers</p></li>
+<li><p><strong>timeout</strong> – The request timeout</p></li>
+</ul>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>base_url</strong> – base url</p></li>
+<li><p><strong>timeout</strong> – Timeout in ms</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.RestClient.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#RestClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.RestClient.delete" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Delete method.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – The request header</p></li>
+<li><p><strong>url</strong> – the resource.</p></li>
+<li><p><strong>payload</strong> – The request body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Response object.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RequestClientError on</strong><strong> (</strong><strong>HTTPError</strong><strong>, </strong><strong>ConnectionError</strong><strong>)</strong><strong>.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.RestClient.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#RestClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.RestClient.get" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Get method.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – The request header dictionary</p></li>
+<li><p><strong>url</strong> – The resource url</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The request Response object.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RequestClientError on</strong><strong> (</strong><strong>HTTPError</strong><strong>, </strong><strong>ConnectionError</strong><strong>)</strong><strong>.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.RestClient.patch">
+<span class="sig-name descname"><span class="pre">patch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#RestClient.patch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.RestClient.patch" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Patch method.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – The request header</p></li>
+<li><p><strong>url</strong> – the resource.</p></li>
+<li><p><strong>payload</strong> – The request body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Response object.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RequestClientError on</strong><strong> (</strong><strong>HTTPError</strong><strong>, </strong><strong>ConnectionError</strong><strong>)</strong><strong>.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.RestClient.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#RestClient.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.RestClient.post" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Post method.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – The request headers</p></li>
+<li><p><strong>url</strong> – the resource.</p></li>
+<li><p><strong>payload</strong> – The request body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Response object.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RequestClientError on</strong><strong> (</strong><strong>HTTPError</strong><strong>, </strong><strong>ConnectionError</strong><strong>)</strong><strong>.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.RestClient.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#RestClient.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.RestClient.put" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Put method.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – Request header</p></li>
+<li><p><strong>url</strong> – the resource.</p></li>
+<li><p><strong>payload</strong> – The request body.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Response object.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RequestClientError on</strong><strong> (</strong><strong>HTTPError</strong><strong>, </strong><strong>ConnectionError</strong><strong>)</strong><strong>.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.clients.clients.RestClient.set_headers">
+<span class="sig-name descname"><span class="pre">set_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/clients/clients.html#RestClient.set_headers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.clients.clients.RestClient.set_headers" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Set the request headers</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>headers</strong> – The headers declaration</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ocx_common.decorators.decorators">
+<span id="decorators"></span><h2>decorators<a class="headerlink" href="#module-ocx_common.decorators.decorators" title="Link to this heading"></a></h2>
+<p>Reusable decorators</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.decorators.decorators.debugger">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.decorators.decorators.</span></span><span class="sig-name descname"><span class="pre">debugger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/decorators/decorators.html#debugger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.decorators.decorators.debugger" title="Link to this definition"></a></dt>
+<dd><p>&#64;debug decorator using ice cream</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.decorators.decorators.exception_handler">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.decorators.decorators.</span></span><span class="sig-name descname"><span class="pre">exception_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exception_to_raise</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/decorators/decorators.html#exception_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.decorators.decorators.exception_handler" title="Link to this definition"></a></dt>
+<dd><p>&#64;exception_handler decorator</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.decorators.decorators.memoize">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.decorators.decorators.</span></span><span class="sig-name descname"><span class="pre">memoize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/decorators/decorators.html#memoize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.decorators.decorators.memoize" title="Link to this definition"></a></dt>
+<dd><p>&#64;memoize decorator</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.decorators.decorators.timer">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.decorators.decorators.</span></span><span class="sig-name descname"><span class="pre">timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/decorators/decorators.html#timer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.decorators.decorators.timer" title="Link to this definition"></a></dt>
+<dd><p>&#64;timer decorator for measuring elapsed time of a function call.</p>
+</dd></dl>
+
+</section>
+<section id="module-ocx_common.interfaces.interfaces">
+<span id="interfaces"></span><h2>interfaces<a class="headerlink" href="#module-ocx_common.interfaces.interfaces" title="Link to this heading"></a></h2>
+<p>Interfaces module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IModuleDeclaration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.interfaces.interfaces.</span></span><span class="sig-name descname"><span class="pre">IModuleDeclaration</span></span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IModuleDeclaration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IModuleDeclaration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract module import declaration Interface</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IModuleDeclaration.get_declaration">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_declaration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IModuleDeclaration.get_declaration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IModuleDeclaration.get_declaration" title="Link to this definition"></a></dt>
+<dd><p>Abstract Method: Return the module declaration string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IObservable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.interfaces.interfaces.</span></span><span class="sig-name descname"><span class="pre">IObservable</span></span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IObservable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IObservable" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Interface. The observable object.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IObservable.subscribe">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IObservable.subscribe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IObservable.subscribe" title="Link to this definition"></a></dt>
+<dd><p>subscription</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IObservable.unsubscribe">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unsubscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IObservable.unsubscribe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IObservable.unsubscribe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IObservable.update">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IObservable.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IObservable.update" title="Link to this definition"></a></dt>
+<dd><p>update method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> – The event type</p></li>
+<li><p><strong>message</strong> – The event message</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IObserver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.interfaces.interfaces.</span></span><span class="sig-name descname"><span class="pre">IObserver</span></span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IObserver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IObserver" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>The observer interface</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IObserver.update">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IObserver.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IObserver.update" title="Link to this definition"></a></dt>
+<dd><p>Interface update method</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.interfaces.interfaces.</span></span><span class="sig-name descname"><span class="pre">IParser</span></span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IParser" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract IParser interface.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IParser.iterator">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IParser.iterator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IParser.iterator" title="Link to this definition"></a></dt>
+<dd><p>Abstract method for iterating a data model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> – the data model to iterate on.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An iterator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IParser.parse">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IParser.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IParser.parse" title="Link to this definition"></a></dt>
+<dd><p>Abstract method for parsing a data model,</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> – the data model source</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the root dataclass of the parsed data model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IRestClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.interfaces.interfaces.</span></span><span class="sig-name descname"><span class="pre">IRestClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">headers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IRestClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IRestClient" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract IRestClient interface for REST server clients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>headers</strong> – The request headers</p></li>
+<li><p><strong>timeout</strong> – The request timeout</p></li>
+</ul>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>base_url</strong> – base url</p></li>
+<li><p><strong>timeout</strong> – Timeout in ms</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IRestClient.delete">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IRestClient.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IRestClient.delete" title="Link to this definition"></a></dt>
+<dd><p>Abstract delete  method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IRestClient.get">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IRestClient.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IRestClient.get" title="Link to this definition"></a></dt>
+<dd><p>Abstract get method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IRestClient.patch">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">patch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IRestClient.patch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IRestClient.patch" title="Link to this definition"></a></dt>
+<dd><p>Abstract patch  method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IRestClient.post">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IRestClient.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IRestClient.post" title="Link to this definition"></a></dt>
+<dd><p>Abstract post method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IRestClient.put">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IRestClient.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IRestClient.put" title="Link to this definition"></a></dt>
+<dd><p>Abstract put  method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.IRestClient.set_headers">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_headers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">headers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#IRestClient.set_headers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.IRestClient.set_headers" title="Link to this definition"></a></dt>
+<dd><p>Abstract set headers method</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.ISerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.interfaces.interfaces.</span></span><span class="sig-name descname"><span class="pre">ISerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#ISerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.ISerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>OcxSerializer interface</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.ISerializer.serialize_to_file">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">serialize_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#ISerializer.serialize_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.ISerializer.serialize_to_file" title="Link to this definition"></a></dt>
+<dd><p>Abstract XML serialize to file method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.interfaces.interfaces.ISerializer.serialize_to_string">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">serialize_to_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/interfaces/interfaces.html#ISerializer.serialize_to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.interfaces.interfaces.ISerializer.serialize_to_string" title="Link to this definition"></a></dt>
+<dd><p>Abstract XML serialize to string method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ocx_common.loader.loader">
+<span id="loader"></span><h2>loader<a class="headerlink" href="#module-ocx_common.loader.loader" title="Link to this heading"></a></h2>
+<p>Dynamically load a python module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.DeclarationOfOcxImport">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.loader.loader.</span></span><span class="sig-name descname"><span class="pre">DeclarationOfOcxImport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#DeclarationOfOcxImport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.DeclarationOfOcxImport" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ocx_common.interfaces.interfaces.IModuleDeclaration" title="ocx_common.interfaces.interfaces.IModuleDeclaration"><code class="xref py py-class docutils literal notranslate"><span class="pre">IModuleDeclaration</span></code></a></p>
+<p>Declaration of the ocx module.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.DeclarationOfOcxImport.get_declaration">
+<span class="sig-name descname"><span class="pre">get_declaration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#DeclarationOfOcxImport.get_declaration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.DeclarationOfOcxImport.get_declaration" title="Link to this definition"></a></dt>
+<dd><p>Return the module import declaration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.DeclarationOfOcxImport.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#DeclarationOfOcxImport.get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.DeclarationOfOcxImport.get_name" title="Link to this definition"></a></dt>
+<dd><p>Return the declared module name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.DeclarationOfOcxImport.get_version">
+<span class="sig-name descname"><span class="pre">get_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#DeclarationOfOcxImport.get_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.DeclarationOfOcxImport.get_version" title="Link to this definition"></a></dt>
+<dd><p>Return the OCX module version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.DynamicLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.loader.loader.</span></span><span class="sig-name descname"><span class="pre">DynamicLoader</span></span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#DynamicLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.DynamicLoader" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Dynamically loads modules, classes of functions from a module declaration.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.DynamicLoader.get_all_class_names">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_class_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#DynamicLoader.get_all_class_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.DynamicLoader.get_all_class_names" title="Link to this definition"></a></dt>
+<dd><p>Return all class names in the module by the <code class="docutils literal notranslate"><span class="pre">__all__</span></code> variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module_name</strong> – The module name</p></li>
+<li><p><strong>version</strong> – The module version</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The list of available module class names.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ocx_common.loader.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeclarationOfOcxImport</span> <span class="p">,</span> <span class="n">DynamicLoader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">class_name</span> <span class="o">=</span> <span class="s2">&quot;Vessel&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">declaration</span> <span class="o">=</span> <span class="n">DeclarationOfOcxImport</span><span class="p">(</span><span class="s2">&quot;ocx&quot;</span><span class="p">,</span> <span class="s1">&#39;3.0.1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_class</span> <span class="o">=</span> <span class="n">DynamicLoader</span><span class="o">.</span><span class="n">import_class</span><span class="p">(</span><span class="n">declaration</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_class</span><span class="o">.</span><span class="vm">__doc__</span>
+<span class="go">Vessel asset subject to Classification.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.DynamicLoader.import_class">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">import_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_declaration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#DynamicLoader.import_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.DynamicLoader.import_class" title="Link to this definition"></a></dt>
+<dd><p>The module import declaration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>class_name</strong> – The class name to load form the declared module</p></li>
+<li><p><strong>module_declaration</strong> – The declaration of the python module to be loaded</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Return the loaded class, None if failed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.DynamicLoader.import_module">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">import_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_declaration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#DynamicLoader.import_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.DynamicLoader.import_module" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module_declaration</strong> – The declaration of the python module to load</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleType</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Return the loaded module, None if failed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.DynamicLoaderError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.loader.loader.</span></span><span class="sig-name descname"><span class="pre">DynamicLoaderError</span></span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#DynamicLoaderError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.DynamicLoaderError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseException</span></code></p>
+<p>Dynamic import errors.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.ModuleDeclaration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.loader.loader.</span></span><span class="sig-name descname"><span class="pre">ModuleDeclaration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#ModuleDeclaration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.ModuleDeclaration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ocx_common.interfaces.interfaces.IModuleDeclaration" title="ocx_common.interfaces.interfaces.IModuleDeclaration"><code class="xref py py-class docutils literal notranslate"><span class="pre">IModuleDeclaration</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>General module declaration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>package</strong> – the package name</p></li>
+<li><p><strong>sub_module</strong> – The submodule-name</p></li>
+<li><p><strong>name</strong> – The method name</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.loader.loader.ModuleDeclaration.get_declaration">
+<span class="sig-name descname"><span class="pre">get_declaration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/loader/loader.html#ModuleDeclaration.get_declaration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.loader.loader.ModuleDeclaration.get_declaration" title="Link to this definition"></a></dt>
+<dd><p>Return the module import declaration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ocx_common.parser.parsers">
+<span id="parser"></span><h2>parser<a class="headerlink" href="#module-ocx_common.parser.parsers" title="Link to this heading"></a></h2>
+<p>Module for parsing a 3Docx model.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.MetaData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.parser.parsers.</span></span><span class="sig-name descname"><span class="pre">MetaData</span></span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#MetaData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.MetaData" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Dataclass metadata.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.MetaData.class_name">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">class_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_class</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#MetaData.class_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.MetaData.class_name" title="Link to this definition"></a></dt>
+<dd><p>Return the name of the class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.MetaData.meta_class_fields">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">meta_class_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_class</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#MetaData.meta_class_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.MetaData.meta_class_fields" title="Link to this definition"></a></dt>
+<dd><p>Return the dataclass metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_class</strong> – The dataclass instance</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The metadata of the class</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.MetaData.name">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_class</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#MetaData.name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.MetaData.name" title="Link to this definition"></a></dt>
+<dd><p>Get the OCX name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_class</strong> – The dataclass instance</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The name of the OCX type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.MetaData.namespace">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">namespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_class</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#MetaData.namespace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.MetaData.namespace" title="Link to this definition"></a></dt>
+<dd><p>Get the OCX namespace</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_class</strong> – The dataclass instance</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The namespace of the dataclass</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.ObservableEvent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.parser.parsers.</span></span><span class="sig-name descname"><span class="pre">ObservableEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#ObservableEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.ObservableEvent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Events that can be listened to and broadcast.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.ObservableEvent.DATACLASS">
+<span class="sig-name descname"><span class="pre">DATACLASS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dataclass'</span></em><a class="headerlink" href="#ocx_common.parser.parsers.ObservableEvent.DATACLASS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.ObservableEvent.REPORT">
+<span class="sig-name descname"><span class="pre">REPORT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'report'</span></em><a class="headerlink" href="#ocx_common.parser.parsers.ObservableEvent.REPORT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.ObservableEvent.SERIALIZE">
+<span class="sig-name descname"><span class="pre">SERIALIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'serialize'</span></em><a class="headerlink" href="#ocx_common.parser.parsers.ObservableEvent.SERIALIZE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxModelParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.parser.parsers.</span></span><span class="sig-name descname"><span class="pre">OcxModelParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fail_on_unknown_properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fail_on_unknown_attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fail_on_converter_warnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxModelParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxModelParser" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>OcxModelParser class for 3Docx XML files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ocx_model</strong> – The file path or URL to the source model.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxModelParser.get_root">
+<span class="sig-name descname"><span class="pre">get_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxModelParser.get_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxModelParser.get_root" title="Link to this definition"></a></dt>
+<dd><p>Return the XML document root.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxModelParser.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xml_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxModelParser.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxModelParser.parse" title="Link to this definition"></a></dt>
+<dd><p>Parse the XML file and return the root element.
+Arg:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>model: The location of the XML file</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code>]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The etree root</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#ocx_common.parser.parsers.OcxParserError" title="ocx_common.parser.parsers.OcxParserError"><strong>OcxParserError</strong></a> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxModelParser.parse_element">
+<span class="sig-name descname"><span class="pre">parse_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clazz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxModelParser.parse_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxModelParser.parse_element" title="Link to this definition"></a></dt>
+<dd><p>Parse a 3Docx XML element and return the dataclass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>- element</strong> – The 3Docx XML Element to parse.</p></li>
+<li><p><strong>- clazz</strong> – The class to be instantiated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The element dataclass instance if created, else returns None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxNotifyParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.parser.parsers.</span></span><span class="sig-name descname"><span class="pre">OcxNotifyParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fail_on_unknown_properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fail_on_unknown_attributes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fail_on_converter_warnings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxNotifyParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxNotifyParser" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ocx_common.interfaces.interfaces.IObservable" title="ocx_common.interfaces.interfaces.IObservable"><code class="xref py py-class docutils literal notranslate"><span class="pre">IObservable</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Ocx notification parser class for 3Docx XML files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fail_on_unknown_properties</strong> – Don’t bail out on unknown properties.</p></li>
+<li><p><strong>fail_on_unknown_attributes</strong> – Don’t bail out on unknown attributes</p></li>
+<li><p><strong>fail_on_converter_warnings</strong> – bool = Convert warnings to exceptions</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxNotifyParser.class_factory">
+<span class="sig-name descname"><span class="pre">class_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clazz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxNotifyParser.class_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxNotifyParser.class_factory" title="Link to this definition"></a></dt>
+<dd><p>Custom class factory method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxNotifyParser.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xml_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxNotifyParser.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxNotifyParser.parse" title="Link to this definition"></a></dt>
+<dd><p>Parse a 3Docx XML model and return the root dataclass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xml_file</strong> – The 3Docx xml file or url to parse.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The root dataclass instance of the parsed 3Docx XML.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxNotifyParser.parse_element">
+<span class="sig-name descname"><span class="pre">parse_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ocx_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxNotifyParser.parse_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxNotifyParser.parse_element" title="Link to this definition"></a></dt>
+<dd><p>Parse a 3Docx XML element and return the dataclass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>element</strong> – The 3Docx XML Element to parse.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The element dataclass instance if created, else returns None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxNotifyParser.subscribe">
+<span class="sig-name descname"><span class="pre">subscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxNotifyParser.subscribe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxNotifyParser.subscribe" title="Link to this definition"></a></dt>
+<dd><p>subscription</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxNotifyParser.unsubscribe">
+<span class="sig-name descname"><span class="pre">unsubscribe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxNotifyParser.unsubscribe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxNotifyParser.unsubscribe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxNotifyParser.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxNotifyParser.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxNotifyParser.update" title="Link to this definition"></a></dt>
+<dd><p>update method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> – The event type</p></li>
+<li><p><strong>message</strong> – The event message</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.OcxParserError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.parser.parsers.</span></span><span class="sig-name descname"><span class="pre">OcxParserError</span></span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#OcxParserError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.OcxParserError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ParserError</span></code></p>
+<p>Errors raised by this module.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.XmlParserError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.parser.parsers.</span></span><span class="sig-name descname"><span class="pre">XmlParserError</span></span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#XmlParserError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.XmlParserError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+<p>Parser errors.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.XsdSchemaParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.parser.parsers.</span></span><span class="sig-name descname"><span class="pre">XsdSchemaParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#XsdSchemaParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.XsdSchemaParser" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A schema parser parsing an XSD schema and returning the xsdata.models.xsd.Schema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>- target_namespace</strong> – The target namespace of the schema.</p></li>
+<li><p><strong>- location</strong> – The path to the schema XSD file.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.XsdSchemaParser.parse_from_bytes">
+<span class="sig-name descname"><span class="pre">parse_from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_stream</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#XsdSchemaParser.parse_from_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.XsdSchemaParser.parse_from_bytes" title="Link to this definition"></a></dt>
+<dd><p>Parse the XSD from bytes and return the Schema object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_stream</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schema</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.XsdSchemaParser.parse_from_path">
+<span class="sig-name descname"><span class="pre">parse_from_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#XsdSchemaParser.parse_from_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.XsdSchemaParser.parse_from_path" title="Link to this definition"></a></dt>
+<dd><p>Parse the XSD and return the Schema object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schema</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.parser.parsers.XsdSchemaParser.parse_from_string">
+<span class="sig-name descname"><span class="pre">parse_from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/parser/parsers.html#XsdSchemaParser.parse_from_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.parser.parsers.XsdSchemaParser.parse_from_string" title="Link to this definition"></a></dt>
+<dd><p>Parse the XSD and return the Schema object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schema</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ocx_common.utilities.utilities">
+<span id="utilities"></span><h2>utilities<a class="headerlink" href="#module-ocx_common.utilities.utilities" title="Link to this heading"></a></h2>
+<p>Shared utility classes and functions</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.all_equal">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">all_equal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#all_equal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.all_equal" title="Link to this definition"></a></dt>
+<dd><p>Verify that all items in a list are equal
+:Parameters: <strong>iterable</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if all are equal, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.camel_case_split">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">camel_case_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#camel_case_split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.camel_case_split" title="Link to this definition"></a></dt>
+<dd><p>Split camel case string to individual strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.default_to_grid">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">default_to_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#default_to_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.default_to_grid" title="Link to this definition"></a></dt>
+<dd><p>Converts defaultdicts to a data grid with unique row ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>d</strong> – The dict to be converted</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.default_to_regular">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">default_to_regular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#default_to_regular"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.default_to_regular" title="Link to this definition"></a></dt>
+<dd><p>Converts defaultdict of defaultdict to dict of dicts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>d</strong> – The dict to be converted</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.dromedary_case_split">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">dromedary_case_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#dromedary_case_split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.dromedary_case_split" title="Link to this definition"></a></dt>
+<dd><p>Split camel case string to individual strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.file_uri_to_path">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">file_uri_to_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#file_uri_to_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.file_uri_to_path" title="Link to this definition"></a></dt>
+<dd><p>Converts a <a class="reference external" href="file://">file://</a> URI to a proper file system path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.get_file_path">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">get_file_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#get_file_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.get_file_path" title="Link to this definition"></a></dt>
+<dd><p>Get the correct file path also when called within a one-file executable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.get_key_from_value">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">get_key_from_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#get_key_from_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.get_key_from_value" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Return the key associated with the value</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>my_dict</strong> – The dictionary of key, value pairs</p></li>
+<li><p><strong>value</strong> – The value to search for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The key if found</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError if the value does not exist in the dictionary.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.is_local_file_uri">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">is_local_file_uri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#is_local_file_uri"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.is_local_file_uri" title="Link to this definition"></a></dt>
+<dd><p>Return True if the file uri is a local file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.is_substring_in_list">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">is_substring_in_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">substring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">string_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#is_substring_in_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.is_substring_in_list" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>substring</strong> – The search string</p></li>
+<li><p><strong>string_list</strong> – List of strings</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the substring is found, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.is_valid_absolute_windows_path">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">is_valid_absolute_windows_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#is_valid_absolute_windows_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.is_valid_absolute_windows_path" title="Link to this definition"></a></dt>
+<dd><p>Returns True if the path is a valid absolute Windows path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to validate.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>bool</em> – True if valid, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.is_valid_file_path">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">is_valid_file_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#is_valid_file_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.is_valid_file_path" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong></p>
+</dd>
+</dl>
+<p>Returns:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.is_valid_unix_file_path">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">is_valid_unix_file_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#is_valid_unix_file_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.is_valid_unix_file_path" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+<p>Return True if the path is a valid UNIX path</p>
+</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>path</strong> – path to validate</p>
+</dd>
+</dl>
+<p>Returns: True if validated, False otherwise.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.is_windows_drive_letter">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">is_windows_drive_letter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scheme</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#is_windows_drive_letter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.is_windows_drive_letter" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scheme</strong> – The urlparse scheme</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the scheme is a valid Windows drive letter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.iter_files">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">iter_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#iter_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.iter_files" title="Link to this definition"></a></dt>
+<dd><p>Iterate over files in a directory based on a specified filter pattern.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> (<em>str</em>) – The path to the directory.</p></li>
+<li><p><strong>filter_str</strong> (<em>str</em>) – The filter pattern to apply when filtering files.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Generator</em> – A generator yielding file paths that match the filter criteria.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.list_files_in_directory">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">list_files_in_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#list_files_in_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.list_files_in_directory" title="Link to this definition"></a></dt>
+<dd><p>Lists files in a directory based on a specified filter using glob pattern matching.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory</strong> (<em>str</em>) – The path to the directory.</p></li>
+<li><p><strong>filter</strong> (<em>str</em>) – The filter pattern to apply when listing files.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>List</em> – A list of file paths that match the filter criteria.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>AssertionError</strong> – If the directory does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.nested_dict">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">nested_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#nested_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.nested_dict" title="Link to this definition"></a></dt>
+<dd><p>A recursive function that creates a default dictionary where each value is
+another default dictionary.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.parent_directory">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">parent_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#parent_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.parent_directory" title="Link to this definition"></a></dt>
+<dd><p>The full path to the folder containing the <code class="docutils literal notranslate"><span class="pre">file</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> – The name of an existing file</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ocx_common.utilities.utilities.resource_path">
+<span class="sig-prename descclassname"><span class="pre">ocx_common.utilities.utilities.</span></span><span class="sig-name descname"><span class="pre">resource_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">relative_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/utilities/utilities.html#resource_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.utilities.utilities.resource_path" title="Link to this definition"></a></dt>
+<dd><p>Get absolute path to resource, works for dev and for PyInstaller</p>
+</dd></dl>
+
+</section>
+<section id="module-ocx_common.x_path.x_path">
+<span id="x-path"></span><h2>x_path<a class="headerlink" href="#module-ocx_common.x_path.x_path" title="Link to this heading"></a></h2>
+<p>A python XPath implementation for OCX types</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPath">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.x_path.x_path.</span></span><span class="sig-name descname"><span class="pre">OcxPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespaces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regexp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smart_strings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPath" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPath.get_all_named_children">
+<span class="sig-name descname"><span class="pre">get_all_named_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPath.get_all_named_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPath.get_all_named_children" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPath.get_all_named_ocx_elements">
+<span class="sig-name descname"><span class="pre">get_all_named_ocx_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPath.get_all_named_ocx_elements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPath.get_all_named_ocx_elements" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPath.get_ocx_attribute_value_collection">
+<span class="sig-name descname"><span class="pre">get_ocx_attribute_value_collection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPath.get_ocx_attribute_value_collection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPath.get_ocx_attribute_value_collection" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>element</strong> – The lxml Element instance</p></li>
+<li><p><strong>attribute_name</strong> – The attribute name to be retrieved</p></li>
+<li><p><strong>namespace</strong> – Optional namespace prefix. Default = “ocx”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of attributes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPath.get_ocx_attribute_with_value">
+<span class="sig-name descname"><span class="pre">get_ocx_attribute_with_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPath.get_ocx_attribute_with_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPath.get_ocx_attribute_with_value" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>element</strong></p></li>
+<li><p><strong>attribute_name</strong></p></li>
+<li><p><strong>attribute_value</strong></p></li>
+<li><p><strong>namespace</strong></p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.x_path.x_path.</span></span><span class="sig-name descname"><span class="pre">OcxPathBuilder</span></span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_all_named_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_all_named_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_all_named_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_all_named_nodes" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_attribute_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_any_nodes_with_attribute_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_any_nodes_with_attribute_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_attribute_value" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_global_attribute_name">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_any_nodes_with_global_attribute_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_any_nodes_with_global_attribute_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_global_attribute_name" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_local_attribute_name">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_any_nodes_with_local_attribute_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_any_nodes_with_local_attribute_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_local_attribute_name" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_local_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_any_nodes_with_local_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_any_nodes_with_local_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_any_nodes_with_local_value" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_current_node">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_current_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_current_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_current_node" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_named_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_named_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_global_attribute_name">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_named_nodes_with_global_attribute_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_named_nodes_with_global_attribute_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_global_attribute_name" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_global_attribute_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_named_nodes_with_global_attribute_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_named_nodes_with_global_attribute_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_global_attribute_value" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_local_attribute_name">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_named_nodes_with_local_attribute_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_named_nodes_with_local_attribute_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_local_attribute_name" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_local_attribute_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_named_nodes_with_local_attribute_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_named_nodes_with_local_attribute_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_nodes_with_local_attribute_value" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_named_parent_node">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_named_parent_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ocx'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_named_parent_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_named_parent_node" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathBuilder.select_parent_node">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_parent_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathBuilder.select_parent_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathBuilder.select_parent_node" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ocx_common.x_path.x_path.OcxPathError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ocx_common.x_path.x_path.</span></span><span class="sig-name descname"><span class="pre">OcxPathError</span></span><a class="reference internal" href="_modules/ocx_common/x_path/x_path.html#OcxPathError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ocx_common.x_path.x_path.OcxPathError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">XPathError</span></code></p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Contents" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, 3Docx.org.
+      <span class="lastupdated">Last updated on Aug 25, 2025.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

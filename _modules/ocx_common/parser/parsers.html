@@ -1,0 +1,491 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ocx_common.parser.parsers &mdash; ocx-common 2.7.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=34bb78ad" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=dfec817d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ocx-common
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">ocx-common</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ocx-common</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ocx_common.parser.parsers</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ocx_common.parser.parsers</h1><div class="highlight"><pre>
+<span></span><span class="c1">#  Copyright (c) 2023. OCX Consortium https://3docx.org. See the LICENSE</span>
+<span class="sd">&quot;&quot;&quot;Module for parsing a 3Docx model.&quot;&quot;&quot;</span>
+
+<span class="c1"># system imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">is_dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span>
+
+<span class="c1"># 3rd party imports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">lxml.etree</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lxml.etree</span><span class="w"> </span><span class="kn">import</span> <span class="n">Element</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xsdata.codegen.parsers.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">SchemaParser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xsdata.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParserError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xsdata.formats.dataclass.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">XmlContext</span><span class="p">,</span> <span class="n">XmlContextError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xsdata.formats.dataclass.parsers</span><span class="w"> </span><span class="kn">import</span> <span class="n">XmlParser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xsdata.formats.dataclass.parsers.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParserConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xsdata.models.xsd</span><span class="w"> </span><span class="kn">import</span> <span class="n">Schema</span>
+
+<span class="c1"># Project imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocx_common.interfaces.interfaces</span><span class="w"> </span><span class="kn">import</span> <span class="n">IObservable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocx_common.loader.loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeclarationOfOcxImport</span><span class="p">,</span> <span class="n">DynamicLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocx_common.utilities.ocx_xml</span><span class="w"> </span><span class="kn">import</span> <span class="n">OcxXml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocx_common.utilities.validation</span><span class="w"> </span><span class="kn">import</span> <span class="n">URIValidator</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="OcxParserError">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxParserError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">OcxParserError</span><span class="p">(</span><span class="n">ParserError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Errors raised by this module.&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="ObservableEvent">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.ObservableEvent">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ObservableEvent</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Events that can be listened to and broadcast.&quot;&quot;&quot;</span>
+
+    <span class="n">DATACLASS</span> <span class="o">=</span> <span class="s2">&quot;dataclass&quot;</span>
+    <span class="n">REPORT</span> <span class="o">=</span> <span class="s2">&quot;report&quot;</span>
+    <span class="n">SERIALIZE</span> <span class="o">=</span> <span class="s2">&quot;serialize&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="XmlParserError">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.XmlParserError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">XmlParserError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parser errors.&quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="MetaData">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.MetaData">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MetaData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataclass metadata.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="MetaData.meta_class_fields">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.MetaData.meta_class_fields">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">meta_class_fields</span><span class="p">(</span><span class="n">data_class</span><span class="p">:</span> <span class="n">dataclass</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the dataclass metadata.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_class: The dataclass instance</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The metadata of the class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">data_class</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MetaData.class_name">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.MetaData.class_name">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">class_name</span><span class="p">(</span><span class="n">data_class</span><span class="p">:</span> <span class="n">dataclass</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the name of the class&quot;&quot;&quot;</span>
+        <span class="n">declaration</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_class</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">declaration</span><span class="p">[</span><span class="n">declaration</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="MetaData.namespace">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.MetaData.namespace">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">namespace</span><span class="p">(</span><span class="n">data_class</span><span class="p">:</span> <span class="n">dataclass</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the OCX namespace</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_class: The dataclass instance</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The namespace of the dataclass</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MetaData</span><span class="o">.</span><span class="n">meta_class_fields</span><span class="p">(</span><span class="n">data_class</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;namespace&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MetaData.name">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.MetaData.name">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="n">data_class</span><span class="p">:</span> <span class="n">dataclass</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the OCX name.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_class: The dataclass instance</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The name of the OCX type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MetaData</span><span class="o">.</span><span class="n">meta_class_fields</span><span class="p">(</span><span class="n">data_class</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="OcxNotifyParser">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxNotifyParser">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">OcxNotifyParser</span><span class="p">(</span><span class="n">IObservable</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ocx notification parser class for 3Docx XML files.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fail_on_unknown_properties: Don&#39;t bail out on unknown properties.</span>
+<span class="sd">        fail_on_unknown_attributes: Don&#39;t bail out on unknown attributes</span>
+<span class="sd">        fail_on_converter_warnings: bool = Convert warnings to exceptions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fail_on_unknown_properties</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">fail_on_unknown_attributes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">fail_on_converter_warnings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">XmlContext</span><span class="p">()</span>
+        <span class="n">parser_config</span> <span class="o">=</span> <span class="n">ParserConfig</span><span class="p">(</span>
+            <span class="n">fail_on_unknown_properties</span><span class="o">=</span><span class="n">fail_on_unknown_properties</span><span class="p">,</span>
+            <span class="n">fail_on_unknown_attributes</span><span class="o">=</span><span class="n">fail_on_unknown_attributes</span><span class="p">,</span>
+            <span class="n">fail_on_converter_warnings</span><span class="o">=</span><span class="n">fail_on_converter_warnings</span><span class="p">,</span>
+            <span class="n">class_factory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_factory</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">XmlParser</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">parser_config</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<div class="viewcode-block" id="OcxNotifyParser.subscribe">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxNotifyParser.subscribe">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">subscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">observer</span><span class="p">)</span>
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="OcxNotifyParser.unsubscribe">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxNotifyParser.unsubscribe">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unsubscribe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">observer</span><span class="p">)</span>
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="OcxNotifyParser.update">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxNotifyParser.update">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">ObservableEvent</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">observer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscribers</span><span class="p">:</span>
+            <span class="n">observer</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OcxNotifyParser.class_factory">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxNotifyParser.class_factory">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">class_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clazz</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Custom class factory method&quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">clazz</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">new_data_class</span> <span class="o">=</span> <span class="n">clazz</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="c1"># Broadcast an update</span>
+        <span class="n">namespace</span> <span class="o">=</span> <span class="n">MetaData</span><span class="o">.</span><span class="n">namespace</span><span class="p">(</span><span class="n">clazz</span><span class="p">)</span>
+        <span class="c1"># name = MetaData.name(clazz)</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">MetaData</span><span class="o">.</span><span class="n">meta_class_fields</span><span class="p">(</span><span class="n">clazz</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Meta fields: </span><span class="si">{</span><span class="n">fields</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="n">namespace</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">ObservableEvent</span><span class="o">.</span><span class="n">DATACLASS</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">tag</span><span class="p">,</span> <span class="s2">&quot;object&quot;</span><span class="p">:</span> <span class="n">new_data_class</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">new_data_class</span></div>
+
+
+<div class="viewcode-block" id="OcxNotifyParser.parse">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxNotifyParser.parse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse a 3Docx XML model and return the root dataclass.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            xml_file: The 3Docx xml file or url to parse.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The root dataclass instance of the parsed 3Docx XML.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">validator</span> <span class="o">=</span> <span class="n">URIValidator</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">validator</span><span class="o">.</span><span class="n">is_local_file</span><span class="p">():</span>
+                <span class="n">tree</span> <span class="o">=</span> <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+                <span class="n">version</span> <span class="o">=</span> <span class="n">OcxXml</span><span class="o">.</span><span class="n">get_version</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span>
+                <span class="n">declaration</span> <span class="o">=</span> <span class="n">DeclarationOfOcxImport</span><span class="p">(</span><span class="s2">&quot;ocx&quot;</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+                <span class="c1"># Load target schema version module</span>
+                <span class="n">ocx_module</span> <span class="o">=</span> <span class="n">DynamicLoader</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">declaration</span><span class="p">)</span>
+                <span class="n">ocx_xml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">ocx_module</span><span class="o">.</span><span class="n">OcxXml</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_dataclass</span><span class="p">(</span><span class="n">ocx_xml</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ocx_xml</span><span class="o">.</span><span class="n">__class_name__</span><span class="si">}</span><span class="s2"> is not a data class&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+                <span class="k">return</span> <span class="n">ocx_xml</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The uri r&quot;</span><span class="si">{</span><span class="n">xml_file</span><span class="si">}</span><span class="s1">&quot; is not a local file&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span>
+            <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">XMLSyntaxError</span><span class="p">,</span>
+            <span class="ne">ImportError</span><span class="p">,</span>
+            <span class="n">XmlContextError</span><span class="p">,</span>
+            <span class="n">ParserError</span><span class="p">,</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">XmlParserError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="OcxNotifyParser.parse_element">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxNotifyParser.parse_element">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">ocx_module</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse a 3Docx XML element and return the dataclass.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element: The 3Docx XML Element to parse.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The element dataclass instance if created, else returns None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">ocx_module</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_dataclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> is not a dataclass&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">cls</span>
+        <span class="k">except</span> <span class="p">(</span>
+            <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">XMLSyntaxError</span><span class="p">,</span>
+            <span class="ne">ImportError</span><span class="p">,</span>
+            <span class="n">XmlContextError</span><span class="p">,</span>
+            <span class="n">ParserError</span><span class="p">,</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">XmlParserError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="XsdSchemaParser">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.XsdSchemaParser">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">XsdSchemaParser</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A schema parser parsing an XSD schema and returning the xsdata.models.xsd.Schema.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        - target_namespace: The target namespace of the schema.</span>
+<span class="sd">        - location: The path to the schema XSD file.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">target_namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">SchemaParser</span><span class="p">(</span><span class="n">target_namespace</span><span class="o">=</span><span class="n">target_namespace</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">)</span>
+
+<div class="viewcode-block" id="XsdSchemaParser.parse_from_bytes">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.XsdSchemaParser.parse_from_bytes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_from_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_stream</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse the XSD from bytes and return the Schema object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input_stream:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">input_stream</span><span class="p">,</span> <span class="n">Schema</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="XsdSchemaParser.parse_from_string">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.XsdSchemaParser.parse_from_string">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_from_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse the XSD and return the Schema object&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">input_string</span><span class="p">,</span> <span class="n">Schema</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="XsdSchemaParser.parse_from_path">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.XsdSchemaParser.parse_from_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_from_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse the XSD and return the Schema object&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">Schema</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="OcxModelParser">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxModelParser">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">OcxModelParser</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OcxModelParser class for 3Docx XML files.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ocx_model: The file path or URL to the source model.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fail_on_unknown_properties</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">fail_on_unknown_attributes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">fail_on_converter_warnings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">XmlContext</span><span class="p">()</span>
+        <span class="n">parser_config</span> <span class="o">=</span> <span class="n">ParserConfig</span><span class="p">(</span>
+            <span class="n">fail_on_unknown_properties</span><span class="o">=</span><span class="n">fail_on_unknown_properties</span><span class="p">,</span>
+            <span class="n">fail_on_unknown_attributes</span><span class="o">=</span><span class="n">fail_on_unknown_attributes</span><span class="p">,</span>
+            <span class="n">fail_on_converter_warnings</span><span class="o">=</span><span class="n">fail_on_converter_warnings</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">XmlParser</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">parser_config</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">:</span> <span class="n">Element</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="OcxModelParser.parse">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxModelParser.parse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">Element</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse the XML file and return the root element.</span>
+<span class="sd">        Arg:</span>
+<span class="sd">            - model: The location of the XML file</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The etree root</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            OcxParserError</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">validator</span> <span class="o">=</span> <span class="n">URIValidator</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">validator</span><span class="o">.</span><span class="n">is_local_file</span><span class="p">():</span>
+                <span class="n">tree</span> <span class="o">=</span> <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+                <span class="n">version</span> <span class="o">=</span> <span class="n">OcxXml</span><span class="o">.</span><span class="n">get_version</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span>
+                <span class="n">declaration</span> <span class="o">=</span> <span class="n">DeclarationOfOcxImport</span><span class="p">(</span><span class="s2">&quot;ocx&quot;</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+                <span class="c1"># Load target schema version module</span>
+                <span class="n">ocx_module</span> <span class="o">=</span> <span class="n">DynamicLoader</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">declaration</span><span class="p">)</span>
+                <span class="n">ocx_xml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">ocx_module</span><span class="o">.</span><span class="n">OcxXml</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_dataclass</span><span class="p">(</span><span class="n">ocx_xml</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ocx_xml</span><span class="o">.</span><span class="n">__class_name__</span><span class="si">}</span><span class="s2"> is not a data class&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+                <span class="k">return</span> <span class="n">ocx_xml</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The uri r&quot;</span><span class="si">{</span><span class="n">xml_file</span><span class="si">}</span><span class="s1">&quot; is not a local file&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span>
+            <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">XMLSyntaxError</span><span class="p">,</span>
+            <span class="ne">ImportError</span><span class="p">,</span>
+            <span class="n">XmlContextError</span><span class="p">,</span>
+            <span class="n">ParserError</span><span class="p">,</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">XmlParserError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="OcxModelParser.parse_element">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxModelParser.parse_element">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">clazz</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Parse a 3Docx XML element and return the dataclass.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - element: The 3Docx XML Element to parse.</span>
+<span class="sd">            - clazz: The class to be instantiated</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The element dataclass instance if created, else returns None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">clazz</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_dataclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> is not a dataclass&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">cls</span>
+        <span class="k">except</span> <span class="p">(</span>
+            <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">XMLSyntaxError</span><span class="p">,</span>
+            <span class="ne">ImportError</span><span class="p">,</span>
+            <span class="n">XmlContextError</span><span class="p">,</span>
+            <span class="n">ParserError</span><span class="p">,</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">XmlParserError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="OcxModelParser.get_root">
+<a class="viewcode-back" href="../../../modules.html#ocx_common.parser.parsers.OcxModelParser.get_root">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_root</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the XML document root.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, 3Docx.org.
+      <span class="lastupdated">Last updated on Aug 25, 2025.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
